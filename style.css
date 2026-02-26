@@ -615,14 +615,14 @@ body {
 }
 
 .footer-termos-link {
-    color: #a29bfe;
+    color: #FF7B54;
     text-decoration: none;
     font-weight: 600;
     transition: 0.3s ease;
 }
 
 .footer-termos-link:hover {
-    color: #FFD93D;
+    color: #FFB347;
     text-decoration: underline;
 }
 
@@ -645,13 +645,13 @@ body {
 }
 
 .footer-contato a {
-    color: #a29bfe;
+    color: #FF7B54;
     text-decoration: none;
     transition: 0.3s ease;
 }
 
 .footer-contato a:hover {
-    color: #FFD93D;
+    color: #FFB347;
 }
 
 .footer-info p {
