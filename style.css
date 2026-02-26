@@ -83,10 +83,35 @@ body {
     letter-spacing: 0.5px;
 }
 
+.header-nav {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
 .tagline {
     font-size: 0.9rem;
     opacity: 0.85;
     font-weight: 600;
+}
+
+.header-termos-btn {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: white;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: 0.3s ease;
+    white-space: nowrap;
+}
+
+.header-termos-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.5);
 }
 
 /* ===== HERO ===== */
