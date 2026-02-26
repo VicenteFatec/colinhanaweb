@@ -88,43 +88,22 @@
             <a href="producoes/contando-noves.html" class="card" data-tags="matematica">
                 <div class="card-thumbnail">
                     <div class="cover cover-noves">
-                        <!-- Pilha de pizzas -->
-                        <div class="pizza-stack">
-                            <!-- Centena -->
-                            <div class="pizza-tower pizza-tower-centena">
-                                <div class="pizza-label-top">CENTENA</div>
-                                <div class="pizza-slice">🍕</div>
-                                <div class="pizza-slice">🍕</div>
-                                <div class="pizza-slice">🍕</div>
-                                <div class="pizza-slice">🍕</div>
-                                <div class="pizza-slice">🍕</div>
-                                <div class="pizza-dots">...</div>
-                                <div class="pizza-count">900</div>
-                            </div>
-                            <!-- Dezena -->
-                            <div class="pizza-tower pizza-tower-dezena">
-                                <div class="pizza-label-top">DEZENA</div>
-                                <div class="pizza-slice">🍕</div>
-                                <div class="pizza-slice">🍕</div>
-                                <div class="pizza-slice">🍕</div>
-                                <div class="pizza-dots">...</div>
-                                <div class="pizza-count">90</div>
-                            </div>
-                            <!-- Unidade -->
-                            <div class="pizza-tower pizza-tower-unidade">
-                                <div class="pizza-label-top">UNIDADE</div>
-                                <div class="pizza-slice">🍕</div>
-                                <div class="pizza-slice">🍕</div>
-                                <div class="pizza-slice">🍕</div>
-                                <div class="pizza-count">9</div>
-                            </div>
+                        <!-- Números espalhados ao fundo -->
+                        <span class="noves-num" style="--x: 8%; --y: 15%; --size: 1.4rem; --rot: -12deg;">3</span>
+                        <span class="noves-num" style="--x: 22%; --y: 65%; --size: 1.1rem; --rot: 8deg;">7</span>
+                        <span class="noves-num" style="--x: 75%; --y: 20%; --size: 1.2rem; --rot: 15deg;">2</span>
+                        <span class="noves-num" style="--x: 88%; --y: 60%; --size: 1.3rem; --rot: -8deg;">5</span>
+                        <span class="noves-num" style="--x: 15%; --y: 38%; --size: 1rem; --rot: 20deg;">1</span>
+                        <span class="noves-num" style="--x: 60%; --y: 72%; --size: 1.1rem; --rot: -18deg;">4</span>
+                        <span class="noves-num" style="--x: 42%; --y: 12%; --size: 1rem; --rot: 5deg;">6</span>
+                        <span class="noves-num" style="--x: 85%; --y: 35%; --size: 1rem; --rot: -25deg;">8</span>
+                        <!-- Grande 9 central -->
+                        <div class="noves-hero">
+                            <span class="noves-big">9</span>
+                            <span class="noves-interrogacao">?</span>
                         </div>
-                        <!-- Grande 999 ao fundo -->
-                        <div class="noves-bg-number">999</div>
-                        <!-- Destaque = 9? -->
-                        <div class="cover-center-noves">
-                            <span class="noves-question">= 9?</span>
-                        </div>
+                        <!-- Lupa decorativa -->
+                        <div class="noves-lupa">🔍</div>
                     </div>
                 </div>
                 <div class="card-body">
@@ -147,23 +126,23 @@
             <a href="producoes/aventura-do-bit-v2.html" class="card" data-tags="computacao">
                 <div class="card-thumbnail">
                     <div class="cover cover-bit">
-                        <!-- Chuva binária estilo Matrix -->
-                        <div class="bit-rain">
-                            <span class="bit-col" style="--col: 0; --speed: 3s; --delay: 0s;">01001010110</span>
-                            <span class="bit-col" style="--col: 1; --speed: 2.5s; --delay: 0.3s;">10110100101</span>
-                            <span class="bit-col" style="--col: 2; --speed: 3.5s; --delay: 0.7s;">01101001011</span>
-                            <span class="bit-col" style="--col: 3; --speed: 2.8s; --delay: 0.1s;">11010010110</span>
-                            <span class="bit-col" style="--col: 4; --speed: 3.2s; --delay: 0.5s;">00101101001</span>
-                            <span class="bit-col" style="--col: 5; --speed: 2.6s; --delay: 0.9s;">10010110100</span>
-                            <span class="bit-col" style="--col: 6; --speed: 3.1s; --delay: 0.4s;">01100101101</span>
-                            <span class="bit-col" style="--col: 7; --speed: 2.9s; --delay: 0.6s;">10101010101</span>
-                        </div>
-                        <!-- Circuito decorativo -->
-                        <div class="bit-circuit"></div>
-                        <!-- Conteúdo central -->
-                        <div class="cover-center">
-                            <span class="cover-robot">🤖</span>
-                            <span class="cover-label">01010101</span>
+                        <!-- Grid de circuito ao fundo -->
+                        <div class="bit-grid"></div>
+                        <!-- Nós do circuito com glow -->
+                        <span class="bit-node" style="--x: 20%; --y: 25%; --delay: 0s;"></span>
+                        <span class="bit-node" style="--x: 50%; --y: 15%; --delay: 0.4s;"></span>
+                        <span class="bit-node" style="--x: 80%; --y: 30%; --delay: 0.8s;"></span>
+                        <span class="bit-node" style="--x: 35%; --y: 70%; --delay: 1.2s;"></span>
+                        <span class="bit-node" style="--x: 65%; --y: 75%; --delay: 0.6s;"></span>
+                        <span class="bit-node" style="--x: 10%; --y: 55%; --delay: 1s;"></span>
+                        <span class="bit-node" style="--x: 90%; --y: 55%; --delay: 0.2s;"></span>
+                        <!-- Display central -->
+                        <div class="bit-display">
+                            <div class="bit-display-row">
+                                <span class="bit-digit bit-zero">0</span>
+                                <span class="bit-digit bit-one">1</span>
+                            </div>
+                            <div class="bit-display-label">BIT</div>
                         </div>
                     </div>
                 </div>
@@ -195,18 +174,17 @@
             </div>
             <div class="footer-about">
                 <p>
-                    Produções criadas a partir das ideias de um pai — também aluno de Engenharia — junto
-                    do seu parceiro inseparável <strong>Claude</strong>, simplesmente a melhor IA que existe,
-                    para seu filho estudante do Ensino Fundamental.
+                    A Colinha na Web é uma plataforma educacional dedicada à produção e disponibilização
+                    de conteúdos didáticos interativos, com foco principal no Ensino Fundamental.
+                    O projeto tem caráter independente, sem vinculação institucional, e opera sem fins lucrativos.
                 </p>
             </div>
             <div class="footer-legal">
                 <p>
-                    Acesso público e gratuito. Projeto sem fins comerciais.
-                    Todo o conteúdo é verificado e testado antes de ser publicado.
-                    Ainda assim, nossas responsabilidades são limitadas ao esforço empregado.
+                    Acesso público e gratuito. Todo conteúdo é verificado e testado antes de ser publicado.
+                    Reprodução não autorizada.
                 </p>
-                <p>Reprodução não autorizada.</p>
+                <p><a href="termos-de-uso.html" class="footer-termos-link">Termos de Uso e Política de Privacidade</a></p>
             </div>
             <div class="footer-contato">
                 <p class="footer-contato-titulo">Quer participar e agregar conteúdos? Entre em contato!</p>

@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Termos de Uso — Colinha na Web</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* === Reset e Base === */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-primary: #1a365d;
+            --color-primary-light: #2b4c7e;
+            --color-accent: #e8912d;
+            --color-accent-light: #f4a94d;
+            --color-bg: #faf9f7;
+            --color-bg-card: #ffffff;
+            --color-text: #2d3748;
+            --color-text-light: #4a5568;
+            --color-text-muted: #718096;
+            --color-border: #e2e0dc;
+            --color-highlight: #fffbeb;
+            --font-heading: 'Merriweather', Georgia, serif;
+            --font-body: 'Source Sans 3', 'Segoe UI', sans-serif;
+            --max-width: 820px;
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 2.5rem;
+            --spacing-xl: 4rem;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            font-size: 17px;
+            line-height: 1.75;
+            color: var(--color-text);
+            background-color: var(--color-bg);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* === Header === */
+        .header {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+            color: white;
+            padding: var(--spacing-xl) var(--spacing-md);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 50%, rgba(232, 145, 45, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+
+        .header-logo {
+            font-size: 1.1rem;
+            font-family: var(--font-body);
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .header-logo span {
+            color: var(--color-accent-light);
+        }
+
+        .header h1 {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-xs);
+            letter-spacing: -0.02em;
+        }
+
+        .header-meta {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.65);
+            margin-top: var(--spacing-sm);
+        }
+
+        .header-meta strong {
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        /* === Navegação lateral (sumário) === */
+        .page-wrapper {
+            display: flex;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: var(--spacing-lg) var(--spacing-md);
+            gap: var(--spacing-lg);
+        }
+
+        .sidebar {
+            position: sticky;
+            top: var(--spacing-lg);
+            align-self: flex-start;
+            min-width: 220px;
+            max-width: 240px;
+            flex-shrink: 0;
+        }
+
+        .sidebar-title {
+            font-family: var(--font-heading);
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--color-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: var(--spacing-sm);
+            padding-bottom: var(--spacing-xs);
+            border-bottom: 2px solid var(--color-accent);
+        }
+
+        .sidebar nav a {
+            display: block;
+            padding: 6px 0;
+            font-size: 0.9rem;
+            color: var(--color-text-light);
+            text-decoration: none;
+            transition: color 0.2s, padding-left 0.2s;
+            border-left: 2px solid transparent;
+            padding-left: 0;
+        }
+
+        .sidebar nav a:hover {
+            color: var(--color-primary);
+            padding-left: 8px;
+            border-left-color: var(--color-accent);
+        }
+
+        /* === Conteúdo principal === */
+        .content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .intro-box {
+            background: var(--color-highlight);
+            border-left: 4px solid var(--color-accent);
+            padding: var(--spacing-md);
+            border-radius: 0 8px 8px 0;
+            margin-bottom: var(--spacing-lg);
+            font-size: 0.95rem;
+            color: var(--color-text-light);
+        }
+
+        .intro-box strong {
+            color: var(--color-text);
+        }
+
+        /* === Seções === */
+        .section {
+            margin-bottom: var(--spacing-lg);
+            padding-bottom: var(--spacing-lg);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .section:last-of-type {
+            border-bottom: none;
+        }
+
+        .section-number {
+            display: inline-block;
+            font-family: var(--font-heading);
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: white;
+            background: var(--color-accent);
+            width: 28px;
+            height: 28px;
+            line-height: 28px;
+            text-align: center;
+            border-radius: 50%;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        .section h2 {
+            font-family: var(--font-heading);
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-sm);
+            letter-spacing: -0.01em;
+        }
+
+        .section h3 {
+            font-family: var(--font-heading);
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--color-primary-light);
+            margin-top: var(--spacing-md);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .section p {
+            margin-bottom: var(--spacing-sm);
+            color: var(--color-text);
+        }
+
+        .section p + p {
+            margin-top: 0;
+        }
+
+        /* Lista estilizada sem bullets tradicionais */
+        .legal-list {
+            list-style: none;
+            padding: 0;
+            margin: var(--spacing-sm) 0;
+        }
+
+        .legal-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.6rem;
+            color: var(--color-text);
+        }
+
+        .legal-list li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: var(--color-accent);
+            font-weight: 700;
+        }
+
+        /* Destaque para cláusulas importantes */
+        .clause-highlight {
+            background: #fef2f2;
+            border-left: 4px solid #e53e3e;
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: 0 6px 6px 0;
+            margin: var(--spacing-sm) 0;
+            font-size: 0.95rem;
+        }
+
+        .clause-highlight strong {
+            color: #c53030;
+        }
+
+        .clause-neutral {
+            background: #ebf8ff;
+            border-left: 4px solid var(--color-primary-light);
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: 0 6px 6px 0;
+            margin: var(--spacing-sm) 0;
+            font-size: 0.95rem;
+        }
+
+        /* === Footer === */
+        .footer {
+            background: var(--color-primary);
+            color: rgba(255, 255, 255, 0.7);
+            text-align: center;
+            padding: var(--spacing-lg) var(--spacing-md);
+            font-size: 0.9rem;
+        }
+
+        .footer a {
+            color: var(--color-accent-light);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-brand {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .footer-contact {
+            margin-top: var(--spacing-sm);
+        }
+
+        /* === Responsividade === */
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+
+            .page-wrapper {
+                padding: var(--spacing-md);
+            }
+
+            .header h1 {
+                font-size: 1.7rem;
+            }
+
+            body {
+                font-size: 16px;
+            }
+
+            .section h2 {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* === Botão voltar ao topo === */
+        .back-to-top {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--color-primary);
+            color: white;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 100;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+        }
+
+        .back-to-top:hover {
+            background: var(--color-accent);
+        }
+
+        /* === Print === */
+        @media print {
+            .sidebar, .back-to-top, .header::before {
+                display: none;
+            }
+
+            .header {
+                background: white;
+                color: black;
+                border-bottom: 2px solid black;
+            }
+
+            body {
+                font-size: 12pt;
+                color: black;
+            }
+
+            .section {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header" id="topo">
+        <div class="header-content">
+            <div class="header-logo">📚 Colinha na <span>Web</span></div>
+            <h1>Termos de Uso e Política de Privacidade</h1>
+            <p class="header-meta">
+                <strong>Vigência:</strong> 26 de fevereiro de 2026 &nbsp;|&nbsp;
+                <strong>Versão:</strong> 1.0
+            </p>
+        </div>
+    </header>
+
+    <!-- Conteúdo -->
+    <div class="page-wrapper">
+
+        <!-- Sidebar com sumário -->
+        <aside class="sidebar">
+            <div class="sidebar-title">Sumário</div>
+            <nav>
+                <a href="#apresentacao">Apresentação</a>
+                <a href="#definicoes">1. Definições</a>
+                <a href="#aceitacao">2. Aceitação dos Termos</a>
+                <a href="#objetivo">3. Objetivo da Plataforma</a>
+                <a href="#propriedade">4. Propriedade Intelectual</a>
+                <a href="#uso-permitido">5. Uso Permitido</a>
+                <a href="#restricoes">6. Restrições de Uso</a>
+                <a href="#responsabilidade">7. Limitação de Responsabilidade</a>
+                <a href="#privacidade">8. Privacidade e Dados</a>
+                <a href="#menores">9. Menores de Idade</a>
+                <a href="#terceiros">10. Links de Terceiros</a>
+                <a href="#alteracoes">11. Alterações nos Termos</a>
+                <a href="#legislacao">12. Legislação Aplicável</a>
+                <a href="#contato">13. Contato</a>
+            </nav>
+        </aside>
+
+        <!-- Conteúdo principal -->
+        <main class="content">
+
+            <!-- Introdução -->
+            <div class="intro-box">
+                <strong>Bem-vindo à Colinha na Web.</strong> Este documento estabelece as condições de uso da plataforma e nossa política de privacidade. Ao acessar e utilizar o site <strong>colinhanaweb.com.br</strong>, você declara estar ciente e de acordo com os termos aqui descritos. Leia atentamente antes de utilizar nossos conteúdos.
+            </div>
+
+            <!-- Seção 1 -->
+            <section class="section" id="definicoes">
+                <h2><span class="section-number">1</span> Definições</h2>
+                <p>Para os fins deste documento, consideram-se as seguintes definições:</p>
+                <ul class="legal-list">
+                    <li><strong>Plataforma:</strong> o site colinhanaweb.com.br e todos os seus subdomínios, conteúdos e funcionalidades.</li>
+                    <li><strong>Usuário:</strong> qualquer pessoa que acesse a Plataforma, independentemente de cadastro.</li>
+                    <li><strong>Conteúdo:</strong> textos, imagens, vídeos, exercícios, materiais didáticos e quaisquer outros recursos educacionais disponibilizados na Plataforma.</li>
+                    <li><strong>Colinha na Web:</strong> projeto educacional independente, sem fins lucrativos, responsável pela curadoria e publicação dos conteúdos.</li>
+                </ul>
+            </section>
+
+            <!-- Seção 2 -->
+            <section class="section" id="aceitacao">
+                <h2><span class="section-number">2</span> Aceitação dos Termos</h2>
+                <p>O simples acesso à Plataforma implica na aceitação integral destes Termos de Uso e da Política de Privacidade. Caso o Usuário não concorde com qualquer disposição aqui apresentada, deverá interromper imediatamente a utilização do site.</p>
+                <p>O uso continuado da Plataforma após eventuais atualizações destes Termos será interpretado como aceitação tácita das modificações realizadas.</p>
+            </section>
+
+            <!-- Seção 3 -->
+            <section class="section" id="objetivo">
+                <h2><span class="section-number">3</span> Objetivo da Plataforma</h2>
+                <p>A Colinha na Web é uma plataforma educacional dedicada à produção e disponibilização de conteúdos didáticos interativos, com foco principal no Ensino Fundamental. O projeto tem caráter independente, sem vinculação institucional, e opera sem fins lucrativos.</p>
+                <p>Os materiais são elaborados por profissionais comprometidos com a qualidade pedagógica e passam por revisão antes da publicação. Todo o acesso é público e gratuito.</p>
+                <div class="clause-neutral">
+                    O conteúdo disponibilizado possui caráter <strong>exclusivamente complementar</strong> ao ensino formal e não substitui, em nenhuma hipótese, a orientação de professores, pedagogos ou instituições de ensino regulares.
+                </div>
+            </section>
+
+            <!-- Seção 4 -->
+            <section class="section" id="propriedade">
+                <h2><span class="section-number">4</span> Propriedade Intelectual</h2>
+                <p>Todo o conteúdo disponibilizado na Plataforma, incluindo, mas não se limitando a textos, ilustrações, layouts, códigos-fonte, logotipos e materiais didáticos, é de propriedade intelectual exclusiva da Colinha na Web, protegido pela Lei nº 9.610/1998 (Lei de Direitos Autorais) e demais normas aplicáveis.</p>
+                <div class="clause-highlight">
+                    <strong>É expressamente proibido:</strong> reproduzir, distribuir, modificar, exibir publicamente, transmitir, comercializar ou criar obras derivadas a partir do Conteúdo da Plataforma, total ou parcialmente, sem autorização prévia e por escrito da Colinha na Web.
+                </div>
+                <p>O uso não autorizado do Conteúdo poderá resultar em medidas judiciais cabíveis, incluindo ação por violação de direitos autorais, nos termos da legislação brasileira vigente.</p>
+            </section>
+
+            <!-- Seção 5 -->
+            <section class="section" id="uso-permitido">
+                <h2><span class="section-number">5</span> Uso Permitido</h2>
+                <p>O Usuário está autorizado a:</p>
+                <ul class="legal-list">
+                    <li>Acessar e visualizar os conteúdos disponíveis na Plataforma para uso pessoal e educacional.</li>
+                    <li>Compartilhar links diretos para páginas da Plataforma em redes sociais, grupos de estudo e ambientes educacionais, desde que não altere o conteúdo original e mantenha a devida atribuição de autoria.</li>
+                    <li>Utilizar os materiais como referência complementar em atividades escolares, sempre com a devida citação da fonte.</li>
+                </ul>
+            </section>
+
+            <!-- Seção 6 -->
+            <section class="section" id="restricoes">
+                <h2><span class="section-number">6</span> Restrições de Uso</h2>
+                <p>Fica vedado ao Usuário:</p>
+                <ul class="legal-list">
+                    <li>Copiar, reproduzir ou republicar o Conteúdo em qualquer meio, digital ou impresso, sem autorização expressa.</li>
+                    <li>Utilizar o Conteúdo para fins comerciais, incluindo revenda, monetização em plataformas de vídeo ou incorporação em produtos pagos.</li>
+                    <li>Remover, alterar ou ocultar avisos de direitos autorais, marcas ou identificações presentes nos materiais.</li>
+                    <li>Utilizar mecanismos automatizados (bots, scrapers) para extração massiva de conteúdo da Plataforma.</li>
+                    <li>Praticar qualquer ação que comprometa a segurança, integridade ou disponibilidade do site.</li>
+                </ul>
+            </section>
+
+            <!-- Seção 7 -->
+            <section class="section" id="responsabilidade">
+                <h2><span class="section-number">7</span> Limitação de Responsabilidade</h2>
+                <p>A Colinha na Web emprega esforços razoáveis para garantir a qualidade e a precisão dos conteúdos publicados. No entanto, não oferece garantias expressas ou implícitas quanto à exatidão, completude ou adequação dos materiais para finalidades específicas.</p>
+                <p>A Plataforma não se responsabiliza por:</p>
+                <ul class="legal-list">
+                    <li>Eventuais erros, imprecisões ou desatualizações nos conteúdos publicados.</li>
+                    <li>Decisões tomadas pelo Usuário com base nos materiais disponibilizados.</li>
+                    <li>Danos diretos ou indiretos decorrentes do uso ou da impossibilidade de uso da Plataforma.</li>
+                    <li>Interrupções temporárias no funcionamento do site por motivos técnicos ou de manutenção.</li>
+                    <li>Conteúdos de sites de terceiros acessados por meio de links disponibilizados na Plataforma.</li>
+                </ul>
+            </section>
+
+            <!-- Seção 8 -->
+            <section class="section" id="privacidade">
+                <h2><span class="section-number">8</span> Privacidade e Proteção de Dados</h2>
+
+                <h3>8.1. Coleta de Dados</h3>
+                <p>A Plataforma não exige cadastro para acesso ao conteúdo. Atualmente, não coletamos dados pessoais de forma direta. Eventualmente, informações técnicas não identificáveis (como endereço IP, tipo de navegador e páginas acessadas) podem ser registradas automaticamente para fins de análise de desempenho e melhoria da experiência do Usuário.</p>
+
+                <h3>8.2. Cookies</h3>
+                <p>A Plataforma pode utilizar cookies estritamente necessários para o funcionamento técnico do site. Caso cookies analíticos ou de terceiros venham a ser implementados futuramente, o Usuário será devidamente informado e poderá gerenciar suas preferências.</p>
+
+                <h3>8.3. Conformidade Legal</h3>
+                <p>A Colinha na Web está comprometida com o cumprimento da Lei Geral de Proteção de Dados Pessoais (Lei nº 13.709/2018 — LGPD). Caso dados pessoais venham a ser coletados em funcionalidades futuras, o Usuário será informado sobre a finalidade, a base legal e os mecanismos de consentimento aplicáveis.</p>
+
+                <h3>8.4. Direitos do Titular</h3>
+                <p>Nos termos da LGPD, o Usuário tem direito a solicitar acesso, correção, eliminação e portabilidade de seus dados pessoais, quando aplicável. Solicitações podem ser encaminhadas através dos canais de contato informados na Seção 13 deste documento.</p>
+            </section>
+
+            <!-- Seção 9 -->
+            <section class="section" id="menores">
+                <h2><span class="section-number">9</span> Menores de Idade</h2>
+                <p>A Plataforma é voltada ao público estudantil, incluindo menores de idade. O acesso e a utilização por crianças e adolescentes devem ser supervisionados por pais, responsáveis legais ou educadores, em conformidade com o Estatuto da Criança e do Adolescente (Lei nº 8.069/1990) e com a LGPD.</p>
+                <p>A Colinha na Web não coleta intencionalmente dados pessoais de menores de idade. Caso seja identificada coleta inadvertida, os dados serão eliminados imediatamente mediante comunicação pelos canais de contato.</p>
+            </section>
+
+            <!-- Seção 10 -->
+            <section class="section" id="terceiros">
+                <h2><span class="section-number">10</span> Links para Sites de Terceiros</h2>
+                <p>A Plataforma pode conter links para sites externos com finalidade de enriquecimento educacional. Esses links são disponibilizados como referência e conveniência, não implicando endosso, parceria ou responsabilidade da Colinha na Web sobre o conteúdo, políticas de privacidade ou práticas desses sites.</p>
+                <p>Recomendamos que o Usuário leia os termos de uso e a política de privacidade de qualquer site externo antes de fornecer informações pessoais.</p>
+            </section>
+
+            <!-- Seção 11 -->
+            <section class="section" id="alteracoes">
+                <h2><span class="section-number">11</span> Alterações nos Termos</h2>
+                <p>A Colinha na Web reserva-se o direito de modificar estes Termos de Uso e a Política de Privacidade a qualquer momento, sem necessidade de aviso prévio individual. As alterações entram em vigor a partir de sua publicação na Plataforma.</p>
+                <p>A data de vigência no cabeçalho deste documento será sempre atualizada para refletir a versão mais recente. Recomenda-se que o Usuário consulte periodicamente esta página.</p>
+            </section>
+
+            <!-- Seção 12 -->
+            <section class="section" id="legislacao">
+                <h2><span class="section-number">12</span> Legislação Aplicável e Foro</h2>
+                <p>Estes Termos de Uso são regidos pelas leis da República Federativa do Brasil. Fica eleito o foro da Comarca de São José dos Campos, Estado de São Paulo, para dirimir quaisquer controvérsias decorrentes da utilização da Plataforma, com renúncia expressa a qualquer outro, por mais privilegiado que seja.</p>
+            </section>
+
+            <!-- Seção 13 -->
+            <section class="section" id="contato">
+                <h2><span class="section-number">13</span> Contato</h2>
+                <p>Para dúvidas, sugestões, solicitações de autorização de uso ou exercício de direitos previstos na LGPD, entre em contato conosco:</p>
+                <ul class="legal-list">
+                    <li><strong>Telefone / WhatsApp:</strong> (12) 98258-2252</li>
+                    <li><strong>E-mail:</strong> siscomercio@live.com</li>
+                    <li><strong>Site:</strong> colinhanaweb.com.br</li>
+                </ul>
+                <p>O prazo para resposta é de até 15 (quinze) dias úteis, contados a partir do recebimento da solicitação.</p>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-brand">📚 Colinha na Web</div>
+        <p>Aprendizado interativo para todos</p>
+        <div class="footer-contact">
+            <a href="mailto:siscomercio@live.com">siscomercio@live.com</a> &nbsp;|&nbsp;
+            <a href="tel:+5512982582252">(12) 98258-2252</a>
+        </div>
+        <p style="margin-top: 1rem;">© 2026 Colinha na Web. Todos os direitos reservados.</p>
+        <p><a href="#topo">↑ Voltar ao topo</a></p>
+    </footer>
+
+    <!-- Botão voltar ao topo -->
+    <a href="#topo" class="back-to-top" id="backToTop" title="Voltar ao topo">↑</a>
+
+    <script>
+        // Botão voltar ao topo - aparece ao rolar
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 400) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+    </script>
+
+</body>
+</html>

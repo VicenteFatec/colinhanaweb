@@ -302,58 +302,128 @@ body {
     justify-content: center;
 }
 
-/* --- CAPA: Aventura do BIT (Matrix binária) --- */
-.cover-bit {
-    background: linear-gradient(180deg, #020c1b 0%, #0A1628 40%, #1B2A4A 100%);
+/* --------------------------------------------------------
+   CAPA: Caçando o Número 9
+   Conceito: "Onde está o 9?" — números espalhados, lupa,
+   o 9 gigante brilhando no centro, convida a clicar.
+   -------------------------------------------------------- */
+.cover-noves {
+    background: linear-gradient(135deg, #FF6B35 0%, #FF9A56 40%, #FFD93D 100%);
 }
 
-.bit-rain {
+/* Números espalhados (1–8, desfocados) */
+.noves-num {
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    font-family: 'Fredoka One', cursive;
+    font-size: var(--size);
+    color: rgba(255, 255, 255, 0.35);
+    transform: rotate(var(--rot));
+    z-index: 1;
+    user-select: none;
+}
+
+/* O grande 9 central */
+.noves-hero {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: baseline;
+    gap: 0;
+}
+
+.noves-big {
+    font-family: 'Fredoka One', cursive;
+    font-size: 6rem;
+    line-height: 1;
+    color: white;
+    text-shadow:
+        0 0 30px rgba(255, 255, 255, 0.6),
+        0 0 60px rgba(255, 255, 255, 0.3),
+        0 4px 0 rgba(0, 0, 0, 0.15);
+    animation: novePulse 2.5s ease-in-out infinite;
+}
+
+@keyframes novePulse {
+    0%, 100% { transform: scale(1); text-shadow: 0 0 30px rgba(255,255,255,0.6), 0 0 60px rgba(255,255,255,0.3), 0 4px 0 rgba(0,0,0,0.15); }
+    50% { transform: scale(1.06); text-shadow: 0 0 40px rgba(255,255,255,0.8), 0 0 80px rgba(255,255,255,0.4), 0 4px 0 rgba(0,0,0,0.15); }
+}
+
+.noves-interrogacao {
+    font-family: 'Fredoka One', cursive;
+    font-size: 3rem;
+    color: white;
+    opacity: 0.9;
+    animation: questionBounce 1.5s ease-in-out infinite;
+    margin-left: -0.2rem;
+}
+
+@keyframes questionBounce {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-6px) rotate(8deg); }
+}
+
+/* Lupa no canto */
+.noves-lupa {
+    position: absolute;
+    bottom: 0.6rem;
+    right: 0.8rem;
+    font-size: 1.8rem;
+    z-index: 3;
+    animation: lupaSwing 3s ease-in-out infinite;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+@keyframes lupaSwing {
+    0%, 100% { transform: rotate(-10deg); }
+    50% { transform: rotate(10deg); }
+}
+
+/* --------------------------------------------------------
+   CAPA: Aventura do BIT
+   Conceito: Circuito com nós brilhantes, display neon
+   central mostrando "0 1" — tech e convidativo.
+   -------------------------------------------------------- */
+.cover-bit {
+    background: linear-gradient(135deg, #0a0f1c 0%, #151d33 50%, #1a2744 100%);
+}
+
+/* Grid de circuito ao fundo */
+.bit-grid {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    overflow: hidden;
+    background-image:
+        linear-gradient(rgba(0, 206, 201, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 206, 201, 0.06) 1px, transparent 1px);
+    background-size: 30px 30px;
 }
 
-.bit-col {
+/* Nós do circuito */
+.bit-node {
     position: absolute;
-    top: -100%;
-    left: calc(var(--col) * 12.5%);
-    font-family: 'Fira Code', 'Courier New', monospace;
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: #00CEC9;
-    writing-mode: vertical-lr;
-    text-orientation: upright;
-    letter-spacing: 4px;
-    opacity: 0.35;
-    animation: bitFall var(--speed) linear infinite;
+    left: var(--x);
+    top: var(--y);
+    width: 6px;
+    height: 6px;
+    background: #00CEC9;
+    border-radius: 50%;
+    z-index: 1;
+    box-shadow: 0 0 8px #00CEC9, 0 0 20px rgba(0, 206, 201, 0.4);
+    animation: nodeGlow 2s ease-in-out infinite;
     animation-delay: var(--delay);
-    text-shadow: 0 0 8px rgba(0, 206, 201, 0.6);
 }
 
-.bit-col:nth-child(odd) {
-    color: #55EFC4;
-    opacity: 0.2;
+@keyframes nodeGlow {
+    0%, 100% { opacity: 0.4; transform: scale(1); box-shadow: 0 0 8px #00CEC9, 0 0 20px rgba(0,206,201,0.3); }
+    50% { opacity: 1; transform: scale(1.5); box-shadow: 0 0 12px #00CEC9, 0 0 30px rgba(0,206,201,0.6); }
 }
 
-@keyframes bitFall {
-    0% { transform: translateY(-20%); }
-    100% { transform: translateY(220%); }
-}
-
-.bit-circuit {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 40%;
-    background: linear-gradient(0deg, rgba(0, 206, 201, 0.08) 0%, transparent 100%);
-    border-top: 1px solid rgba(0, 206, 201, 0.15);
-}
-
-.cover-center {
+/* Display central 0 1 */
+.bit-display {
     position: relative;
     z-index: 2;
     display: flex;
@@ -362,132 +432,50 @@ body {
     gap: 0.3rem;
 }
 
-.cover-robot {
-    font-size: 3.5rem;
-    filter: drop-shadow(0 0 20px rgba(0, 206, 201, 0.5));
-    animation: robotPulse 2s ease-in-out infinite;
+.bit-display-row {
+    display: flex;
+    gap: 0.8rem;
 }
 
-@keyframes robotPulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.08); }
+.bit-digit {
+    font-family: 'Courier New', monospace;
+    font-size: 4rem;
+    font-weight: 900;
+    line-height: 1;
 }
 
-.cover-label {
-    font-family: 'Fira Code', 'Courier New', monospace;
-    font-size: 1.1rem;
-    font-weight: 700;
+.bit-zero {
+    color: rgba(0, 206, 201, 0.35);
+    text-shadow: 0 0 15px rgba(0, 206, 201, 0.2);
+    animation: digitDim 3s ease-in-out infinite;
+}
+
+.bit-one {
     color: #55EFC4;
-    letter-spacing: 3px;
-    text-shadow: 0 0 12px rgba(85, 239, 196, 0.8);
-    background: rgba(0, 0, 0, 0.4);
-    padding: 0.15rem 0.8rem;
+    text-shadow: 0 0 20px rgba(85, 239, 196, 0.7), 0 0 40px rgba(85, 239, 196, 0.3);
+    animation: digitBright 3s ease-in-out infinite;
+}
+
+@keyframes digitDim {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; color: #55EFC4; text-shadow: 0 0 20px rgba(85,239,196,0.7), 0 0 40px rgba(85,239,196,0.3); }
+}
+
+@keyframes digitBright {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; color: rgba(0,206,201,0.35); text-shadow: 0 0 15px rgba(0,206,201,0.2); }
+}
+
+.bit-display-label {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1rem;
+    letter-spacing: 6px;
+    color: #00CEC9;
+    text-shadow: 0 0 10px rgba(0, 206, 201, 0.5);
+    background: rgba(0, 206, 201, 0.08);
+    padding: 0.15rem 1rem;
+    border: 1px solid rgba(0, 206, 201, 0.2);
     border-radius: 4px;
-    border: 1px solid rgba(85, 239, 196, 0.3);
-}
-
-/* --- CAPA: Caçando o Número 9 (Pizzas empilhadas) --- */
-.cover-noves {
-    background: linear-gradient(135deg, #FFF9E6 0%, #FFEAA7 50%, #FFD93D 100%);
-}
-
-.pizza-stack {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    gap: 0.6rem;
-    width: 100%;
-    padding: 0 1rem;
-    padding-bottom: 0.5rem;
-}
-
-.pizza-tower {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0;
-}
-
-.pizza-label-top {
-    font-family: 'Fredoka One', cursive;
-    font-size: 0.5rem;
-    color: #E65100;
-    letter-spacing: 1px;
-    margin-bottom: 0.15rem;
-    background: rgba(255, 255, 255, 0.7);
-    padding: 0.05rem 0.4rem;
-    border-radius: 8px;
-}
-
-.pizza-slice {
-    font-size: 1.1rem;
-    line-height: 1;
-    animation: pizzaWobble 3s ease-in-out infinite;
-}
-
-.pizza-tower-centena .pizza-slice { animation-delay: 0s; }
-.pizza-tower-dezena .pizza-slice { animation-delay: 0.3s; }
-.pizza-tower-unidade .pizza-slice { animation-delay: 0.6s; }
-
-@keyframes pizzaWobble {
-    0%, 100% { transform: rotate(0deg); }
-    25% { transform: rotate(-3deg); }
-    75% { transform: rotate(3deg); }
-}
-
-.pizza-dots {
-    font-family: 'Fredoka One', cursive;
-    font-size: 0.9rem;
-    color: #E65100;
-    line-height: 1;
-    letter-spacing: 2px;
-}
-
-.pizza-count {
-    font-family: 'Fredoka One', cursive;
-    font-size: 0.85rem;
-    color: white;
-    background: #FF6B35;
-    padding: 0.05rem 0.5rem;
-    border-radius: 10px;
-    margin-top: 0.15rem;
-    box-shadow: 0 2px 6px rgba(255, 107, 53, 0.4);
-}
-
-.noves-bg-number {
-    position: absolute;
-    font-family: 'Fredoka One', cursive;
-    font-size: 7rem;
-    color: rgba(255, 107, 53, 0.07);
-    z-index: 1;
-    letter-spacing: -2px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    white-space: nowrap;
-}
-
-.cover-center-noves {
-    position: absolute;
-    bottom: 0.6rem;
-    right: 0.8rem;
-    z-index: 3;
-}
-
-.noves-question {
-    font-family: 'Fredoka One', cursive;
-    font-size: 1.6rem;
-    color: #6C5CE7;
-    text-shadow: 2px 2px 0 rgba(255, 255, 255, 0.8);
-    animation: questionBounce 2s ease-in-out infinite;
-    display: block;
-}
-
-@keyframes questionBounce {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-4px) rotate(-5deg); }
 }
 
 /* Card Body */
@@ -624,6 +612,18 @@ body {
     line-height: 1.6;
     max-width: 500px;
     margin: 0 auto 0.3rem;
+}
+
+.footer-termos-link {
+    color: #a29bfe;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s ease;
+}
+
+.footer-termos-link:hover {
+    color: #FFD93D;
+    text-decoration: underline;
 }
 
 .footer-contato {
