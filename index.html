@@ -84,34 +84,47 @@
     <section class="gallery">
         <div class="gallery-grid">
 
-            <!-- Card 1: Aventura do BIT -->
-            <a href="producoes/aventura-do-bit-v2.html" class="card" data-tags="computacao">
-                <div class="card-thumbnail">
-                    <div class="card-thumbnail-placeholder" style="background: linear-gradient(135deg, #0A1628, #1B2A4A);">
-                        <span class="card-thumbnail-emoji">🤖</span>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="card-tags">
-                        <span class="tag tag-computacao">Computação</span>
-                    </div>
-                    <h3 class="card-title">A Aventura do BIT</h3>
-                    <p class="card-subtitle">Do Transistor ao Binário!</p>
-                    <p class="card-description">
-                        Embarque em uma jornada interativa pelo mundo dos computadores!
-                        Descubra como transistores funcionam e aprenda o sistema binário de forma divertida.
-                    </p>
-                </div>
-                <div class="card-footer">
-                    <span class="card-cta">Explorar →</span>
-                </div>
-            </a>
-
-            <!-- Card 2: Contando Noves -->
+            <!-- Card 1: Contando Noves (primeiro, conforme ordem do colégio) -->
             <a href="producoes/contando-noves.html" class="card" data-tags="matematica">
                 <div class="card-thumbnail">
-                    <div class="card-thumbnail-placeholder" style="background: linear-gradient(135deg, #FFF9E6, #FFD93D);">
-                        <span class="card-thumbnail-emoji">🔢</span>
+                    <div class="cover cover-noves">
+                        <!-- Pilha de pizzas -->
+                        <div class="pizza-stack">
+                            <!-- Centena -->
+                            <div class="pizza-tower pizza-tower-centena">
+                                <div class="pizza-label-top">CENTENA</div>
+                                <div class="pizza-slice">🍕</div>
+                                <div class="pizza-slice">🍕</div>
+                                <div class="pizza-slice">🍕</div>
+                                <div class="pizza-slice">🍕</div>
+                                <div class="pizza-slice">🍕</div>
+                                <div class="pizza-dots">...</div>
+                                <div class="pizza-count">900</div>
+                            </div>
+                            <!-- Dezena -->
+                            <div class="pizza-tower pizza-tower-dezena">
+                                <div class="pizza-label-top">DEZENA</div>
+                                <div class="pizza-slice">🍕</div>
+                                <div class="pizza-slice">🍕</div>
+                                <div class="pizza-slice">🍕</div>
+                                <div class="pizza-dots">...</div>
+                                <div class="pizza-count">90</div>
+                            </div>
+                            <!-- Unidade -->
+                            <div class="pizza-tower pizza-tower-unidade">
+                                <div class="pizza-label-top">UNIDADE</div>
+                                <div class="pizza-slice">🍕</div>
+                                <div class="pizza-slice">🍕</div>
+                                <div class="pizza-slice">🍕</div>
+                                <div class="pizza-count">9</div>
+                            </div>
+                        </div>
+                        <!-- Grande 999 ao fundo -->
+                        <div class="noves-bg-number">999</div>
+                        <!-- Destaque = 9? -->
+                        <div class="cover-center-noves">
+                            <span class="noves-question">= 9?</span>
+                        </div>
                     </div>
                 </div>
                 <div class="card-body">
@@ -130,6 +143,46 @@
                 </div>
             </a>
 
+            <!-- Card 2: Aventura do BIT -->
+            <a href="producoes/aventura-do-bit-v2.html" class="card" data-tags="computacao">
+                <div class="card-thumbnail">
+                    <div class="cover cover-bit">
+                        <!-- Chuva binária estilo Matrix -->
+                        <div class="bit-rain">
+                            <span class="bit-col" style="--col: 0; --speed: 3s; --delay: 0s;">01001010110</span>
+                            <span class="bit-col" style="--col: 1; --speed: 2.5s; --delay: 0.3s;">10110100101</span>
+                            <span class="bit-col" style="--col: 2; --speed: 3.5s; --delay: 0.7s;">01101001011</span>
+                            <span class="bit-col" style="--col: 3; --speed: 2.8s; --delay: 0.1s;">11010010110</span>
+                            <span class="bit-col" style="--col: 4; --speed: 3.2s; --delay: 0.5s;">00101101001</span>
+                            <span class="bit-col" style="--col: 5; --speed: 2.6s; --delay: 0.9s;">10010110100</span>
+                            <span class="bit-col" style="--col: 6; --speed: 3.1s; --delay: 0.4s;">01100101101</span>
+                            <span class="bit-col" style="--col: 7; --speed: 2.9s; --delay: 0.6s;">10101010101</span>
+                        </div>
+                        <!-- Circuito decorativo -->
+                        <div class="bit-circuit"></div>
+                        <!-- Conteúdo central -->
+                        <div class="cover-center">
+                            <span class="cover-robot">🤖</span>
+                            <span class="cover-label">01010101</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="card-tags">
+                        <span class="tag tag-computacao">Computação</span>
+                    </div>
+                    <h3 class="card-title">A Aventura do BIT</h3>
+                    <p class="card-subtitle">Do Transistor ao Binário!</p>
+                    <p class="card-description">
+                        Embarque em uma jornada interativa pelo mundo dos computadores!
+                        Descubra como transistores funcionam e aprenda o sistema binário de forma divertida.
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <span class="card-cta">Explorar →</span>
+                </div>
+            </a>
+
         </div>
     </section>
 
@@ -140,8 +193,27 @@
                 <span class="footer-logo">📚 Colinha na Web</span>
                 <p class="footer-tagline">Aprendizado interativo para todos</p>
             </div>
+            <div class="footer-about">
+                <p>
+                    Produções criadas a partir das ideias de um pai — também aluno de Engenharia — junto
+                    do seu parceiro inseparável <strong>Claude</strong>, simplesmente a melhor IA que existe,
+                    para seu filho estudante do Ensino Fundamental.
+                </p>
+            </div>
+            <div class="footer-legal">
+                <p>
+                    Acesso público e gratuito. Projeto sem fins comerciais.
+                    Todo o conteúdo é verificado e testado antes de ser publicado.
+                    Ainda assim, nossas responsabilidades são limitadas ao esforço empregado.
+                </p>
+                <p>Reprodução não autorizada.</p>
+            </div>
+            <div class="footer-contato">
+                <p class="footer-contato-titulo">Quer participar e agregar conteúdos? Entre em contato!</p>
+                <p>📱 <a href="tel:+5512982582252">(12) 98258-2252</a></p>
+                <p>📧 <a href="mailto:siscomercio@live.com">siscomercio@live.com</a></p>
+            </div>
             <div class="footer-info">
-                <p>Produções criadas com auxílio de <strong>Inteligência Artificial (Claude)</strong></p>
                 <p class="footer-copyright">&copy; 2026 Colinha na Web. Todos os direitos reservados.</p>
             </div>
         </div>

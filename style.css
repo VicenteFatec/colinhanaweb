@@ -291,6 +291,205 @@ body {
     filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
 }
 
+/* ===== CAPAS TEMÁTICAS ===== */
+.cover {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* --- CAPA: Aventura do BIT (Matrix binária) --- */
+.cover-bit {
+    background: linear-gradient(180deg, #020c1b 0%, #0A1628 40%, #1B2A4A 100%);
+}
+
+.bit-rain {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.bit-col {
+    position: absolute;
+    top: -100%;
+    left: calc(var(--col) * 12.5%);
+    font-family: 'Fira Code', 'Courier New', monospace;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #00CEC9;
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    letter-spacing: 4px;
+    opacity: 0.35;
+    animation: bitFall var(--speed) linear infinite;
+    animation-delay: var(--delay);
+    text-shadow: 0 0 8px rgba(0, 206, 201, 0.6);
+}
+
+.bit-col:nth-child(odd) {
+    color: #55EFC4;
+    opacity: 0.2;
+}
+
+@keyframes bitFall {
+    0% { transform: translateY(-20%); }
+    100% { transform: translateY(220%); }
+}
+
+.bit-circuit {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40%;
+    background: linear-gradient(0deg, rgba(0, 206, 201, 0.08) 0%, transparent 100%);
+    border-top: 1px solid rgba(0, 206, 201, 0.15);
+}
+
+.cover-center {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.cover-robot {
+    font-size: 3.5rem;
+    filter: drop-shadow(0 0 20px rgba(0, 206, 201, 0.5));
+    animation: robotPulse 2s ease-in-out infinite;
+}
+
+@keyframes robotPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+}
+
+.cover-label {
+    font-family: 'Fira Code', 'Courier New', monospace;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #55EFC4;
+    letter-spacing: 3px;
+    text-shadow: 0 0 12px rgba(85, 239, 196, 0.8);
+    background: rgba(0, 0, 0, 0.4);
+    padding: 0.15rem 0.8rem;
+    border-radius: 4px;
+    border: 1px solid rgba(85, 239, 196, 0.3);
+}
+
+/* --- CAPA: Caçando o Número 9 (Pizzas empilhadas) --- */
+.cover-noves {
+    background: linear-gradient(135deg, #FFF9E6 0%, #FFEAA7 50%, #FFD93D 100%);
+}
+
+.pizza-stack {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 0.6rem;
+    width: 100%;
+    padding: 0 1rem;
+    padding-bottom: 0.5rem;
+}
+
+.pizza-tower {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+}
+
+.pizza-label-top {
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.5rem;
+    color: #E65100;
+    letter-spacing: 1px;
+    margin-bottom: 0.15rem;
+    background: rgba(255, 255, 255, 0.7);
+    padding: 0.05rem 0.4rem;
+    border-radius: 8px;
+}
+
+.pizza-slice {
+    font-size: 1.1rem;
+    line-height: 1;
+    animation: pizzaWobble 3s ease-in-out infinite;
+}
+
+.pizza-tower-centena .pizza-slice { animation-delay: 0s; }
+.pizza-tower-dezena .pizza-slice { animation-delay: 0.3s; }
+.pizza-tower-unidade .pizza-slice { animation-delay: 0.6s; }
+
+@keyframes pizzaWobble {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-3deg); }
+    75% { transform: rotate(3deg); }
+}
+
+.pizza-dots {
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.9rem;
+    color: #E65100;
+    line-height: 1;
+    letter-spacing: 2px;
+}
+
+.pizza-count {
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.85rem;
+    color: white;
+    background: #FF6B35;
+    padding: 0.05rem 0.5rem;
+    border-radius: 10px;
+    margin-top: 0.15rem;
+    box-shadow: 0 2px 6px rgba(255, 107, 53, 0.4);
+}
+
+.noves-bg-number {
+    position: absolute;
+    font-family: 'Fredoka One', cursive;
+    font-size: 7rem;
+    color: rgba(255, 107, 53, 0.07);
+    z-index: 1;
+    letter-spacing: -2px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+}
+
+.cover-center-noves {
+    position: absolute;
+    bottom: 0.6rem;
+    right: 0.8rem;
+    z-index: 3;
+}
+
+.noves-question {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.6rem;
+    color: #6C5CE7;
+    text-shadow: 2px 2px 0 rgba(255, 255, 255, 0.8);
+    animation: questionBounce 2s ease-in-out infinite;
+    display: block;
+}
+
+@keyframes questionBounce {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-4px) rotate(-5deg); }
+}
+
 /* Card Body */
 .card-body {
     padding: 1.2rem 1.4rem;
@@ -399,6 +598,60 @@ body {
     font-size: 0.85rem;
     opacity: 0.7;
     margin-top: 0.2rem;
+}
+
+.footer-about {
+    margin-bottom: 1rem;
+}
+
+.footer-about p {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    line-height: 1.7;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.footer-legal {
+    margin-bottom: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-legal p {
+    font-size: 0.78rem;
+    opacity: 0.55;
+    line-height: 1.6;
+    max-width: 500px;
+    margin: 0 auto 0.3rem;
+}
+
+.footer-contato {
+    margin-bottom: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-contato-titulo {
+    font-family: 'Fredoka One', cursive;
+    font-size: 0.95rem;
+    margin-bottom: 0.4rem;
+    opacity: 0.9;
+}
+
+.footer-contato p {
+    font-size: 0.85rem;
+    margin-bottom: 0.2rem;
+}
+
+.footer-contato a {
+    color: #a29bfe;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.footer-contato a:hover {
+    color: #FFD93D;
 }
 
 .footer-info p {
