@@ -421,9 +421,42 @@
             .soma-item { padding: 8px 14px; }
             .resultado-final .big-number { font-size: 3em; }
         }
+        /* Botão Voltar — Colinha na Web */
+        .btn-voltar {
+            position: fixed;
+            top: 12px;
+            left: 12px;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--laranja);
+            color: white;
+            font-family: 'Fredoka One', cursive;
+            font-size: 0.95rem;
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 50px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.2);
+            transition: transform 0.2s, box-shadow 0.2s;
+            min-height: 44px;
+            min-width: 44px;
+        }
+        .btn-voltar:hover { transform: scale(1.05); box-shadow: 0 4px 16px rgba(0,0,0,0.3); }
+        .btn-voltar:active { transform: scale(0.97); }
+        .btn-voltar-seta { font-size: 1.2rem; }
+        @media (max-width: 480px) {
+            .btn-voltar { font-size: 0.85rem; padding: 8px 14px; }
+        }
     </style>
 </head>
 <body>
+
+<!-- Botão Voltar -->
+<a href="../index.html" class="btn-voltar">
+    <span class="btn-voltar-seta">&#8592;</span>
+    <span>Voltar</span>
+</a>
 
 <div class="floating-dots">
     <div class="dot"></div>
