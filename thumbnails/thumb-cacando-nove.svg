@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="600" height="400">
+  <defs>
+    <!-- Gradiente do fundo -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFF9E6"/>
+      <stop offset="100%" style="stop-color:#FFEAA7"/>
+    </linearGradient>
+
+    <!-- Gradiente do 9 grande -->
+    <linearGradient id="nineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FF6B35"/>
+      <stop offset="100%" style="stop-color:#E84393"/>
+    </linearGradient>
+
+    <!-- Gradiente da lupa -->
+    <linearGradient id="lupaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6C5CE7"/>
+      <stop offset="100%" style="stop-color:#0984E3"/>
+    </linearGradient>
+
+    <!-- Sombra suave -->
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000" flood-opacity="0.15"/>
+    </filter>
+
+    <filter id="shadowSmall">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000" flood-opacity="0.12"/>
+    </filter>
+
+    <!-- Brilho no 9 -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- FUNDO -->
+  <rect width="600" height="400" rx="24" fill="url(#bgGrad)"/>
+
+  <!-- Padrão de números pequenos espalhados no fundo -->
+  <g opacity="0.08" font-family="Arial, sans-serif" font-weight="800" fill="#FF6B35">
+    <text x="30" y="50" font-size="28">3</text>
+    <text x="90" y="90" font-size="22">7</text>
+    <text x="520" y="60" font-size="26">2</text>
+    <text x="560" y="120" font-size="20">5</text>
+    <text x="40" y="350" font-size="24">1</text>
+    <text x="100" y="380" font-size="20">4</text>
+    <text x="480" y="360" font-size="28">6</text>
+    <text x="540" y="330" font-size="22">8</text>
+    <text x="160" y="60" font-size="18">4</text>
+    <text x="440" y="50" font-size="20">1</text>
+    <text x="50" y="200" font-size="16">6</text>
+    <text x="550" y="220" font-size="18">3</text>
+    <text x="200" y="380" font-size="20">8</text>
+    <text x="400" y="380" font-size="16">2</text>
+    <text x="30" y="280" font-size="22">5</text>
+    <text x="565" y="280" font-size="24">7</text>
+  </g>
+
+  <!-- Círculos decorativos -->
+  <circle cx="80" cy="100" r="40" fill="#FF6B35" opacity="0.06"/>
+  <circle cx="520" cy="300" r="55" fill="#E84393" opacity="0.06"/>
+  <circle cx="500" cy="80" r="30" fill="#6C5CE7" opacity="0.06"/>
+  <circle cx="100" cy="320" r="35" fill="#0984E3" opacity="0.06"/>
+
+  <!-- PIZZAS decorativas (lado esquerdo) -->
+  <!-- Pizza 1 -->
+  <g transform="translate(60, 140)" filter="url(#shadowSmall)">
+    <path d="M0,55 L30,-5 L60,55 Z" fill="#FABB51" stroke="#E67E22" stroke-width="2"/>
+    <circle cx="25" cy="30" r="5" fill="#E74C3C"/>
+    <circle cx="40" cy="40" r="4" fill="#E74C3C"/>
+    <circle cx="20" cy="45" r="4.5" fill="#E74C3C"/>
+    <!-- Queijo derretendo -->
+    <path d="M5,52 Q15,60 25,53 Q35,60 45,52 Q55,58 58,55" fill="none" stroke="#F1C40F" stroke-width="3" stroke-linecap="round"/>
+  </g>
+
+  <!-- Pizza 2 (menor, inclinada) -->
+  <g transform="translate(100, 260) rotate(-15)" filter="url(#shadowSmall)">
+    <path d="M0,42 L22,-4 L44,42 Z" fill="#FABB51" stroke="#E67E22" stroke-width="1.5"/>
+    <circle cx="18" cy="22" r="4" fill="#E74C3C"/>
+    <circle cx="30" cy="30" r="3.5" fill="#E74C3C"/>
+    <path d="M3,40 Q12,46 22,40 Q32,46 42,40" fill="none" stroke="#F1C40F" stroke-width="2.5" stroke-linecap="round"/>
+  </g>
+
+  <!-- Pizza 3 (direita, pequena) -->
+  <g transform="translate(460, 240) rotate(20)" filter="url(#shadowSmall)">
+    <path d="M0,38 L20,-3 L40,38 Z" fill="#FABB51" stroke="#E67E22" stroke-width="1.5"/>
+    <circle cx="16" cy="20" r="3.5" fill="#E74C3C"/>
+    <circle cx="26" cy="28" r="3" fill="#E74C3C"/>
+    <path d="M3,36 Q10,42 20,36 Q30,42 38,36" fill="none" stroke="#F1C40F" stroke-width="2" stroke-linecap="round"/>
+  </g>
+
+  <!-- O GRANDE 9 CENTRAL -->
+  <g filter="url(#shadow)">
+    <text x="300" y="280" text-anchor="middle" font-family="Arial, sans-serif" font-weight="900" font-size="220" fill="url(#nineGrad)" filter="url(#glow)">9</text>
+  </g>
+
+  <!-- Interrogação flutuando ao lado do 9 -->
+  <g filter="url(#shadowSmall)">
+    <text x="420" y="160" text-anchor="middle" font-family="Arial, sans-serif" font-weight="900" font-size="80" fill="#6C5CE7" opacity="0.8">?</text>
+  </g>
+
+  <!-- LUPA sobre o 9 -->
+  <g transform="translate(370, 200) rotate(25)" filter="url(#shadow)">
+    <!-- Vidro da lupa -->
+    <circle cx="0" cy="0" r="48" fill="rgba(100,149,237,0.12)" stroke="url(#lupaGrad)" stroke-width="7"/>
+    <!-- Brilho no vidro -->
+    <ellipse cx="-14" cy="-16" rx="14" ry="8" fill="white" opacity="0.35" transform="rotate(-20)"/>
+    <!-- Cabo -->
+    <line x1="34" y1="34" x2="72" y2="72" stroke="url(#lupaGrad)" stroke-width="9" stroke-linecap="round"/>
+  </g>
+
+  <!-- Estrelinhas / sparkles -->
+  <g fill="#FFD93D">
+    <!-- Sparkle 1 -->
+    <g transform="translate(180, 100)">
+      <polygon points="0,-12 3,-3 12,0 3,3 0,12 -3,3 -12,0 -3,-3" fill="#FFD93D"/>
+    </g>
+    <!-- Sparkle 2 -->
+    <g transform="translate(480, 140)">
+      <polygon points="0,-9 2,-2 9,0 2,2 0,9 -2,2 -9,0 -2,-2" fill="#FF6B35" opacity="0.5"/>
+    </g>
+    <!-- Sparkle 3 -->
+    <g transform="translate(140, 300)">
+      <polygon points="0,-8 2,-2 8,0 2,2 0,8 -2,2 -8,0 -2,-2" fill="#E84393" opacity="0.4"/>
+    </g>
+    <!-- Sparkle 4 -->
+    <g transform="translate(500, 170)">
+      <polygon points="0,-10 2.5,-2.5 10,0 2.5,2.5 0,10 -2.5,2.5 -10,0 -2.5,-2.5" fill="#FFD93D" opacity="0.6"/>
+    </g>
+  </g>
+
+  <!-- Badge "1-1000" -->
+  <g transform="translate(300, 355)">
+    <rect x="-65" y="-18" width="130" height="36" rx="18" fill="#FF6B35" filter="url(#shadowSmall)"/>
+    <text x="0" y="6" text-anchor="middle" font-family="Arial, sans-serif" font-weight="800" font-size="16" fill="white" letter-spacing="1">de 1 até 1000</text>
+  </g>
+</svg>

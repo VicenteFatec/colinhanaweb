@@ -1,0 +1,235 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="600" height="400">
+  <defs>
+    <!-- Fundo escuro espacial -->
+    <linearGradient id="bgDark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0A1628"/>
+      <stop offset="50%" style="stop-color:#162240"/>
+      <stop offset="100%" style="stop-color:#0A1628"/>
+    </linearGradient>
+
+    <!-- Gradiente ciano -->
+    <linearGradient id="cianoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00CEC9"/>
+      <stop offset="100%" style="stop-color:#55EFC4"/>
+    </linearGradient>
+
+    <!-- Gradiente roxo -->
+    <linearGradient id="roxoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#A29BFE"/>
+      <stop offset="100%" style="stop-color:#6C5CE7"/>
+    </linearGradient>
+
+    <!-- Gradiente rosa -->
+    <linearGradient id="rosaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FD79A8"/>
+      <stop offset="100%" style="stop-color:#E84393"/>
+    </linearGradient>
+
+    <!-- Brilho neon ciano -->
+    <filter id="glowCiano">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feFlood flood-color="#00CEC9" flood-opacity="0.6"/>
+      <feComposite in2="blur" operator="in"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Brilho neon roxo -->
+    <filter id="glowRoxo">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feFlood flood-color="#A29BFE" flood-opacity="0.5"/>
+      <feComposite in2="blur" operator="in"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Brilho amarelo (lâmpada) -->
+    <filter id="glowYellow">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feFlood flood-color="#FFEAA7" flood-opacity="0.7"/>
+      <feComposite in2="blur" operator="in"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+
+    <filter id="shadowSmall">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000" flood-opacity="0.25"/>
+    </filter>
+
+    <!-- Padrão de circuito -->
+    <pattern id="circuit" width="60" height="60" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="30" x2="20" y2="30" stroke="#00CEC9" stroke-width="0.5" opacity="0.08"/>
+      <line x1="30" y1="0" x2="30" y2="20" stroke="#00CEC9" stroke-width="0.5" opacity="0.08"/>
+      <circle cx="30" cy="30" r="2" fill="#00CEC9" opacity="0.06"/>
+      <line x1="40" y1="30" x2="60" y2="30" stroke="#A29BFE" stroke-width="0.5" opacity="0.06"/>
+      <line x1="30" y1="40" x2="30" y2="60" stroke="#A29BFE" stroke-width="0.5" opacity="0.06"/>
+    </pattern>
+  </defs>
+
+  <!-- FUNDO -->
+  <rect width="600" height="400" rx="24" fill="url(#bgDark)"/>
+
+  <!-- Padrão de circuito no fundo -->
+  <rect width="600" height="400" rx="24" fill="url(#circuit)"/>
+
+  <!-- Estrelas -->
+  <g fill="white">
+    <circle cx="50" cy="40" r="1" opacity="0.4"/>
+    <circle cx="130" cy="80" r="1.2" opacity="0.3"/>
+    <circle cx="250" cy="30" r="0.8" opacity="0.5"/>
+    <circle cx="380" cy="55" r="1" opacity="0.35"/>
+    <circle cx="500" cy="35" r="1.3" opacity="0.25"/>
+    <circle cx="550" cy="90" r="0.9" opacity="0.4"/>
+    <circle cx="70" cy="350" r="1" opacity="0.3"/>
+    <circle cx="200" cy="370" r="1.2" opacity="0.25"/>
+    <circle cx="430" cy="360" r="0.8" opacity="0.4"/>
+    <circle cx="530" cy="340" r="1.1" opacity="0.3"/>
+    <circle cx="170" cy="180" r="0.7" opacity="0.2"/>
+    <circle cx="450" cy="200" r="0.9" opacity="0.2"/>
+  </g>
+
+  <!-- Linhas de circuito decorativas -->
+  <g stroke="#00CEC9" stroke-width="1.5" opacity="0.1" fill="none">
+    <!-- Linha horizontal superior -->
+    <path d="M0,80 L80,80 L100,100 L180,100"/>
+    <circle cx="180" cy="100" r="3" fill="#00CEC9"/>
+    <!-- Linha horizontal inferior -->
+    <path d="M420,300 L500,300 L520,320 L600,320"/>
+    <circle cx="420" cy="300" r="3" fill="#00CEC9"/>
+    <!-- Linha vertical esquerda -->
+    <path d="M60,0 L60,60 L80,80"/>
+    <!-- Linha vertical direita -->
+    <path d="M540,400 L540,340 L520,320"/>
+  </g>
+
+  <!-- TRANSISTOR ESTILIZADO (esquerda) -->
+  <g transform="translate(85, 120)" filter="url(#shadowSmall)">
+    <!-- Corpo do chip -->
+    <rect x="0" y="20" width="60" height="80" rx="8" fill="rgba(0,206,201,0.08)" stroke="#00CEC9" stroke-width="2" opacity="0.6"/>
+    <text x="30" y="55" text-anchor="middle" font-family="Arial, sans-serif" font-weight="800" font-size="10" fill="#00CEC9" opacity="0.7">CHIP</text>
+
+    <!-- Fio de cima -->
+    <line x1="30" y1="0" x2="30" y2="20" stroke="#00CEC9" stroke-width="2" opacity="0.5"/>
+    <!-- Fio de baixo -->
+    <line x1="30" y1="100" x2="30" y2="120" stroke="#00CEC9" stroke-width="2" opacity="0.5"/>
+    <!-- Portão -->
+    <line x1="-20" y1="60" x2="0" y2="60" stroke="#55EFC4" stroke-width="2" opacity="0.5"/>
+
+    <!-- Elétron brilhante passando -->
+    <circle r="4" fill="#00CEC9" opacity="0.8" filter="url(#glowCiano)">
+      <animate attributeName="cy" values="5;115" dur="1.5s" repeatCount="indefinite"/>
+      <animate attributeName="cx" values="30;30" dur="1.5s" repeatCount="indefinite"/>
+    </circle>
+    <circle r="3" fill="#55EFC4" opacity="0.6">
+      <animate attributeName="cy" values="5;115" dur="1.5s" begin="0.5s" repeatCount="indefinite"/>
+      <animate attributeName="cx" values="30;30" dur="1.5s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+
+  <!-- TRANSISTOR BLOQUEADO (esquerda baixo) -->
+  <g transform="translate(85, 270)" filter="url(#shadowSmall)" opacity="0.5">
+    <rect x="0" y="5" width="60" height="60" rx="8" fill="rgba(162,155,254,0.06)" stroke="#A29BFE" stroke-width="1.5" opacity="0.5"/>
+    <!-- Bloqueio -->
+    <rect x="10" y="25" width="40" height="16" rx="4" fill="rgba(162,155,254,0.15)" stroke="#A29BFE" stroke-width="1"/>
+    <text x="30" y="37" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="7" fill="#A29BFE" opacity="0.6">BLOQ</text>
+    <!-- Elétrons parados -->
+    <circle cx="25" cy="14" r="2.5" fill="#A29BFE" opacity="0.4"/>
+    <circle cx="35" cy="12" r="2" fill="#A29BFE" opacity="0.3"/>
+  </g>
+
+  <!-- GRANDE "1" NEON -->
+  <g filter="url(#glowCiano)">
+    <text x="270" y="240" text-anchor="middle" font-family="Arial, sans-serif" font-weight="900" font-size="200" fill="url(#cianoGrad)">1</text>
+  </g>
+
+  <!-- GRANDE "0" NEON -->
+  <g filter="url(#glowRoxo)">
+    <text x="410" y="240" text-anchor="middle" font-family="Arial, sans-serif" font-weight="900" font-size="200" fill="url(#roxoGrad)" opacity="0.7">0</text>
+  </g>
+
+  <!-- Lâmpada ON (sobre o 1) -->
+  <g transform="translate(270, 60)">
+    <!-- Brilho de fundo -->
+    <circle cx="0" cy="0" r="25" fill="#FFEAA7" opacity="0.15" filter="url(#glowYellow)"/>
+    <!-- Corpo da lâmpada -->
+    <circle cx="0" cy="0" r="18" fill="#FFEAA7" opacity="0.9" filter="url(#glowYellow)"/>
+    <!-- Filamento -->
+    <path d="M-5,4 Q0,-6 5,4" fill="none" stroke="#F39C12" stroke-width="2" stroke-linecap="round"/>
+    <!-- Base -->
+    <rect x="-8" y="15" width="16" height="6" rx="2" fill="#BDC3C7"/>
+    <rect x="-6" y="20" width="12" height="4" rx="2" fill="#95A5A6"/>
+    <!-- Raios de luz -->
+    <g stroke="#FFEAA7" stroke-width="1.5" opacity="0.5" stroke-linecap="round">
+      <line x1="0" y1="-25" x2="0" y2="-32"/>
+      <line x1="18" y1="-18" x2="23" y2="-23"/>
+      <line x1="-18" y1="-18" x2="-23" y2="-23"/>
+      <line x1="24" y1="0" x2="30" y2="0"/>
+      <line x1="-24" y1="0" x2="-30" y2="0"/>
+    </g>
+  </g>
+
+  <!-- Lâmpada OFF (sobre o 0) -->
+  <g transform="translate(410, 60)">
+    <circle cx="0" cy="0" r="18" fill="#1E2D45" stroke="#3D4F6A" stroke-width="1.5"/>
+    <path d="M-5,4 Q0,-6 5,4" fill="none" stroke="#3D4F6A" stroke-width="2" stroke-linecap="round"/>
+    <rect x="-8" y="15" width="16" height="6" rx="2" fill="#2D3A50"/>
+    <rect x="-6" y="20" width="12" height="4" rx="2" fill="#2D3A50"/>
+  </g>
+
+  <!-- Byte flutuando na parte inferior -->
+  <g transform="translate(175, 310)">
+    <g font-family="Arial, sans-serif" font-weight="800" font-size="22">
+      <!-- Bit 1 -->
+      <rect x="0" y="0" width="28" height="34" rx="6" fill="rgba(162,155,254,0.15)" stroke="#A29BFE" stroke-width="1"/>
+      <text x="14" y="24" text-anchor="middle" fill="#A29BFE">0</text>
+      <!-- Bit 2 -->
+      <rect x="32" y="0" width="28" height="34" rx="6" fill="rgba(0,206,201,0.15)" stroke="#00CEC9" stroke-width="1"/>
+      <text x="46" y="24" text-anchor="middle" fill="#00CEC9">1</text>
+      <!-- Bit 3 -->
+      <rect x="64" y="0" width="28" height="34" rx="6" fill="rgba(162,155,254,0.15)" stroke="#A29BFE" stroke-width="1"/>
+      <text x="78" y="24" text-anchor="middle" fill="#A29BFE">0</text>
+      <!-- Bit 4 -->
+      <rect x="96" y="0" width="28" height="34" rx="6" fill="rgba(162,155,254,0.15)" stroke="#A29BFE" stroke-width="1"/>
+      <text x="110" y="24" text-anchor="middle" fill="#A29BFE">0</text>
+      <!-- Bit 5 -->
+      <rect x="128" y="0" width="28" height="34" rx="6" fill="rgba(162,155,254,0.15)" stroke="#A29BFE" stroke-width="1"/>
+      <text x="142" y="24" text-anchor="middle" fill="#A29BFE">0</text>
+      <!-- Bit 6 -->
+      <rect x="160" y="0" width="28" height="34" rx="6" fill="rgba(162,155,254,0.15)" stroke="#A29BFE" stroke-width="1"/>
+      <text x="174" y="24" text-anchor="middle" fill="#A29BFE">0</text>
+      <!-- Bit 7 -->
+      <rect x="192" y="0" width="28" height="34" rx="6" fill="rgba(162,155,254,0.15)" stroke="#A29BFE" stroke-width="1"/>
+      <text x="206" y="24" text-anchor="middle" fill="#A29BFE">0</text>
+      <!-- Bit 8 -->
+      <rect x="224" y="0" width="28" height="34" rx="6" fill="rgba(0,206,201,0.15)" stroke="#00CEC9" stroke-width="1"/>
+      <text x="238" y="24" text-anchor="middle" fill="#00CEC9">1</text>
+    </g>
+
+    <!-- Label "= A" ao lado -->
+    <text x="272" y="25" font-family="Arial, sans-serif" font-weight="900" font-size="26" fill="#FFEAA7">=  A</text>
+  </g>
+
+  <!-- Sparkles -->
+  <g>
+    <polygon points="510,130 513,137 520,140 513,143 510,150 507,143 500,140 507,137" fill="#00CEC9" opacity="0.5"/>
+    <polygon points="180,90 182,95 188,97 182,99 180,104 178,99 172,97 178,95" fill="#FFEAA7" opacity="0.4"/>
+    <polygon points="530,260 532,266 538,268 532,270 530,276 528,270 522,268 528,266" fill="#FD79A8" opacity="0.3"/>
+    <polygon points="160,260 162,264 166,266 162,268 160,272 158,268 154,266 158,264" fill="#55EFC4" opacity="0.35"/>
+  </g>
+
+  <!-- Badge "÷2" -->
+  <g transform="translate(510, 365)">
+    <rect x="-40" y="-16" width="80" height="32" rx="16" fill="url(#cianoGrad)" filter="url(#shadowSmall)"/>
+    <text x="0" y="6" text-anchor="middle" font-family="Arial, sans-serif" font-weight="900" font-size="16" fill="#0A1628">÷ 2 = ?</text>
+  </g>
+</svg>
