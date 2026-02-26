@@ -1,0 +1,465 @@
+/* ===== VARIÁVEIS ===== */
+:root {
+    --cor-primaria: #6C5CE7;
+    --cor-secundaria: #00B894;
+    --cor-destaque: #FF6B35;
+    --cor-rosa: #E84393;
+    --cor-amarelo: #FFD93D;
+    --cor-azul: #0984E3;
+
+    --bg-principal: #F8F9FF;
+    --bg-card: #FFFFFF;
+    --bg-header: #6C5CE7;
+
+    --texto-escuro: #2D3436;
+    --texto-medio: #636E72;
+    --texto-claro: #B2BEC3;
+
+    --sombra-card: 0 4px 20px rgba(108, 92, 231, 0.1);
+    --sombra-card-hover: 0 8px 40px rgba(108, 92, 231, 0.2);
+
+    --raio-borda: 16px;
+    --raio-borda-sm: 8px;
+    --raio-borda-tag: 20px;
+
+    --transicao: 0.3s ease;
+
+    --max-largura: 1100px;
+}
+
+/* ===== RESET ===== */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ===== BASE ===== */
+body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg-principal);
+    color: var(--texto-escuro);
+    min-height: 100vh;
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+/* ===== HEADER ===== */
+.header {
+    background: var(--bg-header);
+    color: white;
+    padding: 1rem 1.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 20px rgba(108, 92, 231, 0.3);
+}
+
+.header-content {
+    max-width: var(--max-largura);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.logo-icon {
+    font-size: 1.8rem;
+}
+
+.logo-text {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.5rem;
+    letter-spacing: 0.5px;
+}
+
+.tagline {
+    font-size: 0.9rem;
+    opacity: 0.85;
+    font-weight: 600;
+}
+
+/* ===== HERO ===== */
+.hero {
+    position: relative;
+    background: linear-gradient(135deg, var(--cor-primaria) 0%, #a29bfe 100%);
+    color: white;
+    padding: 3rem 1.5rem 3.5rem;
+    text-align: center;
+    overflow: hidden;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: var(--max-largura);
+    margin: 0 auto;
+}
+
+.hero-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+}
+
+.hero-description {
+    font-size: 1.15rem;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    opacity: 0.95;
+    line-height: 1.7;
+}
+
+.hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-number {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2rem;
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 0.85rem;
+    opacity: 0.8;
+    font-weight: 600;
+    margin-top: 0.25rem;
+}
+
+/* Emojis flutuantes no hero */
+.hero-decoration {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.floating-emoji {
+    position: absolute;
+    font-size: 2rem;
+    left: var(--x);
+    top: var(--y);
+    animation: float 4s ease-in-out infinite;
+    animation-delay: var(--delay);
+    opacity: 0.3;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(10deg); }
+}
+
+/* ===== FILTROS ===== */
+.filters {
+    padding: 1.5rem;
+    background: var(--bg-principal);
+    position: sticky;
+    top: 60px;
+    z-index: 50;
+}
+
+.filters-content {
+    max-width: var(--max-largura);
+    margin: 0 auto;
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.filter-btn {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    padding: 0.5rem 1.2rem;
+    border: 2px solid var(--cor-primaria);
+    border-radius: var(--raio-borda-tag);
+    background: transparent;
+    color: var(--cor-primaria);
+    cursor: pointer;
+    transition: var(--transicao);
+}
+
+.filter-btn:hover {
+    background: rgba(108, 92, 231, 0.1);
+}
+
+.filter-btn.active {
+    background: var(--cor-primaria);
+    color: white;
+}
+
+/* ===== GALERIA ===== */
+.gallery {
+    padding: 1rem 1.5rem 3rem;
+    max-width: var(--max-largura);
+    margin: 0 auto;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+/* ===== CARD ===== */
+.card {
+    background: var(--bg-card);
+    border-radius: var(--raio-borda);
+    box-shadow: var(--sombra-card);
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    transition: transform var(--transicao), box-shadow var(--transicao);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: cardEntrada 0.5s ease forwards;
+}
+
+.card:nth-child(1) { animation-delay: 0.1s; }
+.card:nth-child(2) { animation-delay: 0.2s; }
+.card:nth-child(3) { animation-delay: 0.3s; }
+.card:nth-child(4) { animation-delay: 0.4s; }
+.card:nth-child(5) { animation-delay: 0.5s; }
+.card:nth-child(6) { animation-delay: 0.6s; }
+
+@keyframes cardEntrada {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--sombra-card-hover);
+}
+
+.card.hidden {
+    display: none;
+}
+
+/* Card Thumbnail */
+.card-thumbnail {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+}
+
+.card-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-thumbnail-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-thumbnail-emoji {
+    font-size: 4rem;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+/* Card Body */
+.card-body {
+    padding: 1.2rem 1.4rem;
+    flex: 1;
+}
+
+.card-tags {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.6rem;
+}
+
+.tag {
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.2rem 0.7rem;
+    border-radius: var(--raio-borda-tag);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.tag-computacao {
+    background: #E8F5E9;
+    color: #2E7D32;
+}
+
+.tag-matematica {
+    background: #FFF3E0;
+    color: #E65100;
+}
+
+.tag-ciencias {
+    background: #E3F2FD;
+    color: #1565C0;
+}
+
+.tag-portugues {
+    background: #FCE4EC;
+    color: #C62828;
+}
+
+.card-title {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.25rem;
+    color: var(--texto-escuro);
+    margin-bottom: 0.2rem;
+}
+
+.card-subtitle {
+    font-size: 0.85rem;
+    color: var(--cor-primaria);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.card-description {
+    font-size: 0.9rem;
+    color: var(--texto-medio);
+    line-height: 1.5;
+}
+
+/* Card Footer */
+.card-footer {
+    padding: 0.8rem 1.4rem;
+    border-top: 1px solid #F0F0F5;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.card-cta {
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: var(--cor-primaria);
+    transition: var(--transicao);
+}
+
+.card:hover .card-cta {
+    color: var(--cor-destaque);
+    letter-spacing: 1px;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+    background: var(--texto-escuro);
+    color: white;
+    padding: 2rem 1.5rem;
+    text-align: center;
+}
+
+.footer-content {
+    max-width: var(--max-largura);
+    margin: 0 auto;
+}
+
+.footer-brand {
+    margin-bottom: 1rem;
+}
+
+.footer-logo {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.3rem;
+}
+
+.footer-tagline {
+    font-size: 0.85rem;
+    opacity: 0.7;
+    margin-top: 0.2rem;
+}
+
+.footer-info p {
+    font-size: 0.85rem;
+    opacity: 0.8;
+    margin-bottom: 0.3rem;
+}
+
+.footer-copyright {
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    opacity: 0.5;
+}
+
+/* ===== RESPONSIVO ===== */
+@media (max-width: 768px) {
+    .header-content {
+        justify-content: center;
+        text-align: center;
+    }
+
+    .tagline {
+        width: 100%;
+    }
+
+    .hero-title {
+        font-size: 1.8rem;
+    }
+
+    .hero-description {
+        font-size: 1rem;
+    }
+
+    .hero-stats {
+        gap: 1.5rem;
+    }
+
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .floating-emoji {
+        font-size: 1.5rem;
+        opacity: 0.2;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        padding: 2rem 1rem 2.5rem;
+    }
+
+    .hero-title {
+        font-size: 1.5rem;
+    }
+
+    .stat-number {
+        font-size: 1.5rem;
+    }
+
+    .card-title {
+        font-size: 1.1rem;
+    }
+}

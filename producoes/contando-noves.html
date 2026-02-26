@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔢 Caçando o Número 9!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --amarelo: #FFD93D;
+            --laranja: #FF6B35;
+            --roxo: #6C5CE7;
+            --verde: #00B894;
+            --azul: #0984E3;
+            --rosa: #E84393;
+            --bg: #FFF9E6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--bg);
+            color: #2D3436;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Bolinhas decorativas flutuando */
+        .floating-dots {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .dot {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.15;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .dot:nth-child(1) { width: 80px; height: 80px; background: var(--laranja); top: 10%; left: 5%; animation-delay: 0s; }
+        .dot:nth-child(2) { width: 60px; height: 60px; background: var(--roxo); top: 30%; right: 8%; animation-delay: 1.5s; }
+        .dot:nth-child(3) { width: 100px; height: 100px; background: var(--verde); bottom: 20%; left: 10%; animation-delay: 3s; }
+        .dot:nth-child(4) { width: 50px; height: 50px; background: var(--rosa); top: 60%; right: 15%; animation-delay: 4.5s; }
+        .dot:nth-child(5) { width: 70px; height: 70px; background: var(--azul); bottom: 10%; right: 5%; animation-delay: 2s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(10deg); }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Cabeçalho */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: slideDown 0.8s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header h1 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 2.8em;
+            background: linear-gradient(135deg, var(--laranja), var(--rosa), var(--roxo));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        .header .subtitle {
+            font-size: 1.3em;
+            color: #636E72;
+            font-weight: 600;
+        }
+
+        .big-nine {
+            font-family: 'Fredoka One', cursive;
+            font-size: 5em;
+            display: inline-block;
+            animation: bounce 2s ease-in-out infinite;
+            margin: 10px 0;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1.1) rotate(-5deg); }
+            50% { transform: scale(1) rotate(0deg); }
+            75% { transform: scale(1.1) rotate(5deg); }
+        }
+
+        /* Cards de explicação */
+        .explain-card {
+            background: white;
+            border-radius: 24px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            border: 3px solid transparent;
+            animation: fadeUp 0.6s ease-out both;
+        }
+
+        .explain-card:nth-child(2) { animation-delay: 0.1s; }
+        .explain-card:nth-child(3) { animation-delay: 0.2s; }
+        .explain-card:nth-child(4) { animation-delay: 0.3s; }
+        .explain-card:nth-child(5) { animation-delay: 0.4s; }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card-unidade { border-color: var(--verde); }
+        .card-dezena { border-color: var(--azul); }
+        .card-centena { border-color: var(--roxo); }
+        .card-total { border-color: var(--laranja); }
+        .card-intro { border-color: var(--amarelo); }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8em;
+            flex-shrink: 0;
+        }
+
+        .card-unidade .card-icon { background: #E0F7EF; }
+        .card-dezena .card-icon { background: #D6EAF8; }
+        .card-centena .card-icon { background: #EDE7F6; }
+        .card-total .card-icon { background: #FDEBD0; }
+        .card-intro .card-icon { background: #FFF8DC; }
+
+        .card-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.5em;
+        }
+
+        .card-unidade .card-title { color: var(--verde); }
+        .card-dezena .card-title { color: var(--azul); }
+        .card-centena .card-title { color: var(--roxo); }
+        .card-total .card-title { color: var(--laranja); }
+        .card-intro .card-title { color: #E67E22; }
+
+        .card-text {
+            font-size: 1.1em;
+            line-height: 1.7;
+            color: #555;
+            font-weight: 600;
+        }
+
+        .card-text strong {
+            color: #2D3436;
+        }
+
+        /* Destaque do 9 dentro do texto */
+        .nine {
+            display: inline-block;
+            background: var(--laranja);
+            color: white;
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.1em;
+            width: 28px;
+            height: 28px;
+            line-height: 28px;
+            text-align: center;
+            border-radius: 8px;
+            margin: 0 2px;
+        }
+
+        /* Tabelas */
+        .table-wrapper {
+            overflow-x: auto;
+            margin: 20px 0;
+            border-radius: 16px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 16px;
+            overflow: hidden;
+            font-size: 0.95em;
+        }
+
+        table thead th {
+            padding: 14px 12px;
+            font-family: 'Fredoka One', cursive;
+            font-size: 1em;
+            letter-spacing: 0.5px;
+            text-align: center;
+        }
+
+        .card-unidade thead th { background: var(--verde); color: white; }
+        .card-dezena thead th { background: var(--azul); color: white; }
+        .card-centena thead th { background: var(--roxo); color: white; }
+
+        table tbody td {
+            padding: 10px 12px;
+            text-align: center;
+            font-weight: 700;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        table tbody tr:nth-child(even) { background: #FAFAFA; }
+        table tbody tr:nth-child(odd) { background: white; }
+        table tbody tr:hover { background: #FFF3E0; }
+
+        .highlight-nine {
+            background: var(--laranja);
+            color: white;
+            padding: 2px 7px;
+            border-radius: 6px;
+            font-family: 'Fredoka One', cursive;
+        }
+
+        .count-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--amarelo), var(--laranja));
+            color: white;
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.6em;
+            padding: 8px 24px;
+            border-radius: 50px;
+            margin: 10px 0;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+        }
+
+        /* Card do resultado final */
+        .resultado-final {
+            text-align: center;
+            padding: 40px 30px;
+            background: linear-gradient(135deg, #FFF3E0, #FDEBD0, #FFF9E6);
+        }
+
+        .resultado-final .big-number {
+            font-family: 'Fredoka One', cursive;
+            font-size: 4em;
+            color: var(--laranja);
+            display: block;
+            margin: 15px 0;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .soma-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 25px 0;
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.4em;
+        }
+
+        .soma-item {
+            padding: 12px 22px;
+            border-radius: 16px;
+            color: white;
+        }
+
+        .soma-item.un { background: var(--verde); }
+        .soma-item.dez { background: var(--azul); }
+        .soma-item.cent { background: var(--roxo); }
+        .soma-item.sinal { color: #636E72; font-size: 1.5em; }
+        .soma-item.resultado { background: linear-gradient(135deg, var(--laranja), var(--rosa)); font-size: 1.2em; }
+
+        /* Analogia divertida */
+        .fun-fact {
+            background: linear-gradient(135deg, #E8F8F5, #D5F5E3);
+            border-radius: 16px;
+            padding: 24px;
+            margin-top: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .fun-fact-icon {
+            font-size: 2.2em;
+            flex-shrink: 0;
+        }
+
+        .fun-fact-text {
+            font-size: 1.05em;
+            line-height: 1.6;
+            color: #2D3436;
+            font-weight: 600;
+        }
+
+        /* Números exemplo com destaque */
+        .example-numbers {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 15px 0;
+            justify-content: center;
+        }
+
+        .num-box {
+            background: white;
+            border: 2px solid #E0E0E0;
+            border-radius: 10px;
+            padding: 6px 12px;
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.05em;
+            color: #636E72;
+        }
+
+        .num-box .hl {
+            color: white;
+            background: var(--laranja);
+            padding: 1px 5px;
+            border-radius: 5px;
+        }
+
+        /* Resumo compacto das tabelas */
+        .compact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 6px;
+            margin: 15px 0;
+        }
+
+        .compact-cell {
+            background: white;
+            border-radius: 8px;
+            padding: 6px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 0.9em;
+            border: 1px solid #eee;
+        }
+
+        .compact-cell .hl {
+            color: white;
+            background: var(--laranja);
+            padding: 0 4px;
+            border-radius: 4px;
+            font-family: 'Fredoka One', cursive;
+        }
+
+        /* Botão interativo */
+        .toggle-btn {
+            display: inline-block;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            padding: 10px 20px;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            font-size: 1em;
+            cursor: pointer;
+            margin: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .toggle-btn.active-verde { border-color: var(--verde); background: #E0F7EF; color: var(--verde); }
+        .toggle-btn.active-azul { border-color: var(--azul); background: #D6EAF8; color: var(--azul); }
+        .toggle-btn.active-roxo { border-color: var(--roxo); background: #EDE7F6; color: var(--roxo); }
+
+        .hidden-table { display: none; }
+        .visible-table { display: block; }
+
+        /* Rodapé */
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #B2BEC3;
+            font-weight: 600;
+        }
+
+        @media (max-width: 600px) {
+            .header h1 { font-size: 2em; }
+            .big-nine { font-size: 3.5em; }
+            .soma-visual { font-size: 1em; gap: 8px; }
+            .soma-item { padding: 8px 14px; }
+            .resultado-final .big-number { font-size: 3em; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="floating-dots">
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+</div>
+
+<div class="container">
+
+    <!-- CABEÇALHO -->
+    <div class="header">
+        <h1>🔍 Caçando o Número 9!</h1>
+        <p class="subtitle">De 1 até 1000, quantas vezes o <span class="nine">9</span> aparece?</p>
+        <div class="big-nine">🔢</div>
+    </div>
+
+    <!-- INTRODUÇÃO -->
+    <div class="explain-card card-intro">
+        <div class="card-header">
+            <div class="card-icon">💡</div>
+            <div class="card-title">Primeiro, entenda a ideia!</div>
+        </div>
+        <div class="card-text">
+            <p>Imagine que cada número é formado por <strong>casinhas</strong>. Cada casinha tem um nome:</p>
+            <br>
+            <p>📍 A <strong>casinha da direita</strong> = <strong>Unidade</strong> (o último número)</p>
+            <p>📍 A <strong>casinha do meio</strong> = <strong>Dezena</strong> (o número do meio)</p>
+            <p>📍 A <strong>casinha da esquerda</strong> = <strong>Centena</strong> (o primeiro número)</p>
+            <br>
+            <p>Por exemplo, no número <strong>3</strong><span class="highlight-nine">9</span><strong>5</strong>:</p>
+            <p>O <strong>3</strong> está na centena, o <span class="nine">9</span> está na dezena, e o <strong>5</strong> está na unidade.</p>
+            <br>
+            <p>Vamos contar quantas vezes o <span class="nine">9</span> aparece em <strong>cada casinha</strong>! 🕵️</p>
+        </div>
+    </div>
+
+    <!-- UNIDADE -->
+    <div class="explain-card card-unidade">
+        <div class="card-header">
+            <div class="card-icon">1️⃣</div>
+            <div class="card-title">Casinha da UNIDADE (último número)</div>
+        </div>
+        <div class="card-text">
+            <p>O <span class="nine">9</span> aparece na <strong>última posição</strong> a cada 10 números. Olha só o padrão:</p>
+        </div>
+
+        <div class="example-numbers">
+            <div class="num-box"><span class="hl">9</span></div>
+            <div class="num-box">1<span class="hl">9</span></div>
+            <div class="num-box">2<span class="hl">9</span></div>
+            <div class="num-box">3<span class="hl">9</span></div>
+            <div class="num-box">4<span class="hl">9</span></div>
+            <div class="num-box">5<span class="hl">9</span></div>
+            <div class="num-box">6<span class="hl">9</span></div>
+            <div class="num-box">7<span class="hl">9</span></div>
+            <div class="num-box">8<span class="hl">9</span></div>
+            <div class="num-box">9<span class="hl">9</span></div>
+        </div>
+
+        <div class="card-text">
+            <p>Viu? A cada 10 números, o <span class="nine">9</span> aparece <strong>1 vez</strong> na unidade.</p>
+            <p>De 1 até 1000 temos <strong>100 grupos de 10</strong>.</p>
+            <p>Então: <strong>100 grupos × 1 vez = </strong></p>
+        </div>
+        <div style="text-align:center;">
+            <span class="count-badge">100 vezes na Unidade! ✅</span>
+        </div>
+
+        <button class="toggle-btn active-verde" onclick="toggleTable('table-unidade', this)">📋 Ver tabela completa</button>
+        <div id="table-unidade" class="hidden-table">
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Grupo</th>
+                            <th>Faixa</th>
+                            <th>Número com 9 na unidade</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-unidade"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- DEZENA -->
+    <div class="explain-card card-dezena">
+        <div class="card-header">
+            <div class="card-icon">🔟</div>
+            <div class="card-title">Casinha da DEZENA (número do meio)</div>
+        </div>
+        <div class="card-text">
+            <p>Agora vamos ver quando o <span class="nine">9</span> aparece na <strong>posição do meio</strong>.</p>
+            <p>Isso acontece nos números de <strong>90 a 99</strong>, depois <strong>190 a 199</strong>, e assim por diante:</p>
+        </div>
+
+        <div class="example-numbers">
+            <div class="num-box"><span class="hl">9</span>0</div>
+            <div class="num-box"><span class="hl">9</span>1</div>
+            <div class="num-box"><span class="hl">9</span>2</div>
+            <div class="num-box">...</div>
+            <div class="num-box"><span class="hl">9</span>9</div>
+            <div class="num-box">1<span class="hl">9</span>0</div>
+            <div class="num-box">1<span class="hl">9</span>1</div>
+            <div class="num-box">...</div>
+            <div class="num-box">1<span class="hl">9</span>9</div>
+        </div>
+
+        <div class="card-text">
+            <p>A cada 100 números, existe um bloco de <strong>10 números seguidos</strong> com <span class="nine">9</span> na dezena.</p>
+            <p>De 1 até 1000 temos <strong>10 grupos de 100</strong>.</p>
+            <p>Então: <strong>10 grupos × 10 números = </strong></p>
+        </div>
+        <div style="text-align:center;">
+            <span class="count-badge">100 vezes na Dezena! ✅</span>
+        </div>
+
+        <button class="toggle-btn active-azul" onclick="toggleTable('table-dezena', this)">📋 Ver tabela completa</button>
+        <div id="table-dezena" class="hidden-table">
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Grupo</th>
+                            <th>Faixa com 9 na dezena</th>
+                            <th>Quantidade</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1</td><td><span class="highlight-nine">9</span>0 a <span class="highlight-nine">9</span>9</td><td>10 números</td></tr>
+                        <tr><td>2</td><td>1<span class="highlight-nine">9</span>0 a 1<span class="highlight-nine">9</span>9</td><td>10 números</td></tr>
+                        <tr><td>3</td><td>2<span class="highlight-nine">9</span>0 a 2<span class="highlight-nine">9</span>9</td><td>10 números</td></tr>
+                        <tr><td>4</td><td>3<span class="highlight-nine">9</span>0 a 3<span class="highlight-nine">9</span>9</td><td>10 números</td></tr>
+                        <tr><td>5</td><td>4<span class="highlight-nine">9</span>0 a 4<span class="highlight-nine">9</span>9</td><td>10 números</td></tr>
+                        <tr><td>6</td><td>5<span class="highlight-nine">9</span>0 a 5<span class="highlight-nine">9</span>9</td><td>10 números</td></tr>
+                        <tr><td>7</td><td>6<span class="highlight-nine">9</span>0 a 6<span class="highlight-nine">9</span>9</td><td>10 números</td></tr>
+                        <tr><td>8</td><td>7<span class="highlight-nine">9</span>0 a 7<span class="highlight-nine">9</span>9</td><td>10 números</td></tr>
+                        <tr><td>9</td><td>8<span class="highlight-nine">9</span>0 a 8<span class="highlight-nine">9</span>9</td><td>10 números</td></tr>
+                        <tr><td>10</td><td>9<span class="highlight-nine">9</span>0 a 9<span class="highlight-nine">9</span>9</td><td>10 números</td></tr>
+                    </tbody>
+                    <tfoot>
+                        <tr style="background: #D6EAF8; font-weight: 800;">
+                            <td colspan="2">TOTAL</td>
+                            <td>100 vezes</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- CENTENA -->
+    <div class="explain-card card-centena">
+        <div class="card-header">
+            <div class="card-icon">💯</div>
+            <div class="card-title">Casinha da CENTENA (primeiro número)</div>
+        </div>
+        <div class="card-text">
+            <p>Agora é a vez do <span class="nine">9</span> na <strong>primeira posição</strong>!</p>
+            <p>Isso só acontece nos números de <strong>900 até 999</strong>:</p>
+        </div>
+
+        <div class="example-numbers">
+            <div class="num-box"><span class="hl">9</span>00</div>
+            <div class="num-box"><span class="hl">9</span>01</div>
+            <div class="num-box"><span class="hl">9</span>02</div>
+            <div class="num-box">...</div>
+            <div class="num-box"><span class="hl">9</span>50</div>
+            <div class="num-box">...</div>
+            <div class="num-box"><span class="hl">9</span>98</div>
+            <div class="num-box"><span class="hl">9</span>99</div>
+        </div>
+
+        <div class="card-text">
+            <p>De <strong>900 a 999</strong>, são exatamente <strong>100 números</strong>, e TODOS têm o <span class="nine">9</span> na centena!</p>
+        </div>
+        <div style="text-align:center;">
+            <span class="count-badge">100 vezes na Centena! ✅</span>
+        </div>
+
+        <button class="toggle-btn active-roxo" onclick="toggleTable('table-centena', this)">📋 Ver tabela completa</button>
+        <div id="table-centena" class="hidden-table">
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Faixa</th>
+                            <th>Números com 9 na centena</th>
+                            <th>Quantidade</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><span class="highlight-nine">9</span>00 – <span class="highlight-nine">9</span>09</td><td><span class="highlight-nine">9</span>00, <span class="highlight-nine">9</span>01, <span class="highlight-nine">9</span>02 ... <span class="highlight-nine">9</span>09</td><td>10</td></tr>
+                        <tr><td><span class="highlight-nine">9</span>10 – <span class="highlight-nine">9</span>19</td><td><span class="highlight-nine">9</span>10, <span class="highlight-nine">9</span>11, <span class="highlight-nine">9</span>12 ... <span class="highlight-nine">9</span>19</td><td>10</td></tr>
+                        <tr><td><span class="highlight-nine">9</span>20 – <span class="highlight-nine">9</span>29</td><td><span class="highlight-nine">9</span>20, <span class="highlight-nine">9</span>21, <span class="highlight-nine">9</span>22 ... <span class="highlight-nine">9</span>29</td><td>10</td></tr>
+                        <tr><td><span class="highlight-nine">9</span>30 – <span class="highlight-nine">9</span>39</td><td><span class="highlight-nine">9</span>30, <span class="highlight-nine">9</span>31, <span class="highlight-nine">9</span>32 ... <span class="highlight-nine">9</span>39</td><td>10</td></tr>
+                        <tr><td><span class="highlight-nine">9</span>40 – <span class="highlight-nine">9</span>49</td><td><span class="highlight-nine">9</span>40, <span class="highlight-nine">9</span>41, <span class="highlight-nine">9</span>42 ... <span class="highlight-nine">9</span>49</td><td>10</td></tr>
+                        <tr><td><span class="highlight-nine">9</span>50 – <span class="highlight-nine">9</span>59</td><td><span class="highlight-nine">9</span>50, <span class="highlight-nine">9</span>51, <span class="highlight-nine">9</span>52 ... <span class="highlight-nine">9</span>59</td><td>10</td></tr>
+                        <tr><td><span class="highlight-nine">9</span>60 – <span class="highlight-nine">9</span>69</td><td><span class="highlight-nine">9</span>60, <span class="highlight-nine">9</span>61, <span class="highlight-nine">9</span>62 ... <span class="highlight-nine">9</span>69</td><td>10</td></tr>
+                        <tr><td><span class="highlight-nine">9</span>70 – <span class="highlight-nine">9</span>79</td><td><span class="highlight-nine">9</span>70, <span class="highlight-nine">9</span>71, <span class="highlight-nine">9</span>72 ... <span class="highlight-nine">9</span>79</td><td>10</td></tr>
+                        <tr><td><span class="highlight-nine">9</span>80 – <span class="highlight-nine">9</span>89</td><td><span class="highlight-nine">9</span>80, <span class="highlight-nine">9</span>81, <span class="highlight-nine">9</span>82 ... <span class="highlight-nine">9</span>89</td><td>10</td></tr>
+                        <tr><td><span class="highlight-nine">9</span>90 – <span class="highlight-nine">9</span>99</td><td><span class="highlight-nine">9</span>90, <span class="highlight-nine">9</span>91, <span class="highlight-nine">9</span>92 ... <span class="highlight-nine">9</span>99</td><td>10</td></tr>
+                    </tbody>
+                    <tfoot>
+                        <tr style="background: #EDE7F6; font-weight: 800;">
+                            <td colspan="2">TOTAL</td>
+                            <td>100 vezes</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- RESULTADO FINAL -->
+    <div class="explain-card card-total resultado-final">
+        <div class="card-header" style="justify-content: center;">
+            <div class="card-icon">🏆</div>
+            <div class="card-title">RESULTADO FINAL!</div>
+        </div>
+        <div class="card-text" style="text-align:center;">
+            <p>Agora vamos somar tudo:</p>
+        </div>
+
+        <div class="soma-visual">
+            <span class="soma-item un">100<br><small>unidade</small></span>
+            <span class="soma-item sinal">+</span>
+            <span class="soma-item dez">100<br><small>dezena</small></span>
+            <span class="soma-item sinal">+</span>
+            <span class="soma-item cent">100<br><small>centena</small></span>
+            <span class="soma-item sinal">=</span>
+            <span class="soma-item resultado">300</span>
+        </div>
+
+        <span class="big-number">300 noves!</span>
+
+        <div class="card-text" style="text-align:center;">
+            <p>O dígito <span class="nine">9</span> aparece <strong>300 vezes</strong> nos números de 1 a 1000! 🎉</p>
+        </div>
+
+        <div class="fun-fact">
+            <span class="fun-fact-icon">🤯</span>
+            <div class="fun-fact-text">
+                <strong>Curiosidade:</strong> Alguns números têm o 9 em MAIS de uma casinha! 
+                Por exemplo, o <strong>99</strong> tem dois 9 (unidade e dezena), 
+                e o <strong>999</strong> tem três 9! Eles foram contados uma vez em cada casinha. 
+                Por isso nossa conta funciona: contamos cada posição separadamente!
+            </div>
+        </div>
+
+        <div class="fun-fact" style="background: linear-gradient(135deg, #FDEBD0, #FFF3E0); margin-top: 12px;">
+            <span class="fun-fact-icon">🍕</span>
+            <div class="fun-fact-text">
+                <strong>Para entender melhor:</strong> Imagine que você tem 1000 pizzas em fila.
+                Se você olhar só a <em>última fatia</em> de cada pizza, vai achar 100 com sabor "9".
+                Se olhar a <em>fatia do meio</em>, mais 100 com sabor "9".
+                E se olhar a <em>primeira fatia</em>, mais 100. Total: 300 fatias sabor "9"! 🍕
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        Feito com 💛 para aprender matemática de um jeito divertido!
+    </div>
+</div>
+
+<script>
+    // Gerar tabela de unidades dinamicamente
+    (function() {
+        const tbody = document.getElementById('tbody-unidade');
+        for (let i = 0; i < 100; i++) {
+            const start = i * 10 + 1;
+            const end = (i + 1) * 10;
+            const nineNum = i * 10 + 9;
+            const row = document.createElement('tr');
+
+            // Formatar o número com destaque no 9 da unidade
+            const numStr = nineNum.toString();
+            let highlighted = '';
+            if (numStr.length === 1) {
+                highlighted = '<span class="highlight-nine">' + numStr + '</span>';
+            } else {
+                highlighted = numStr.slice(0, -1) + '<span class="highlight-nine">' + numStr.slice(-1) + '</span>';
+            }
+
+            row.innerHTML = '<td>' + (i + 1) + 'º</td><td>' + start + ' a ' + end + '</td><td>' + highlighted + '</td>';
+            tbody.appendChild(row);
+        }
+    })();
+
+    // Toggle das tabelas
+    function toggleTable(id, btn) {
+        const table = document.getElementById(id);
+        if (table.classList.contains('hidden-table')) {
+            table.classList.remove('hidden-table');
+            table.classList.add('visible-table');
+            btn.textContent = '🔼 Esconder tabela';
+        } else {
+            table.classList.remove('visible-table');
+            table.classList.add('hidden-table');
+            btn.textContent = '📋 Ver tabela completa';
+        }
+    }
+</script>
+
+</body>
+</html>

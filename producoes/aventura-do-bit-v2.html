@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🤖 A Aventura do BIT — Do Transistor ao Binário!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&family=Fira+Code:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ciano: #00CEC9;
+            --azul-escuro: #0A1628;
+            --azul-medio: #1B2A4A;
+            --azul-card: #162240;
+            --verde-neon: #55EFC4;
+            --rosa-neon: #FD79A8;
+            --amarelo-neon: #FFEAA7;
+            --laranja: #FF7675;
+            --roxo: #A29BFE;
+            --branco: #DFE6E9;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--azul-escuro);
+            color: var(--branco);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ====== FUNDO ANIMADO ====== */
+        .stars {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px; height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.15; }
+            50% { opacity: 0.8; }
+        }
+
+        .floating-binary {
+            position: fixed;
+            font-family: 'Fira Code', monospace;
+            font-size: 1.1em;
+            color: var(--ciano);
+            opacity: 0.04;
+            pointer-events: none;
+            z-index: 0;
+            animation: floatUp 18s linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh); opacity: 0; }
+            10% { opacity: 0.04; }
+            90% { opacity: 0.04; }
+            100% { transform: translateY(-100px); opacity: 0; }
+        }
+
+        /* ====== CONTAINER ====== */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px 20px 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ====== HEADER ====== */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: slideDown 0.8s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header h1 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 2.5em;
+            background: linear-gradient(135deg, var(--ciano), var(--verde-neon), var(--amarelo-neon));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+            margin-bottom: 8px;
+        }
+
+        .header .subtitle {
+            font-size: 1.15em;
+            color: #7F8C8D;
+            font-weight: 600;
+        }
+
+        .hero-emoji {
+            font-size: 3.5em;
+            display: inline-block;
+            animation: heroFloat 3s ease-in-out infinite;
+            margin: 12px 0;
+        }
+
+        @keyframes heroFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        /* ====== NAVEGAÇÃO POR CAPÍTULOS ====== */
+        .chapter-nav {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 35px;
+        }
+
+        .chapter-dot {
+            padding: 10px 18px;
+            border-radius: 50px;
+            font-family: 'Fredoka One', cursive;
+            font-size: 0.85em;
+            cursor: pointer;
+            border: 2px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.03);
+            color: #7F8C8D;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .chapter-dot:hover {
+            border-color: var(--ciano);
+            color: var(--ciano);
+            transform: translateY(-2px);
+        }
+
+        .chapter-dot.active {
+            border-color: var(--ciano);
+            background: rgba(0,206,201,0.12);
+            color: var(--ciano);
+        }
+
+        /* ====== CARDS ====== */
+        .card {
+            background: var(--azul-card);
+            border-radius: 24px;
+            padding: 32px;
+            margin-bottom: 30px;
+            border: 2px solid rgba(0, 206, 201, 0.1);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
+            animation: fadeUp 0.6s ease-out both;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 22px;
+        }
+
+        .card-icon {
+            width: 56px; height: 56px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6em;
+            flex-shrink: 0;
+            background: rgba(0, 206, 201, 0.1);
+        }
+
+        .chapter-label {
+            font-size: 0.75em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--rosa-neon);
+            font-weight: 800;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .card-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.4em;
+            color: var(--ciano);
+        }
+
+        .card-text {
+            font-size: 1.05em;
+            line-height: 1.8;
+            color: #B2BEC3;
+            font-weight: 600;
+        }
+
+        .card-text strong { color: var(--branco); }
+
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(0,206,201,0.2), transparent);
+            margin: 20px 0;
+            border-radius: 2px;
+        }
+
+        /* ====== LÂMPADAS (CAP 1) ====== */
+        .lamp-row {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        .lamp {
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lamp:hover { transform: scale(1.1); }
+
+        .lamp-bulb {
+            width: 52px; height: 52px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.3em;
+            margin: 0 auto 6px;
+            transition: all 0.3s ease;
+        }
+
+        .lamp-on {
+            background: var(--amarelo-neon);
+            color: var(--azul-escuro);
+            box-shadow: 0 0 20px rgba(255,234,167,0.5), 0 0 40px rgba(255,234,167,0.2);
+        }
+
+        .lamp-off {
+            background: #1E2D45;
+            color: #3D4F6A;
+        }
+
+        .lamp-label {
+            font-size: 0.75em;
+            color: #7F8C8D;
+            font-weight: 700;
+            font-family: 'Fira Code', monospace;
+        }
+
+        /* ====== TRANSISTOR (CAP 2) ====== */
+        .transistor-demo {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+
+        .transistor-box {
+            text-align: center;
+            padding: 25px;
+            border-radius: 20px;
+            width: 300px;
+            transition: all 0.3s ease;
+        }
+
+        .transistor-on {
+            background: rgba(0, 206, 201, 0.08);
+            border: 2px solid rgba(0, 206, 201, 0.25);
+        }
+
+        .transistor-off {
+            background: rgba(162, 155, 254, 0.08);
+            border: 2px solid rgba(162, 155, 254, 0.2);
+        }
+
+        .transistor-svg {
+            width: 200px;
+            height: 240px;
+            margin: 0 auto 15px;
+        }
+
+        .transistor-label {
+            font-family: 'Fredoka One', cursive;
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
+
+        .transistor-on .transistor-label {
+            color: var(--ciano);
+            text-shadow: 0 0 20px rgba(0,206,201,0.5);
+        }
+
+        .transistor-off .transistor-label { color: var(--roxo); }
+
+        .transistor-desc {
+            font-size: 0.95em;
+            color: #7F8C8D;
+            font-weight: 700;
+        }
+
+        .transistor-state {
+            font-family: 'Fira Code', monospace;
+            font-size: 1.1em;
+            padding: 4px 14px;
+            border-radius: 8px;
+            display: inline-block;
+            margin-top: 8px;
+            font-weight: 700;
+        }
+
+        .state-on { background: rgba(0,206,201,0.2); color: var(--ciano); }
+        .state-off { background: rgba(162,155,254,0.15); color: var(--roxo); }
+
+        /* ====== BYTE VISUAL (CAP 3) ====== */
+        .byte-visual {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .byte-bit {
+            width: 50px; height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Fira Code', monospace;
+            font-weight: 700;
+            font-size: 1.3em;
+            transition: all 0.3s ease;
+        }
+
+        .byte-1 {
+            background: rgba(0,206,201,0.2);
+            color: var(--ciano);
+            border: 2px solid rgba(0,206,201,0.3);
+        }
+
+        .byte-0 {
+            background: rgba(162,155,254,0.12);
+            color: var(--roxo);
+            border: 2px solid rgba(162,155,254,0.2);
+        }
+
+        /* ====== CONTEXTO CARDS (CAP 3) ====== */
+        .context-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin: 25px 0;
+        }
+
+        .context-item {
+            background: rgba(0,0,0,0.2);
+            border-radius: 18px;
+            padding: 22px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.06);
+            transition: all 0.3s ease;
+        }
+
+        .context-item:hover {
+            transform: translateY(-4px);
+            border-color: rgba(0,206,201,0.2);
+        }
+
+        .context-emoji {
+            font-size: 2.5em;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .context-label {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.1em;
+            margin-bottom: 6px;
+        }
+
+        .context-label-letter { color: var(--amarelo-neon); }
+        .context-label-color { color: var(--rosa-neon); }
+        .context-label-sound { color: var(--verde-neon); }
+
+        .context-binary {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9em;
+            color: var(--ciano);
+            letter-spacing: 1px;
+            margin: 8px 0;
+            padding: 6px 12px;
+            background: rgba(0,206,201,0.06);
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .context-meaning {
+            font-size: 0.95em;
+            color: #B2BEC3;
+            font-weight: 700;
+            margin-top: 6px;
+        }
+
+        .context-result {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.6em;
+            display: block;
+            margin-top: 4px;
+        }
+
+        /* ====== ASCII SHOWCASE (CAP 4) ====== */
+        .ascii-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .ascii-item {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 14px;
+            padding: 14px 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .ascii-item:hover {
+            background: rgba(0,206,201,0.08);
+            border-color: rgba(0,206,201,0.2);
+            transform: translateY(-3px);
+        }
+
+        .ascii-char {
+            font-family: 'Fredoka One', cursive;
+            font-size: 2em;
+            color: var(--amarelo-neon);
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .ascii-bin {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85em;
+            color: var(--ciano);
+            letter-spacing: 1px;
+        }
+
+        /* ====== PIXEL / COR (CAP 4) ====== */
+        .pixel-demo {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 25px 0;
+            padding: 25px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 20px;
+        }
+
+        .pixel-square {
+            width: 100px; height: 100px;
+            border-radius: 16px;
+            flex-shrink: 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .pixel-info { text-align: left; }
+
+        .pixel-channel {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 6px 0;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+
+        .channel-label {
+            width: 20px; height: 20px;
+            border-radius: 6px;
+            flex-shrink: 0;
+        }
+
+        .channel-r { background: #FF6B6B; }
+        .channel-g { background: #51CF66; }
+        .channel-b { background: #339AF0; }
+
+        /* ====== DIVISÃO POR 2 (CAP 5) ====== */
+        .division-example {
+            margin: 25px 0;
+            padding: 25px;
+            background: rgba(0,0,0,0.15);
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .division-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.3em;
+            color: var(--amarelo-neon);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .div-step {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            margin: 5px 0;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.02);
+            font-family: 'Fira Code', monospace;
+            font-size: 1.05em;
+            font-weight: 600;
+            opacity: 0;
+            animation: stepSlide 0.4s ease-out forwards;
+        }
+
+        @keyframes stepSlide {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .div-step-num {
+            background: rgba(0,206,201,0.15);
+            color: var(--ciano);
+            width: 32px; height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Fredoka One', cursive;
+            font-size: 0.85em;
+            flex-shrink: 0;
+        }
+
+        .div-content { flex: 1; color: var(--branco); }
+        .div-content .num { color: var(--amarelo-neon); }
+        .div-content .op { color: #5A6A7A; }
+        .div-content .eq { color: var(--verde-neon); }
+
+        .div-remainder {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.2em;
+            width: 38px; height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .rem-0 { background: rgba(162,155,254,0.2); color: var(--roxo); }
+        .rem-1 { background: rgba(0,206,201,0.2); color: var(--ciano); }
+
+        .read-direction {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: 20px 0;
+            padding: 16px;
+            background: rgba(253,121,168,0.08);
+            border-radius: 14px;
+            border: 2px dashed rgba(253,121,168,0.2);
+        }
+
+        .read-arrow {
+            font-size: 2em;
+            animation: arrowBounce 1.5s ease-in-out infinite;
+        }
+
+        @keyframes arrowBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+        .read-text {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1em;
+            color: var(--rosa-neon);
+        }
+
+        /* Resultado da conversão */
+        .conversion-result {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0,206,201,0.06);
+            border-radius: 16px;
+            border: 2px solid rgba(0,206,201,0.15);
+            margin-top: 15px;
+        }
+
+        .conv-label {
+            font-size: 0.9em;
+            color: #7F8C8D;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .conv-result-digits {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .conv-digit {
+            font-family: 'Fira Code', monospace;
+            font-weight: 700;
+            font-size: 1.8em;
+            width: 44px; height: 44px;
+            line-height: 44px;
+            text-align: center;
+            border-radius: 12px;
+        }
+
+        .cd-1 {
+            background: rgba(0,206,201,0.15);
+            color: var(--ciano);
+            border: 2px solid rgba(0,206,201,0.25);
+        }
+
+        .cd-0 {
+            background: rgba(162,155,254,0.12);
+            color: var(--roxo);
+            border: 2px solid rgba(162,155,254,0.15);
+        }
+
+        .cd-pad {
+            background: rgba(255,234,167,0.08);
+            color: rgba(255,234,167,0.5);
+            border: 2px dashed rgba(255,234,167,0.2);
+        }
+
+        .conv-decimal {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95em;
+            color: #7F8C8D;
+            margin-top: 10px;
+        }
+
+        .conv-decimal strong { color: var(--amarelo-neon); }
+
+        /* Regra do byte */
+        .byte-rule {
+            text-align: center;
+            margin-top: 15px;
+            padding: 16px;
+            background: rgba(85,239,196,0.06);
+            border-radius: 12px;
+            border: 1px solid rgba(85,239,196,0.12);
+            font-size: 0.95em;
+            color: #B2BEC3;
+            font-weight: 700;
+        }
+
+        .byte-rule strong { color: var(--verde-neon); }
+
+        /* Spoiler divertido */
+        .spoiler-box {
+            text-align: center;
+            margin-top: 18px;
+            padding: 22px;
+            background: rgba(253,121,168,0.06);
+            border-radius: 16px;
+            border: 2px dashed rgba(253,121,168,0.2);
+        }
+
+        .spoiler-emoji { font-size: 2em; display: block; margin-bottom: 8px; }
+
+        .spoiler-text {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.05em;
+            color: var(--rosa-neon);
+            line-height: 1.6;
+        }
+
+        /* ====== FUN FACT ====== */
+        .fun-fact {
+            background: rgba(85,239,196,0.06);
+            border-radius: 16px;
+            padding: 22px;
+            margin-top: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            border: 1px solid rgba(85,239,196,0.12);
+        }
+
+        .fun-fact-icon { font-size: 1.8em; flex-shrink: 0; }
+
+        .fun-fact-text {
+            font-size: 0.98em;
+            line-height: 1.7;
+            color: #B2BEC3;
+            font-weight: 600;
+        }
+
+        .fun-fact-text strong { color: var(--verde-neon); }
+
+        /* ====== INTERATIVO (CAP 6) ====== */
+        .interactive-section {
+            text-align: center;
+            margin: 25px 0;
+        }
+
+        .number-input {
+            font-family: 'Fira Code', monospace;
+            font-size: 1.8em;
+            font-weight: 700;
+            width: 180px;
+            padding: 14px 18px;
+            border: 3px solid var(--ciano);
+            border-radius: 16px;
+            background: rgba(0,206,201,0.06);
+            color: var(--ciano);
+            text-align: center;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .number-input:focus {
+            border-color: var(--verde-neon);
+            box-shadow: 0 0 20px rgba(85,239,196,0.2);
+        }
+
+        .number-input::placeholder {
+            color: rgba(0,206,201,0.25);
+            font-size: 0.55em;
+        }
+
+        .convert-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--ciano), var(--verde-neon));
+            color: var(--azul-escuro);
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.15em;
+            padding: 13px 36px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 14px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0,206,201,0.25);
+        }
+
+        .convert-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0,206,201,0.35);
+        }
+
+        .convert-btn:active { transform: translateY(0) scale(0.98); }
+
+        .quick-examples {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+
+        .quick-btn {
+            background: rgba(255,255,255,0.04);
+            border: 2px solid rgba(0,206,201,0.15);
+            border-radius: 10px;
+            padding: 7px 16px;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            font-size: 0.95em;
+            color: var(--ciano);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quick-btn:hover {
+            background: rgba(0,206,201,0.08);
+            border-color: var(--ciano);
+            transform: translateY(-2px);
+        }
+
+        #interactive-result { margin-top: 20px; }
+
+        /* ====== FOOTER ====== */
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: #3D4F6A;
+            font-weight: 700;
+            font-size: 1.05em;
+        }
+
+        .footer span { color: var(--amarelo-neon); }
+
+        /* ====== RESPONSIVO ====== */
+        @media (max-width: 600px) {
+            .header h1 { font-size: 1.8em; }
+            .transistor-demo { gap: 15px; }
+            .transistor-box { width: 100%; max-width: 300px; }
+            .card { padding: 22px; }
+            .division-title { font-size: 1.1em; }
+            .pixel-demo { flex-direction: column; text-align: center; }
+            .pixel-info { text-align: center; }
+            .context-cards { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ====== FUNDO ====== -->
+<div class="stars" id="stars"></div>
+<div id="floatingBinary"></div>
+
+<div class="container">
+
+    <!-- ====== HEADER ====== -->
+    <div class="header">
+        <h1>🤖 A Aventura do BIT</h1>
+        <p class="subtitle">Do transistor ao binário — a linguagem secreta dos computadores!</p>
+        <div class="hero-emoji">💡</div>
+    </div>
+
+    <!-- ====== NAVEGAÇÃO ====== -->
+    <div class="chapter-nav">
+        <a class="chapter-dot active" href="#cap1">Cap 1 · O BIT</a>
+        <a class="chapter-dot" href="#cap2">Cap 2 · Transistor</a>
+        <a class="chapter-dot" href="#cap3">Cap 3 · Byte</a>
+        <a class="chapter-dot" href="#cap4">Cap 4 · Letras e Cores</a>
+        <a class="chapter-dot" href="#cap5">Cap 5 · Dividindo por 2</a>
+        <a class="chapter-dot" href="#cap6">Cap 6 · Teste Você!</a>
+    </div>
+
+    <!-- ================================================================ -->
+    <!-- CAPÍTULO 1 — O QUE É UM BIT? -->
+    <!-- ================================================================ -->
+    <div class="card" id="cap1">
+        <div class="card-header">
+            <div class="card-icon">💡</div>
+            <div>
+                <span class="chapter-label">Capítulo 1</span>
+                <div class="card-title">O que é um BIT?</div>
+            </div>
+        </div>
+
+        <div class="card-text">
+            <p>Imagine que você tem uma <strong>lanterna</strong>. Ela só pode fazer duas coisas:</p>
+            <br>
+            <p>🔦 <strong>Acesa</strong> = tem luz = tem energia passando = isso é o <strong style="color:var(--ciano)">1</strong></p>
+            <p>🌑 <strong>Apagada</strong> = sem luz = sem energia = isso é o <strong style="color:var(--roxo)">0</strong></p>
+            <br>
+            <p>Um <strong>BIT</strong> é exatamente isso: a menor informação que existe no mundo dos computadores. Ele só pode ser <strong style="color:var(--ciano)">1</strong> (tem energia) ou <strong style="color:var(--roxo)">0</strong> (sem energia).</p>
+            <br>
+            <p>A palavra <strong>BIT</strong> vem do inglês: <strong>"B</strong>inary dig<strong>IT"</strong> (dígito binário).</p>
+        </div>
+
+        <div class="lamp-row">
+            <div class="lamp" onclick="this.querySelector('.lamp-bulb').classList.toggle('lamp-on'); this.querySelector('.lamp-bulb').classList.toggle('lamp-off');">
+                <div class="lamp-bulb lamp-on">1</div>
+                <div class="lamp-label">LIGADO</div>
+            </div>
+            <div class="lamp" onclick="this.querySelector('.lamp-bulb').classList.toggle('lamp-on'); this.querySelector('.lamp-bulb').classList.toggle('lamp-off');">
+                <div class="lamp-bulb lamp-off">0</div>
+                <div class="lamp-label">DESLIGADO</div>
+            </div>
+        </div>
+
+        <div class="fun-fact">
+            <span class="fun-fact-icon">🧒</span>
+            <div class="fun-fact-text">
+                <strong>Pensa assim:</strong> quando você responde "Sim" ou "Não" para uma pergunta, você está dando 1 bit de informação! O computador faz bilhões dessas perguntas por segundo!
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================================ -->
+    <!-- CAPÍTULO 2 — O TRANSISTOR -->
+    <!-- ================================================================ -->
+    <div class="card" id="cap2">
+        <div class="card-header">
+            <div class="card-icon">🔌</div>
+            <div>
+                <span class="chapter-label">Capítulo 2</span>
+                <div class="card-title">O Transistor — O Portãozinho Mágico!</div>
+            </div>
+        </div>
+
+        <div class="card-text">
+            <p>Dentro do computador existem bilhões de pecinhas minúsculas chamadas <strong>transistores</strong>. Cada um funciona como um <strong>portãozinho de energia</strong>:</p>
+            <br>
+            <p>Quando o portão está <strong>aberto</strong> → a energia <strong style="color:var(--ciano)">passa</strong> → ele gera o valor <strong style="color:var(--ciano)">1</strong></p>
+            <p>Quando <strong>algo</strong> fecha o portão → a energia <strong style="color:var(--roxo)">não passa</strong> → ele gera o valor <strong style="color:var(--roxo)">0</strong></p>
+            <br>
+            <p>Mas... <strong>quem fecha esse portão?</strong> 🤔 Uma outra <strong>força elétrica</strong> vinda de outro transistor! Eles se controlam uns aos outros, como uma grande cadeia de dominós!</p>
+        </div>
+
+        <div class="transistor-demo">
+            <!-- TRANSISTOR LIGADO -->
+            <div class="transistor-box transistor-on">
+                <svg class="transistor-svg" viewBox="0 0 200 240">
+                    <!-- Canal principal -->
+                    <rect x="80" y="20" width="40" height="200" rx="6" fill="rgba(0,206,201,0.08)" stroke="rgba(0,206,201,0.3)" stroke-width="1.5"/>
+
+                    <!-- Portão ABERTO (à esquerda, afastado) -->
+                    <rect x="20" y="85" width="45" height="70" rx="8" fill="rgba(85,239,196,0.1)" stroke="#55EFC4" stroke-width="2"/>
+                    <text x="42" y="115" text-anchor="middle" fill="#55EFC4" font-family="Fredoka One" font-size="9">PORTÃO</text>
+                    <text x="42" y="130" text-anchor="middle" fill="#55EFC4" font-family="Fredoka One" font-size="9">ABERTO</text>
+                    <text x="42" y="148" text-anchor="middle" fill="#55EFC4" font-size="14">✓</text>
+
+                    <!-- Seta do portão (afastada = aberto) -->
+                    <line x1="65" y1="120" x2="76" y2="120" stroke="#55EFC4" stroke-width="2" stroke-dasharray="4"/>
+
+                    <!-- Labels -->
+                    <text x="100" y="14" text-anchor="middle" fill="#7F8C8D" font-size="10" font-weight="700">⚡ ENTRADA</text>
+                    <text x="100" y="238" text-anchor="middle" fill="#7F8C8D" font-size="10" font-weight="700">⚡ SAÍDA</text>
+
+                    <!-- Elétrons fluindo (bolinhas descendo) -->
+                    <circle r="5" fill="#00CEC9" opacity="0.9">
+                        <animate attributeName="cy" values="30;210" dur="1.2s" repeatCount="indefinite"/>
+                        <animate attributeName="cx" values="100;100" dur="1.2s" repeatCount="indefinite"/>
+                    </circle>
+                    <circle r="4" fill="#55EFC4" opacity="0.8">
+                        <animate attributeName="cy" values="30;210" dur="1.2s" begin="0.3s" repeatCount="indefinite"/>
+                        <animate attributeName="cx" values="100;100" dur="1.2s" repeatCount="indefinite"/>
+                    </circle>
+                    <circle r="4" fill="#FFEAA7" opacity="0.7">
+                        <animate attributeName="cy" values="30;210" dur="1.2s" begin="0.6s" repeatCount="indefinite"/>
+                        <animate attributeName="cx" values="100;100" dur="1.2s" repeatCount="indefinite"/>
+                    </circle>
+                    <circle r="3" fill="#00CEC9" opacity="0.6">
+                        <animate attributeName="cy" values="30;210" dur="1.2s" begin="0.9s" repeatCount="indefinite"/>
+                        <animate attributeName="cx" values="100;100" dur="1.2s" repeatCount="indefinite"/>
+                    </circle>
+
+                    <!-- Brilho de energia -->
+                    <circle cx="100" cy="120" r="30" fill="none" stroke="rgba(0,206,201,0.12)" stroke-width="1">
+                        <animate attributeName="r" values="25;35;25" dur="2s" repeatCount="indefinite"/>
+                        <animate attributeName="opacity" values="0.3;0.1;0.3" dur="2s" repeatCount="indefinite"/>
+                    </circle>
+                </svg>
+                <div class="transistor-label">1</div>
+                <div class="transistor-desc">⚡ Elétrons fluindo livremente!</div>
+                <div class="transistor-state state-on">BIT = 1</div>
+            </div>
+
+            <!-- TRANSISTOR DESLIGADO -->
+            <div class="transistor-box transistor-off">
+                <svg class="transistor-svg" viewBox="0 0 200 240">
+                    <!-- Canal principal -->
+                    <rect x="80" y="20" width="40" height="200" rx="6" fill="rgba(162,155,254,0.05)" stroke="rgba(162,155,254,0.2)" stroke-width="1.5"/>
+
+                    <!-- Barreira / Portão FECHADO (encostando no canal!) -->
+                    <rect x="20" y="85" width="80" height="70" rx="8" fill="rgba(162,155,254,0.12)" stroke="#A29BFE" stroke-width="2">
+                        <!-- Animação do portão se fechando -->
+                        <animate attributeName="width" values="45;80" dur="2s" fill="freeze" repeatCount="1"/>
+                    </rect>
+                    <text x="60" y="115" text-anchor="middle" fill="#A29BFE" font-family="Fredoka One" font-size="9">PORTÃO</text>
+                    <text x="60" y="130" text-anchor="middle" fill="#A29BFE" font-family="Fredoka One" font-size="9">FECHADO!</text>
+                    <text x="60" y="148" text-anchor="middle" fill="#FF7675" font-size="14">✗</text>
+
+                    <!-- Força externa empurrando o portão (seta vermelha) -->
+                    <line x1="5" y1="100" x2="18" y2="100" stroke="#FF7675" stroke-width="2.5">
+                        <animate attributeName="x2" values="12;20;12" dur="1.5s" repeatCount="indefinite"/>
+                    </line>
+                    <polygon points="18,95 26,100 18,105" fill="#FF7675">
+                        <animate attributeName="points" values="18,95 26,100 18,105;20,95 28,100 20,105;18,95 26,100 18,105" dur="1.5s" repeatCount="indefinite"/>
+                    </polygon>
+                    <text x="14" y="88" text-anchor="middle" fill="#FF7675" font-size="7" font-weight="700">FORÇA</text>
+                    <text x="14" y="118" text-anchor="middle" fill="#FF7675" font-size="7" font-weight="700">EXTERNA</text>
+
+                    <!-- Labels -->
+                    <text x="100" y="14" text-anchor="middle" fill="#3D4F6A" font-size="10" font-weight="700">⚡ ENTRADA</text>
+                    <text x="100" y="238" text-anchor="middle" fill="#3D4F6A" font-size="10" font-weight="700">🚫 SAÍDA</text>
+
+                    <!-- Barreira visual no meio do canal -->
+                    <rect x="78" y="105" width="44" height="30" rx="4" fill="rgba(162,155,254,0.25)" stroke="#A29BFE" stroke-width="1.5">
+                        <animate attributeName="opacity" values="0;1" dur="2s" fill="freeze"/>
+                    </rect>
+                    <text x="100" y="125" text-anchor="middle" fill="#A29BFE" font-size="10" font-weight="700">
+                        BLOQUEIO
+                        <animate attributeName="opacity" values="0;1" dur="2.2s" fill="freeze"/>
+                    </text>
+
+                    <!-- Elétrons PARADOS (acumulados acima do bloqueio) -->
+                    <circle cx="90" cy="65" r="4" fill="#A29BFE" opacity="0.5">
+                        <animate attributeName="cy" values="67;62;67" dur="2s" repeatCount="indefinite"/>
+                    </circle>
+                    <circle cx="100" cy="55" r="3.5" fill="#A29BFE" opacity="0.4">
+                        <animate attributeName="cy" values="57;52;57" dur="2.5s" repeatCount="indefinite"/>
+                    </circle>
+                    <circle cx="110" cy="70" r="3" fill="#A29BFE" opacity="0.45">
+                        <animate attributeName="cy" values="72;67;72" dur="1.8s" repeatCount="indefinite"/>
+                    </circle>
+                    <circle cx="95" cy="78" r="4" fill="#A29BFE" opacity="0.5">
+                        <animate attributeName="cy" values="80;75;80" dur="2.2s" repeatCount="indefinite"/>
+                    </circle>
+                    <circle cx="105" cy="45" r="3" fill="#A29BFE" opacity="0.35">
+                        <animate attributeName="cy" values="47;42;47" dur="1.9s" repeatCount="indefinite"/>
+                    </circle>
+                    <circle cx="98" cy="88" r="3.5" fill="#A29BFE" opacity="0.4">
+                        <animate attributeName="cy" values="90;85;90" dur="2.1s" repeatCount="indefinite"/>
+                    </circle>
+
+                    <!-- Nada abaixo do bloqueio (vazio!) -->
+                </svg>
+                <div class="transistor-label">0</div>
+                <div class="transistor-desc">🚫 Elétrons parados, sem passar!</div>
+                <div class="transistor-state state-off">BIT = 0</div>
+            </div>
+        </div>
+
+        <div class="fun-fact">
+            <span class="fun-fact-icon">🤯</span>
+            <div class="fun-fact-text">
+                <strong>Sabia que...</strong> o processador do seu celular tem mais de <strong>10 BILHÕES</strong> de transistores? Cada um é menor que um fio de cabelo! Todos trabalhando juntos, abrindo e fechando portões bilhões de vezes por segundo. É assim que nasce tudo que você vê na tela!
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================================ -->
+    <!-- CAPÍTULO 3 — O BYTE -->
+    <!-- ================================================================ -->
+    <div class="card" id="cap3">
+        <div class="card-header">
+            <div class="card-icon">📦</div>
+            <div>
+                <span class="chapter-label">Capítulo 3</span>
+                <div class="card-title">O BYTE — Pacotinhos de 8 Bits!</div>
+            </div>
+        </div>
+
+        <div class="card-text">
+            <p>Um bit sozinho não diz muita coisa (só "sim" ou "não"). Mas quando juntamos <strong>8 bits</strong>, formamos um <strong>BYTE</strong> — um pacotinho de informação!</p>
+        </div>
+
+        <div class="byte-visual">
+            <div class="byte-bit byte-0">0</div>
+            <div class="byte-bit byte-1">1</div>
+            <div class="byte-bit byte-0">0</div>
+            <div class="byte-bit byte-0">0</div>
+            <div class="byte-bit byte-0">0</div>
+            <div class="byte-bit byte-0">0</div>
+            <div class="byte-bit byte-0">0</div>
+            <div class="byte-bit byte-1">1</div>
+        </div>
+
+        <div class="card-text" style="text-align:center; margin:15px 0;">
+            <p>👆 Este pacotinho é: <strong style="color:var(--ciano); font-family:'Fira Code',monospace; letter-spacing:2px;">01000001</strong></p>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <div class="card-text">
+            <p>Mas o que esse pacotinho <strong>significa</strong>? Depende de quem está lendo!</p>
+            <br>
+            <p>O computador recebe bilhões desses pacotinhos viajando na <strong>velocidade da luz</strong>. Quando alguém diz pra ele <em>"este pacotinho é uma letra"</em>, ele mostra uma letra. Se dizem <em>"é uma cor"</em>, ele pinta uma cor. Se dizem <em>"é um som"</em>, ele toca uma nota!</p>
+            <br>
+            <p>Olha só como o <strong>mesmo pacotinho</strong> muda de significado:</p>
+        </div>
+
+        <div class="context-cards">
+            <!-- Letra -->
+            <div class="context-item">
+                <span class="context-emoji">📝</span>
+                <div class="context-label context-label-letter">Se for uma LETRA...</div>
+                <div class="context-binary">01000001</div>
+                <div class="context-meaning">Na tabela de letras (ASCII):</div>
+                <span class="context-result" style="color:var(--amarelo-neon)">A</span>
+            </div>
+
+            <!-- Cor -->
+            <div class="context-item">
+                <span class="context-emoji">🎨</span>
+                <div class="context-label context-label-color">Se for uma COR...</div>
+                <div class="context-binary">01000001</div>
+                <div class="context-meaning">Na tabela de cores, seria:</div>
+                <span class="context-result" style="color:var(--rosa-neon)">Um tom de azul escuro 🔵</span>
+            </div>
+
+            <!-- Som -->
+            <div class="context-item">
+                <span class="context-emoji">🎵</span>
+                <div class="context-label context-label-sound">Se for um SOM...</div>
+                <div class="context-binary">01000001</div>
+                <div class="context-meaning">Na tabela de música, seria:</div>
+                <span class="context-result" style="color:var(--verde-neon)">Um nível de volume 🔊</span>
+            </div>
+        </div>
+
+        <div class="fun-fact">
+            <span class="fun-fact-icon">🧠</span>
+            <div class="fun-fact-text">
+                <strong>O segredo:</strong> os bits sozinhos não sabem o que são! É o <strong>programa</strong> que diz ao computador: "estes pacotinhos são letras de um texto", "estes são cores de uma foto", "estes são sons de uma música". Tudo que você usa no dia a dia — celular, TV, videogame, relógio digital — funciona assim: bilhões de pacotinhos sendo interpretados a cada segundo!
+            </div>
+        </div>
+
+        <div class="fun-fact" style="background: rgba(255,234,167,0.04); border-color: rgba(255,234,167,0.1);">
+            <span class="fun-fact-icon">📏</span>
+            <div class="fun-fact-text">
+                <strong>Medidas de dados:</strong> 1 Byte = 8 bits. 1 Kilobyte (KB) = 1.024 Bytes. 1 Megabyte (MB) = 1.024 KB. Uma foto do celular tem cerca de <strong>3 MB</strong>, ou seja, mais de <strong>25 milhões de bits</strong> — 25 milhões de transistores ligando e desligando pra guardar uma única foto!
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================================ -->
+    <!-- CAPÍTULO 4 — LETRAS E CORES -->
+    <!-- ================================================================ -->
+    <div class="card" id="cap4">
+        <div class="card-header">
+            <div class="card-icon">🎨</div>
+            <div>
+                <span class="chapter-label">Capítulo 4</span>
+                <div class="card-title">Letras (ASCII) e Cores (RGB)</div>
+            </div>
+        </div>
+
+        <div class="card-text">
+            <p>🔤 <strong>Tabela ASCII</strong> — Os humanos criaram uma lista combinada: cada sequência de 8 bits representa uma letra, número ou símbolo. Veja alguns exemplos:</p>
+        </div>
+
+        <div class="ascii-showcase">
+            <div class="ascii-item">
+                <span class="ascii-char">A</span>
+                <span class="ascii-bin">01000001</span>
+            </div>
+            <div class="ascii-item">
+                <span class="ascii-char">B</span>
+                <span class="ascii-bin">01000010</span>
+            </div>
+            <div class="ascii-item">
+                <span class="ascii-char">C</span>
+                <span class="ascii-bin">01000011</span>
+            </div>
+            <div class="ascii-item">
+                <span class="ascii-char">a</span>
+                <span class="ascii-bin">01100001</span>
+            </div>
+            <div class="ascii-item">
+                <span class="ascii-char">1</span>
+                <span class="ascii-bin">00110001</span>
+            </div>
+            <div class="ascii-item">
+                <span class="ascii-char">!</span>
+                <span class="ascii-bin">00100001</span>
+            </div>
+        </div>
+
+        <div class="card-text" style="margin-top:15px;">
+            <p>Quando você digita <strong>"Oi!"</strong> no computador, ele guarda três pacotinhos: <strong style="color:var(--ciano); font-family:'Fira Code',monospace;">01001111</strong> <strong style="color:var(--ciano); font-family:'Fira Code',monospace;">01101001</strong> <strong style="color:var(--ciano); font-family:'Fira Code',monospace;">00100001</strong></p>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <div class="card-text">
+            <p>🎨 <strong>Cores (RGB)</strong> — Cada pontinho da tela (pixel) é feito de 3 bytes: um para <strong style="color:#FF6B6B">Vermelho (R)</strong>, um para <strong style="color:#51CF66">Verde (G)</strong> e um para <strong style="color:#339AF0">Azul (B)</strong>.</p>
+        </div>
+
+        <div class="pixel-demo">
+            <div class="pixel-square" style="background: rgb(0, 206, 201);"></div>
+            <div class="pixel-info">
+                <div class="pixel-channel">
+                    <div class="channel-label channel-r"></div>
+                    <span style="color:#FF6B6B">R →</span>
+                    <span style="color:#5A6A7A">00000000</span>
+                </div>
+                <div class="pixel-channel">
+                    <div class="channel-label channel-g"></div>
+                    <span style="color:#51CF66">G →</span>
+                    <span style="color:#5A6A7A">11001110</span>
+                </div>
+                <div class="pixel-channel">
+                    <div class="channel-label channel-b"></div>
+                    <span style="color:#339AF0">B →</span>
+                    <span style="color:#5A6A7A">11001001</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="pixel-demo">
+            <div class="pixel-square" style="background: rgb(255, 107, 107);"></div>
+            <div class="pixel-info">
+                <div class="pixel-channel">
+                    <div class="channel-label channel-r"></div>
+                    <span style="color:#FF6B6B">R →</span>
+                    <span style="color:#5A6A7A">11111111</span>
+                </div>
+                <div class="pixel-channel">
+                    <div class="channel-label channel-g"></div>
+                    <span style="color:#51CF66">G →</span>
+                    <span style="color:#5A6A7A">01101011</span>
+                </div>
+                <div class="pixel-channel">
+                    <div class="channel-label channel-b"></div>
+                    <span style="color:#339AF0">B →</span>
+                    <span style="color:#5A6A7A">01101011</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="fun-fact">
+            <span class="fun-fact-icon">📺</span>
+            <div class="fun-fact-text">
+                <strong>Cada pontinho da sua tela</strong> (pixel) usa 3 bytes = 24 bits. Uma tela Full HD tem 2 milhões de pixels. Isso significa que cada imagem usa <strong>48 milhões de bits</strong> — tudo com 0 e 1!
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================================ -->
+    <!-- CAPÍTULO 5 — DIVIDINDO POR 2 -->
+    <!-- ================================================================ -->
+    <div class="card" id="cap5">
+        <div class="card-header">
+            <div class="card-icon">➗</div>
+            <div>
+                <span class="chapter-label">Capítulo 5</span>
+                <div class="card-title">Transformando em Binário — Dividindo por 2!</div>
+            </div>
+        </div>
+
+        <div class="card-text">
+            <p>Para transformar qualquer número em binário, a regra é super simples:</p>
+            <br>
+            <p><strong>1.</strong> Divide o número por <strong>2</strong></p>
+            <p><strong>2.</strong> Anota o <strong>resto</strong> (sobrou 0 ou 1?)</p>
+            <p><strong>3.</strong> Pega o <strong>resultado</strong> e divide por 2 de novo</p>
+            <p><strong>4.</strong> Repete até chegar no <strong>0</strong></p>
+            <p><strong>5.</strong> Lê os restos de <strong style="color:var(--rosa-neon)">baixo para cima</strong>!</p>
+            <p><strong>6.</strong> Completa com <strong style="color:var(--amarelo-neon)">zeros à esquerda</strong> até formar <strong>8 bits</strong> (1 Byte)!</p>
+        </div>
+
+        <!-- Exemplos gerados pelo JS -->
+        <div id="ex-7"></div>
+        <div id="ex-25"></div>
+        <div id="ex-200"></div>
+        <div id="ex-500"></div>
+    </div>
+
+    <!-- ================================================================ -->
+    <!-- CAPÍTULO 6 — TESTE VOCÊ! -->
+    <!-- ================================================================ -->
+    <div class="card" id="cap6">
+        <div class="card-header">
+            <div class="card-icon">🧪</div>
+            <div>
+                <span class="chapter-label">Capítulo 6</span>
+                <div class="card-title">Agora é SUA Vez! Teste Qualquer Número!</div>
+            </div>
+        </div>
+
+        <div class="card-text" style="text-align:center;">
+            <p>Digite um número e veja a mágica da divisão por 2 acontecendo!</p>
+        </div>
+
+        <div class="interactive-section">
+            <input type="number" class="number-input" id="userInput" placeholder="Ex: 50" min="1" max="9999" onkeydown="if(event.key==='Enter') convertNumber()">
+            <br>
+            <button class="convert-btn" onclick="convertNumber()">🚀 Converter para Binário!</button>
+
+            <div class="quick-examples">
+                <button class="quick-btn" onclick="quickConvert(2)">2</button>
+                <button class="quick-btn" onclick="quickConvert(10)">10</button>
+                <button class="quick-btn" onclick="quickConvert(42)">42</button>
+                <button class="quick-btn" onclick="quickConvert(100)">100</button>
+                <button class="quick-btn" onclick="quickConvert(128)">128</button>
+                <button class="quick-btn" onclick="quickConvert(255)">255</button>
+                <button class="quick-btn" onclick="quickConvert(1000)">1000</button>
+            </div>
+        </div>
+
+        <div id="interactive-result"></div>
+    </div>
+
+    <!-- ====== FOOTER ====== -->
+    <div class="footer">
+        Feito com <span>💛</span> para aprender a linguagem secreta dos computadores!
+    </div>
+
+</div>
+
+<script>
+    // ====== FUNDO: Estrelas ======
+    (function() {
+        var starsEl = document.getElementById('stars');
+        for (var i = 0; i < 80; i++) {
+            var star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = (Math.random() * 5) + 's';
+            star.style.animationDuration = (2 + Math.random() * 3) + 's';
+            starsEl.appendChild(star);
+        }
+    })();
+
+    // ====== FUNDO: Binários flutuantes ======
+    (function() {
+        var container = document.getElementById('floatingBinary');
+        var binaries = ['01001000', '01100101', '01101100', '00110001', '01010101'];
+        for (var i = 0; i < 12; i++) {
+            var el = document.createElement('div');
+            el.className = 'floating-binary';
+            el.textContent = binaries[i % binaries.length];
+            el.style.left = Math.random() * 100 + '%';
+            el.style.animationDelay = (Math.random() * 15) + 's';
+            el.style.animationDuration = (12 + Math.random() * 10) + 's';
+            el.style.fontSize = (0.8 + Math.random() * 0.8) + 'em';
+            container.appendChild(el);
+        }
+    })();
+
+    // ====== NAVEGAÇÃO ======
+    document.querySelectorAll('.chapter-dot').forEach(function(dot) {
+        dot.addEventListener('click', function() {
+            document.querySelectorAll('.chapter-dot').forEach(function(d) { d.classList.remove('active'); });
+            this.classList.add('active');
+        });
+    });
+
+    // ====== GERAR EXEMPLO DE DIVISÃO ======
+    function generateDivisionExample(number, containerId, title, flavor) {
+        var container = document.getElementById(containerId);
+        if (!container) return;
+
+        var steps = [];
+        var current = number;
+
+        // Calcular divisões
+        while (current > 0) {
+            var quotient = Math.floor(current / 2);
+            var remainder = current % 2;
+            steps.push({ dividend: current, quotient: quotient, remainder: remainder });
+            current = quotient;
+        }
+
+        // Binário bruto (lendo restos de baixo pra cima)
+        var binaryRaw = steps.map(function(s) { return s.remainder; }).reverse().join('');
+
+        // Completar com zeros para múltiplo de 8 (byte)
+        var binaryPadded = binaryRaw;
+        while (binaryPadded.length % 8 !== 0) {
+            binaryPadded = '0' + binaryPadded;
+        }
+
+        var paddingCount = binaryPadded.length - binaryRaw.length;
+        var totalBits = binaryPadded.length;
+        var totalBytes = totalBits / 8;
+        var needsMoreThanOneByte = totalBytes > 1;
+
+        // Construir HTML
+        var html = '<div class="division-example">';
+        html += '<div class="division-title">' + title + '</div>';
+
+        // Passos
+        steps.forEach(function(step, index) {
+            var delay = index * 0.12;
+            var remClass = step.remainder === 1 ? 'rem-1' : 'rem-0';
+            var sobrouText = step.remainder === 0 ? '(divisão exata!)' : '(sobrou 1!)';
+            html += '<div class="div-step" style="animation-delay:' + delay + 's">';
+            html += '<div class="div-step-num">' + (index + 1) + '</div>';
+            html += '<div class="div-content">';
+            html += '<span class="num">' + step.dividend + '</span>';
+            html += ' <span class="op">÷ 2 =</span> ';
+            html += '<span class="eq">' + step.quotient + '</span>';
+            html += ' <span class="op">' + sobrouText + '</span>';
+            html += '</div>';
+            html += '<div class="div-remainder ' + remClass + '">' + step.remainder + '</div>';
+            html += '</div>';
+        });
+
+        // Seta
+        html += '<div class="read-direction">';
+        html += '<span class="read-arrow">⬆️</span>';
+        html += '<span class="read-text">Leia os restos de BAIXO para CIMA!</span>';
+        html += '<span class="read-arrow">⬆️</span>';
+        html += '</div>';
+
+        // Resultado
+        html += '<div class="conversion-result">';
+        html += '<div class="conv-label">Resultado da divisão: ' + binaryRaw + ' (' + binaryRaw.length + ' bits)</div>';
+
+        // Se precisa completar zeros
+        if (paddingCount > 0) {
+            html += '<div class="conv-label" style="color:var(--amarelo-neon); margin:10px 0 5px;">✨ Completando com ' + paddingCount + ' zero' + (paddingCount > 1 ? 's' : '') + ' à esquerda para formar ' + totalBytes + ' byte' + (totalBytes > 1 ? 's' : '') + ' (' + totalBits + ' bits):</div>';
+        }
+
+        // Dígitos visuais
+        html += '<div class="conv-result-digits">';
+        for (var i = 0; i < binaryPadded.length; i++) {
+            var bit = binaryPadded[i];
+            var cls = '';
+            if (i < paddingCount) {
+                cls = 'cd-pad'; // zeros de preenchimento
+            } else if (bit === '1') {
+                cls = 'cd-1';
+            } else {
+                cls = 'cd-0';
+            }
+
+            // Separador visual entre bytes
+            if (i > 0 && i % 8 === 0) {
+                html += '<div style="width:12px"></div>';
+            }
+
+            html += '<div class="conv-digit ' + cls + '">' + bit + '</div>';
+        }
+        html += '</div>';
+
+        html += '<div class="conv-decimal"><strong>' + number + '</strong> em decimal = <strong>' + binaryPadded + '</strong> em binário</div>';
+
+        // Regra do byte
+        if (paddingCount > 0 && !needsMoreThanOneByte) {
+            html += '<div class="byte-rule">💡 A divisão deu <strong>' + binaryRaw.length + ' bits</strong>, mas um byte precisa de <strong>8</strong>. Completamos com <strong>' + paddingCount + ' zero' + (paddingCount > 1 ? 's' : '') + '</strong> à esquerda — é como escrever "007" ao invés de "7"!</div>';
+        }
+
+        html += '</div>';
+
+        // Spoiler pra quando passa de 1 byte
+        if (needsMoreThanOneByte) {
+            html += '<div class="spoiler-box">';
+            html += '<span class="spoiler-emoji">😱</span>';
+            html += '<div class="spoiler-text">Epa! O número ' + number + ' precisou de ' + totalBits + ' bits — são ' + totalBytes + ' bytes! Não coube em 1 byte só!<br><br>Por isso os humanos inventaram sistemas de 16, 32 e 64 bits... mas essa aventura fica pra próxima! 🚀</div>';
+            html += '</div>';
+        }
+
+        // Flavor text
+        if (flavor) {
+            html += '<div class="fun-fact" style="margin-top:15px;">';
+            html += '<span class="fun-fact-icon">' + flavor.icon + '</span>';
+            html += '<div class="fun-fact-text">' + flavor.text + '</div>';
+            html += '</div>';
+        }
+
+        html += '</div>';
+
+        container.innerHTML = html;
+    }
+
+    // ====== GERAR EXEMPLOS FIXOS ======
+    generateDivisionExample(7, 'ex-7',
+        '🟣 Exemplo 1: O pequenininho — Número 7',
+        {
+            icon: '🐣',
+            text: '<strong>Fácil, né?</strong> O 7 precisou de só 3 divisões! Mas deu apenas 3 bits (111), então completamos com 5 zeros à esquerda para formar 1 byte completo: <strong>00000111</strong>. Moleza!'
+        }
+    );
+
+    generateDivisionExample(25, 'ex-25',
+        '🟡 Exemplo 2: Com sobras! — Número 25',
+        {
+            icon: '🔢',
+            text: '<strong>Percebeu as sobras?</strong> Quando o número é ímpar, a divisão por 2 sempre sobra 1. Quando é par, sobra 0. É por isso que os ímpares terminam com 1 no binário e os pares terminam com 0!'
+        }
+    );
+
+    generateDivisionExample(200, 'ex-200',
+        '🟢 Exemplo 3: Certinho no Byte! — Número 200',
+        {
+            icon: '🎯',
+            text: '<strong>Esse coube certinho!</strong> O 200 usou exatamente 8 bits — um byte perfeito! Números de 128 a 255 sempre precisam de exatamente 8 bits.'
+        }
+    );
+
+    generateDivisionExample(500, 'ex-500',
+        '🔴 Exemplo 4: O grandão! — Número 500',
+        null
+    );
+
+    // ====== INTERATIVO ======
+    function convertNumber() {
+        var input = document.getElementById('userInput');
+        var value = parseInt(input.value);
+
+        if (isNaN(value) || value < 1 || value > 9999) {
+            document.getElementById('interactive-result').innerHTML =
+                '<div style="text-align:center; color:var(--rosa-neon); font-weight:700; padding:20px; font-size:1.1em;">⚠️ Digite um número entre 1 e 9999!</div>';
+            return;
+        }
+
+        var resultDiv = document.getElementById('interactive-result');
+        resultDiv.innerHTML = '<div id="ex-interactive"></div>';
+
+        generateDivisionExample(value, 'ex-interactive',
+            '🚀 Convertendo o número ' + value + ' para binário!',
+            null
+        );
+
+        resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function quickConvert(num) {
+        document.getElementById('userInput').value = num;
+        convertNumber();
+    }
+</script>
+
+</body>
+</html>

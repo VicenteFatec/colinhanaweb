@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colinha na Web — Produções Educacionais Interativas</title>
+    <meta name="description" content="Galeria de produções educacionais interativas feitas com inteligência artificial. Aprenda brincando com atividades de Matemática, Computação e muito mais!">
+    <meta name="keywords" content="educação, interativo, matemática, computação, crianças, aprendizado, HTML, jogos educativos">
+    <meta name="author" content="Colinha na Web">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Colinha na Web — Produções Educacionais Interativas">
+    <meta property="og:description" content="Galeria de produções educacionais interativas. Aprenda brincando!">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://colinhanaweb.com.br">
+    <meta property="og:image" content="https://colinhanaweb.com.br/assets/og-image.png">
+    <meta property="og:locale" content="pt_BR">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-icon">📚</span>
+                <h1 class="logo-text">Colinha na Web</h1>
+            </div>
+            <p class="tagline">Produções educacionais interativas</p>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2 class="hero-title">Aprenda brincando!</h2>
+            <p class="hero-description">
+                Uma galeria de atividades educacionais interativas criadas com inteligência artificial.
+                Cada produção é uma experiência única de aprendizado — clique, explore e divirta-se!
+            </p>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-number">2</span>
+                    <span class="stat-label">Produções</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">2</span>
+                    <span class="stat-label">Categorias</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label">Gratuito</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-decoration">
+            <span class="floating-emoji" style="--delay: 0s; --x: 10%; --y: 20%;">🚀</span>
+            <span class="floating-emoji" style="--delay: 1s; --x: 85%; --y: 15%;">🧮</span>
+            <span class="floating-emoji" style="--delay: 2s; --x: 75%; --y: 70%;">💡</span>
+            <span class="floating-emoji" style="--delay: 0.5s; --x: 20%; --y: 75%;">🎮</span>
+            <span class="floating-emoji" style="--delay: 1.5s; --x: 50%; --y: 10%;">⭐</span>
+        </div>
+    </section>
+
+    <!-- Filtros -->
+    <section class="filters">
+        <div class="filters-content">
+            <button class="filter-btn active" data-filter="todos">Todos</button>
+            <button class="filter-btn" data-filter="computacao">Computação</button>
+            <button class="filter-btn" data-filter="matematica">Matemática</button>
+        </div>
+    </section>
+
+    <!-- Grid de Produções -->
+    <section class="gallery">
+        <div class="gallery-grid">
+
+            <!-- Card 1: Aventura do BIT -->
+            <a href="producoes/aventura-do-bit-v2.html" class="card" data-tags="computacao">
+                <div class="card-thumbnail">
+                    <div class="card-thumbnail-placeholder" style="background: linear-gradient(135deg, #0A1628, #1B2A4A);">
+                        <span class="card-thumbnail-emoji">🤖</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="card-tags">
+                        <span class="tag tag-computacao">Computação</span>
+                    </div>
+                    <h3 class="card-title">A Aventura do BIT</h3>
+                    <p class="card-subtitle">Do Transistor ao Binário!</p>
+                    <p class="card-description">
+                        Embarque em uma jornada interativa pelo mundo dos computadores!
+                        Descubra como transistores funcionam e aprenda o sistema binário de forma divertida.
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <span class="card-cta">Explorar →</span>
+                </div>
+            </a>
+
+            <!-- Card 2: Contando Noves -->
+            <a href="producoes/contando-noves.html" class="card" data-tags="matematica">
+                <div class="card-thumbnail">
+                    <div class="card-thumbnail-placeholder" style="background: linear-gradient(135deg, #FFF9E6, #FFD93D);">
+                        <span class="card-thumbnail-emoji">🔢</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="card-tags">
+                        <span class="tag tag-matematica">Matemática</span>
+                    </div>
+                    <h3 class="card-title">Caçando o Número 9!</h3>
+                    <p class="card-subtitle">Contando Noves</p>
+                    <p class="card-description">
+                        Uma aventura matemática onde você precisa encontrar o número 9!
+                        Atividades divertidas para praticar contagem e reconhecimento numérico.
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <span class="card-cta">Explorar →</span>
+                </div>
+            </a>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span class="footer-logo">📚 Colinha na Web</span>
+                <p class="footer-tagline">Aprendizado interativo para todos</p>
+            </div>
+            <div class="footer-info">
+                <p>Produções criadas com auxílio de <strong>Inteligência Artificial (Claude)</strong></p>
+                <p class="footer-copyright">&copy; 2026 Colinha na Web. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
