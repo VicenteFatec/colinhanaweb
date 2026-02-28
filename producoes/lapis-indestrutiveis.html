@@ -1,0 +1,1733 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✏️ Os Lápis Indestrutíveis — Matemática na Base 2!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&family=Fira+Code:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --verde: #00B894;
+            --verde-claro: #55EFC4;
+            --azul: #0984E3;
+            --azul-claro: #74B9FF;
+            --roxo: #6C5CE7;
+            --rosa: #E84393;
+            --laranja: #FF6B35;
+            --amarelo: #FDCB6E;
+            --vermelho: #FF7675;
+            --bg: #FFFDF7;
+            --bg-card: #FFFFFF;
+            --texto: #2D3436;
+            --texto-leve: #636E72;
+            --borda: #F0EDE5;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--bg);
+            color: var(--texto);
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-image:
+                linear-gradient(rgba(0,0,0,0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,0,0,0.015) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 920px;
+            margin: 0 auto;
+            padding: 30px 20px 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* HEADER */
+        .header {
+            text-align: center;
+            margin-bottom: 35px;
+            animation: slideDown 0.7s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header h1 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 2.4em;
+            background: linear-gradient(135deg, var(--laranja), var(--rosa), var(--roxo));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+            margin-bottom: 8px;
+        }
+
+        .header .subtitle {
+            font-size: 1.1em;
+            color: var(--texto-leve);
+            font-weight: 600;
+        }
+
+        .header-emoji { font-size: 3.2em; margin: 10px 0; display: block; }
+
+        /* NAV */
+        .chapter-nav {
+            display: flex;
+            gap: 5px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 28px;
+            position: sticky;
+            top: 0;
+            background: rgba(255,253,247,0.95);
+            backdrop-filter: blur(10px);
+            padding: 10px 0;
+            z-index: 10;
+            border-bottom: 2px solid var(--borda);
+        }
+
+        .nav-btn {
+            padding: 7px 13px;
+            border-radius: 50px;
+            font-family: 'Fredoka One', cursive;
+            font-size: 0.75em;
+            text-decoration: none;
+            border: 2px solid var(--borda);
+            background: white;
+            color: var(--texto-leve);
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .nav-btn:hover { border-color: var(--laranja); color: var(--laranja); transform: translateY(-2px); }
+
+        /* CARDS */
+        .card {
+            background: var(--bg-card);
+            border-radius: 24px;
+            padding: 30px;
+            margin-bottom: 28px;
+            border: 2px solid var(--borda);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            animation: fadeUp 0.5s ease-out both;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .card-icon {
+            width: 52px; height: 52px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            flex-shrink: 0;
+        }
+
+        .ic-orange { background: #FFF3E0; }
+        .ic-blue { background: #E3F2FD; }
+        .ic-purple { background: #EDE7F6; }
+        .ic-pink { background: #FCE4EC; }
+        .ic-green { background: #E8F5E9; }
+        .ic-yellow { background: #FFF8E1; }
+        .ic-red { background: #FFEBEE; }
+        .ic-teal { background: #E0F2F1; }
+
+        .ch-label {
+            font-size: 0.72em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 800;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .lb-orange { color: var(--laranja); }
+        .lb-blue { color: var(--azul); }
+        .lb-purple { color: var(--roxo); }
+        .lb-pink { color: var(--rosa); }
+        .lb-green { color: var(--verde); }
+        .lb-yellow { color: #E67E22; }
+        .lb-red { color: var(--vermelho); }
+        .lb-teal { color: #00897B; }
+
+        .card-title { font-family: 'Fredoka One', cursive; font-size: 1.3em; }
+
+        .t-orange { color: var(--laranja); }
+        .t-blue { color: var(--azul); }
+        .t-purple { color: var(--roxo); }
+        .t-pink { color: var(--rosa); }
+        .t-green { color: var(--verde); }
+        .t-yellow { color: #E67E22; }
+        .t-red { color: var(--vermelho); }
+        .t-teal { color: #00897B; }
+
+        .txt {
+            font-size: 1.05em;
+            line-height: 1.85;
+            color: var(--texto-leve);
+            font-weight: 600;
+        }
+
+        .txt strong { color: var(--texto); }
+
+        .divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--borda), transparent);
+            margin: 20px 0;
+        }
+
+        /* STORY BOX */
+        .story {
+            padding: 22px;
+            border-radius: 18px;
+            margin: 18px 0;
+            border-left: 5px solid;
+        }
+
+        .story-orange { background: #FFF8F0; border-color: var(--laranja); }
+        .story-blue { background: #F0F7FF; border-color: var(--azul); }
+        .story-purple { background: #F5F0FF; border-color: var(--roxo); }
+        .story-pink { background: #FFF0F6; border-color: var(--rosa); }
+        .story-green { background: #F0FFF4; border-color: var(--verde); }
+        .story-yellow { background: #FFFBF0; border-color: #E67E22; }
+        .story-red { background: #FFF5F5; border-color: var(--vermelho); }
+
+        .story-title { font-family: 'Fredoka One', cursive; font-size: 1.1em; margin-bottom: 8px; }
+
+        /* OBSERVADOR */
+        .observer-box {
+            padding: 20px;
+            border-radius: 16px;
+            margin: 18px 0;
+            background: linear-gradient(135deg, #FFF8E1, #FFFBF0);
+            border: 2px solid rgba(253,203,110,0.3);
+            text-align: center;
+        }
+
+        .observer-emoji { font-size: 2.5em; display: block; margin-bottom: 8px; }
+
+        .observer-text {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.05em;
+            color: #E67E22;
+            line-height: 1.5;
+        }
+
+        /* FILA */
+        .fila-container {
+            margin: 20px 0;
+            padding: 24px;
+            background: #FAFAF7;
+            border-radius: 18px;
+            border: 1px solid var(--borda);
+        }
+
+        .fila-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.2em;
+            text-align: center;
+            margin-bottom: 18px;
+        }
+
+        .aluno-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            margin: 5px 0;
+            border-radius: 12px;
+            background: white;
+            font-size: 1em;
+            font-weight: 600;
+            opacity: 0;
+            animation: stepIn 0.35s ease-out forwards;
+        }
+
+        @keyframes stepIn {
+            from { opacity: 0; transform: translateX(-15px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .aluno-row.last-student {
+            border: 2px solid var(--laranja);
+            background: #FFF8F0;
+        }
+
+        .aluno-row.silent-row {
+            opacity: 0;
+            animation: stepIn 0.35s ease-out forwards;
+        }
+
+        .aluno-icon { font-size: 1.4em; flex-shrink: 0; }
+
+        .aluno-num {
+            width: 30px; height: 30px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Fredoka One', cursive;
+            font-size: 0.82em;
+            flex-shrink: 0;
+            color: white;
+        }
+
+        .an-blue { background: var(--azul); }
+        .an-purple { background: var(--roxo); }
+
+        .aluno-text { flex: 1; color: var(--texto); line-height: 1.5; }
+        .aluno-text .lapis { color: var(--laranja); font-weight: 800; }
+        .aluno-text .grito { color: var(--rosa); font-weight: 800; }
+        .aluno-text .silencio { color: #B2BEC3; font-style: italic; }
+        .aluno-text .stop { color: var(--laranja); font-weight: 800; }
+
+        .grito-badge {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.1em;
+            width: 36px; height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .gb-0 { background: #F0F0F0; color: #B2BEC3; }
+        .gb-1 { background: #E0F7EF; color: var(--verde); }
+        .gb-acabou { background: #FFF3E0; color: var(--laranja); }
+
+        /* RESULTADO */
+        .read-dir {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: 16px 0;
+            padding: 14px;
+            background: #FFF0F6;
+            border-radius: 12px;
+            border: 2px dashed rgba(232,67,147,0.2);
+        }
+
+        .read-arrow { font-size: 1.8em; animation: arrB 1.5s ease-in-out infinite; }
+        @keyframes arrB { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
+        .read-text { font-family: 'Fredoka One', cursive; font-size: 0.95em; color: var(--rosa); }
+
+        .result-box {
+            text-align: center;
+            padding: 18px;
+            border-radius: 14px;
+            margin-top: 14px;
+        }
+
+        .rb-green { background: #F0FFF4; border: 2px solid rgba(0,184,148,0.2); }
+        .rb-blue { background: #EBF5FB; border: 2px solid rgba(9,132,227,0.2); }
+        .rb-gold { background: #FFF8E1; border: 2px solid rgba(253,203,110,0.3); }
+
+        .result-label { font-size: 0.88em; color: var(--texto-leve); font-weight: 700; margin-bottom: 6px; }
+
+        .result-digits {
+            display: flex;
+            gap: 5px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 10px 0;
+        }
+
+        .rd {
+            font-family: 'Fira Code', monospace;
+            font-weight: 700;
+            font-size: 1.7em;
+            width: 40px; height: 40px;
+            line-height: 40px;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        .rd-1 { background: #E0F7EF; color: var(--verde); border: 2px solid rgba(0,184,148,0.25); }
+        .rd-0 { background: #F0F0F0; color: #B2BEC3; border: 2px solid rgba(0,0,0,0.06); }
+
+        .result-summary { font-family: 'Fira Code', monospace; font-size: 0.92em; color: var(--texto-leve); margin-top: 8px; }
+        .result-summary strong { color: var(--laranja); }
+
+        /* TABELA */
+        .rules-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 14px;
+            overflow: hidden;
+            margin: 16px 0;
+        }
+
+        .rules-table thead th {
+            padding: 12px;
+            font-family: 'Fredoka One', cursive;
+            font-size: 0.92em;
+            color: white;
+            text-align: center;
+        }
+
+        .th-pink { background: var(--rosa); }
+        .th-orange { background: var(--laranja); }
+        .th-yellow { background: #E67E22; }
+        .th-red { background: var(--vermelho); }
+
+        .rules-table tbody td {
+            padding: 10px;
+            text-align: center;
+            font-family: 'Fira Code', monospace;
+            font-weight: 700;
+            font-size: 1.02em;
+            border-bottom: 1px solid var(--borda);
+        }
+
+        .rules-table tbody tr:nth-child(even) { background: #FAFAFA; }
+        .rules-table tbody tr:last-child td { border-bottom: none; }
+
+        .carry-note { color: var(--rosa); font-size: 0.78em; font-family: 'Nunito', sans-serif; font-weight: 800; }
+
+        /* OPERAÇÃO */
+        .op-demo {
+            margin: 20px 0;
+            padding: 24px;
+            background: #FAFAF7;
+            border-radius: 18px;
+            border: 1px solid var(--borda);
+        }
+
+        .op-title { font-family: 'Fredoka One', cursive; font-size: 1.15em; text-align: center; margin-bottom: 16px; }
+
+        .bin-op {
+            font-family: 'Fira Code', monospace;
+            font-size: 1.3em;
+            font-weight: 700;
+            text-align: right;
+            max-width: 360px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            background: white;
+            border-radius: 12px;
+        }
+
+        .bop-row { display: flex; justify-content: flex-end; align-items: center; gap: 4px; padding: 4px 0; }
+        .bop-row.carry-row { font-size: 0.7em; color: var(--rosa); padding-bottom: 0; }
+        .bop-sign { margin-right: auto; color: var(--texto-leve); font-size: 1.1em; }
+        .bop-line { border-bottom: 3px solid var(--texto); margin: 4px 0; }
+        .bop-result { color: var(--verde); }
+        .bop-d { display: inline-block; width: 28px; text-align: center; }
+
+        .op-steps { margin-top: 14px; font-size: 0.95em; color: var(--texto-leve); font-weight: 600; line-height: 1.7; }
+        .op-steps strong { color: var(--texto); }
+
+        .op-step {
+            margin: 4px 0;
+            padding: 8px 12px;
+            background: white;
+            border-radius: 8px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .os-num {
+            width: 24px; height: 24px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Fredoka One', cursive;
+            font-size: 0.72em;
+            flex-shrink: 0;
+            color: white;
+        }
+
+        .check-box {
+            text-align: center;
+            padding: 10px;
+            background: #F0FFF4;
+            border-radius: 10px;
+            border: 1px solid rgba(0,184,148,0.15);
+            margin-top: 12px;
+            font-size: 0.9em;
+            font-weight: 700;
+            color: var(--verde);
+        }
+
+        /* FUN FACT */
+        .fun {
+            border-radius: 14px;
+            padding: 20px;
+            margin-top: 18px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .fun-green { background: #F0FFF4; border: 1px solid rgba(0,184,148,0.12); }
+        .fun-blue { background: #EBF5FB; border: 1px solid rgba(9,132,227,0.12); }
+        .fun-pink { background: #FFF0F6; border: 1px solid rgba(232,67,147,0.12); }
+        .fun-gold { background: #FFFBF0; border: 1px solid rgba(253,203,110,0.2); }
+
+        .fun-i { font-size: 1.6em; flex-shrink: 0; }
+        .fun-t { font-size: 0.95em; line-height: 1.7; color: var(--texto-leve); font-weight: 600; }
+        .fun-t strong { color: var(--texto); }
+
+        /* TROPHY */
+        .trophy {
+            text-align: center;
+            padding: 25px;
+            background: linear-gradient(135deg, #FFF8E1, #FFFBF0);
+            border-radius: 18px;
+            border: 2px solid rgba(253,203,110,0.3);
+            margin: 20px 0;
+        }
+
+        .trophy-emoji { font-size: 3em; display: block; margin-bottom: 10px; }
+        .trophy-text { font-family: 'Fredoka One', cursive; font-size: 1.2em; color: #E67E22; line-height: 1.5; }
+
+        /* CALCULADORA */
+        .calc-section { text-align: center; margin: 20px 0; }
+
+        .calc-tabs { display: flex; gap: 6px; justify-content: center; margin-bottom: 18px; }
+
+        .ct {
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-family: 'Fredoka One', cursive;
+            font-size: 0.88em;
+            border: 2px solid var(--borda);
+            background: white;
+            color: var(--texto-leve);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .ct:hover { transform: translateY(-2px); }
+        .ct.active-ct { border-color: var(--verde); background: #F0FFF4; color: var(--verde); }
+
+        .cpanel { display: none; }
+        .cpanel.active-cp { display: block; }
+
+        .cinput {
+            font-family: 'Fira Code', monospace;
+            font-size: 1.6em;
+            font-weight: 700;
+            width: 220px;
+            padding: 12px 16px;
+            border: 3px solid var(--verde);
+            border-radius: 14px;
+            background: #F0FFF4;
+            color: var(--verde);
+            text-align: center;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .cinput:focus { border-color: var(--azul); box-shadow: 0 0 15px rgba(9,132,227,0.15); }
+        .cinput::placeholder { color: rgba(0,184,148,0.3); font-size: 0.5em; }
+
+        .cinput-bin {
+            font-family: 'Fira Code', monospace;
+            font-size: 1.4em;
+            font-weight: 700;
+            width: 280px;
+            padding: 12px 16px;
+            border: 3px solid var(--azul);
+            border-radius: 14px;
+            background: #EBF5FB;
+            color: var(--azul);
+            text-align: center;
+            outline: none;
+            transition: all 0.3s ease;
+            letter-spacing: 3px;
+        }
+
+        .cinput-bin:focus { border-color: var(--roxo); box-shadow: 0 0 15px rgba(108,92,231,0.15); }
+        .cinput-bin::placeholder { color: rgba(9,132,227,0.25); font-size: 0.5em; letter-spacing: 1px; }
+
+        .cbtn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--laranja), var(--rosa));
+            color: white;
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.1em;
+            padding: 12px 32px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 12px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255,107,53,0.2);
+        }
+
+        .cbtn:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(255,107,53,0.3); }
+
+        .qbtns { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; margin: 12px 0; }
+
+        .qb {
+            background: white;
+            border: 2px solid var(--borda);
+            border-radius: 8px;
+            padding: 6px 14px;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            font-size: 0.9em;
+            color: var(--laranja);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .qb:hover { border-color: var(--laranja); background: #FFF8F0; transform: translateY(-2px); }
+
+        /* FOOTER */
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            color: #B2BEC3;
+            font-weight: 700;
+        }
+
+        @media (max-width: 600px) {
+            .header h1 { font-size: 1.7em; }
+            .card { padding: 20px; }
+            .bin-op { font-size: 1.1em; }
+            .chapter-nav { position: static; }
+        }
+
+        /* Botão Voltar — Colinha na Web */
+        .btn-voltar {
+            position: fixed;
+            top: 12px;
+            left: 12px;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: #FF6B35;
+            color: white;
+            font-family: 'Fredoka One', cursive;
+            font-size: 0.95rem;
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 50px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.2);
+            transition: transform 0.2s, box-shadow 0.2s;
+            min-height: 44px;
+            min-width: 44px;
+        }
+        .btn-voltar:hover { transform: scale(1.05); }
+        .btn-voltar:active { transform: scale(0.97); }
+        .btn-voltar-seta { font-size: 1.2rem; }
+        @media (max-width: 480px) {
+            .btn-voltar { font-size: 0.85rem; padding: 8px 14px; }
+        }
+    </style>
+</head>
+<body>
+
+<a href="../index.html" class="btn-voltar">
+    <span class="btn-voltar-seta">&#8592;</span>
+    <span>Voltar</span>
+</a>
+
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+        <h1>✏️ Os Lápis Indestrutíveis</h1>
+        <p class="subtitle">A aventura de transformar números em código secreto — e de volta!</p>
+        <span class="header-emoji">✏️🔢✨</span>
+    </div>
+
+    <!-- NAV -->
+    <div class="chapter-nav">
+        <a class="nav-btn" href="#cap1">1 · A História</a>
+        <a class="nav-btn" href="#cap2">2 · Criar o Código</a>
+        <a class="nav-btn" href="#cap3">3 · Decifrar!</a>
+        <a class="nav-btn" href="#cap4">4 · Somar</a>
+        <a class="nav-btn" href="#cap5">5 · Subtrair</a>
+        <a class="nav-btn" href="#cap6">6 · Multiplicar</a>
+        <a class="nav-btn" href="#cap7">7 · Dividir</a>
+        <a class="nav-btn" href="#cap8">8 · Calculadora</a>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- CAP 1 — A HISTÓRIA -->
+    <!-- ============================================================== -->
+    <div class="card" id="cap1">
+        <div class="card-header">
+            <div class="card-icon ic-orange">✏️</div>
+            <div>
+                <span class="ch-label lb-orange">Capítulo 1</span>
+                <div class="card-title t-orange">A Gincana dos Lápis Indestrutíveis</div>
+            </div>
+        </div>
+
+        <div class="txt">
+            <p>O <strong>Professor Sabichão</strong> entra na <strong>Turma A</strong> com uma caixa misteriosa. Dentro dela: lápis <strong>dourados, brilhantes e INDESTRUTÍVEIS!</strong> Impossível quebrar, cortar ou dividir ao meio. Cada lápis é um só, inteiro, para sempre.</p>
+            <br>
+            <p>Ele conta os lápis (são <strong>33</strong>!) e explica a gincana:</p>
+        </div>
+
+        <div class="story story-orange">
+            <div class="story-title" style="color:var(--laranja)">📢 As Regras da Gincana</div>
+            <div class="txt">
+                <p><em>"Turma A, vocês vão ficar em <strong>fila</strong>. Eu entrego todos os lápis ao primeiro da fila. A regra:"</em></p>
+                <br>
+                <p><em>"Cada aluno <strong>divide os lápis em dois montes iguais</strong> — fica com um monte e passa o outro pro próximo."</em></p>
+                <br>
+                <p><em>"Se <strong>sobrar 1 lápis</strong> que não deu pra dividir (porque ele é indestrutível!), o aluno <strong style="color:var(--rosa)">LEVANTA A MÃO</strong> e grita: <strong style="color:var(--rosa)">'SOBROU!'</strong>"</em></p>
+                <br>
+                <p><em>"Se <strong>dividiu certinho</strong> sem sobrar nada, o aluno fica em <strong style="color:#B2BEC3">SILÊNCIO</strong>. Mão abaixada, quietinho."</em></p>
+                <br>
+                <p><em>"Continuem assim até que um aluno receba apenas <strong>1 lápis</strong>. Aí ele olha pro próximo e percebe: é <strong>impossível dividir!</strong> Ele levanta a mão e grita: <strong style="color:var(--laranja)">'ACABOU!!!'</strong>"</em></p>
+            </div>
+        </div>
+
+        <div class="observer-box">
+            <span class="observer-emoji">📋👀</span>
+            <div class="observer-text">E VOCÊ é o observador! Sua missão: ficar ao lado da fila e anotar cada reação — quem levantou a mão (1) e quem ficou em silêncio (0). No final, leia suas anotações de trás pra frente. Esse é o CÓDIGO SECRETO da caixa!</div>
+        </div>
+
+        <div class="fun fun-gold">
+            <span class="fun-i">🏆</span>
+            <div class="fun-t">
+                <strong>A surpresa:</strong> depois, o Professor Sabichão vai até a <strong>Turma B</strong>, escreve o código no quadro e desafia: <em>"Quem descobrir quantos lápis tinham na caixa... <strong>FICA COM TODOS!</strong>"</em>
+            </div>
+        </div>
+
+        <div class="fun fun-green">
+            <span class="fun-i">💡</span>
+            <div class="fun-t">
+                <strong>Percebeu?</strong> Mão levantada + grito = há energia, há sinal, há <strong>1</strong>. Silêncio + mão abaixada = não há nada, <strong>0</strong>. É exatamente assim que a eletricidade funciona dentro de um computador: passou corrente = 1, não passou = 0. Você já está pensando como uma máquina!
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- CAP 2 — CRIAR O CÓDIGO (DECIMAL → BASE 2) -->
+    <!-- ============================================================== -->
+    <div class="card" id="cap2">
+        <div class="card-header">
+            <div class="card-icon ic-blue">📦</div>
+            <div>
+                <span class="ch-label lb-blue">Capítulo 2</span>
+                <div class="card-title t-blue">Criando o Código Secreto (Decimal → Base 2)</div>
+            </div>
+        </div>
+
+        <div class="txt">
+            <p>A Turma A está em fila. Você é o observador com o caderno aberto. Vamos ver como funciona!</p>
+        </div>
+
+        <div class="story story-blue">
+            <div class="story-title" style="color:var(--azul)">📝 Suas Instruções como Observador</div>
+            <div class="txt">
+                <p><strong>1.</strong> Fique ao lado da fila com seu caderno</p>
+                <p><strong>2.</strong> Cada aluno recebe lápis e divide por 2 (metade pra ele, metade pro próximo)</p>
+                <p><strong>3.</strong> Se o aluno <strong style="color:var(--rosa)">levantou a mão</strong> e gritou "SOBROU!" → anote <strong style="color:var(--verde)">1</strong></p>
+                <p><strong>4.</strong> Se o aluno ficou em <strong style="color:#B2BEC3">silêncio</strong>, mão abaixada → anote <strong style="color:#B2BEC3">0</strong></p>
+                <p><strong>5.</strong> Quando alguém gritar <strong style="color:var(--laranja)">"ACABOU!!!"</strong> → anote <strong style="color:var(--verde)">1</strong> (sempre!) e feche o caderno</p>
+                <p><strong>6.</strong> Leia suas anotações de <strong style="color:var(--rosa)">trás para frente</strong> → esse é o código!</p>
+            </div>
+        </div>
+
+        <!-- Exemplos -->
+        <div id="fila-ex-33"></div>
+        <div id="fila-ex-13"></div>
+        <div id="fila-ex-25"></div>
+        <div id="fila-ex-100"></div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- CAP 3 — DECIFRAR O CÓDIGO (BASE 2 → DECIMAL) -->
+    <!-- ============================================================== -->
+    <div class="card" id="cap3">
+        <div class="card-header">
+            <div class="card-icon ic-purple">🏆</div>
+            <div>
+                <span class="ch-label lb-purple">Capítulo 3</span>
+                <div class="card-title t-purple">Decifrando o Código! (Base 2 → Decimal)</div>
+            </div>
+        </div>
+
+        <div class="txt">
+            <p>O Professor Sabichão agora vai até a <strong>Turma B</strong>. Ele escreve no quadro o código que a Turma A criou e desafia:</p>
+        </div>
+
+        <div class="trophy">
+            <span class="trophy-emoji">🏆✏️</span>
+            <div class="trophy-text">"A Turma A criou este código a partir da minha caixa de lápis. Quem decifrar quantos lápis tinham na caixa... FICA COM TODOS!"</div>
+        </div>
+
+        <div class="txt" style="margin-top:18px;">
+            <p>A Turma B sabe que cada posição do código representa <strong>um aluno da fila</strong>. E sabe que cada aluno anterior na fila recebia <strong>o dobro</strong> de lápis que o próximo. Então:</p>
+        </div>
+
+        <div class="story story-purple">
+            <div class="story-title" style="color:var(--roxo)">📝 Como a Turma B Decifra</div>
+            <div class="txt">
+                <p><strong>1.</strong> O último aluno gritou "ACABOU!" → ele tinha <strong>1 lápis</strong> (sempre!)</p>
+                <p><strong>2.</strong> Cada aluno anterior tinha o <strong>dobro</strong>: 1, 2, 4, 8, 16, 32, 64...</p>
+                <p><strong>3.</strong> Onde tem <strong style="color:var(--verde)">1</strong> = esse aluno <strong>levantou a mão</strong> (tinha sobra!) → <strong>soma o valor</strong></p>
+                <p><strong>4.</strong> Onde tem <strong style="color:#B2BEC3">0</strong> = esse aluno ficou em <strong>silêncio</strong> (sem sobra) → <strong>ignora</strong></p>
+                <p><strong>5.</strong> Some tudo — esse é o número de lápis na caixa!</p>
+            </div>
+        </div>
+
+        <!-- O primeiro exemplo é o 100001 = 33 (conectando com a história!) -->
+        <div id="decifra-100001"></div>
+        <div id="decifra-1101"></div>
+        <div id="decifra-11001"></div>
+        <div id="decifra-1100100"></div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- CAP 4 — SOMA -->
+    <!-- ============================================================== -->
+    <div class="card" id="cap4">
+        <div class="card-header">
+            <div class="card-icon ic-pink">➕</div>
+            <div>
+                <span class="ch-label lb-pink">Capítulo 4</span>
+                <div class="card-title t-pink">Soma — Juntando Caixas de Lápis!</div>
+            </div>
+        </div>
+
+        <div class="txt">
+            <p>O Professor trouxe <strong>duas caixas</strong> e quer juntar tudo numa só, descobrindo o novo código <strong>sem precisar contar os lápis!</strong></p>
+            <br>
+            <p>A regra: quando duas sobras se juntam (1 + 1), elas formam <strong>um par completo</strong> — e o par "sobe" pra próxima posição. É o famoso <strong>"vai 1"</strong>!</p>
+        </div>
+
+        <div class="story story-pink">
+            <div class="story-title" style="color:var(--rosa)">📝 Regras da Soma</div>
+            <table class="rules-table">
+                <thead><tr><th class="th-pink">Conta</th><th class="th-pink">Resultado</th><th class="th-pink">Na gincana</th></tr></thead>
+                <tbody>
+                    <tr><td>0 + 0</td><td><strong>0</strong></td><td>Ninguém levantou a mão → silêncio</td></tr>
+                    <tr><td>0 + 1</td><td><strong>1</strong></td><td>Só uma caixa tinha sobra → levanta!</td></tr>
+                    <tr><td>1 + 0</td><td><strong>1</strong></td><td>Só a outra tinha → levanta!</td></tr>
+                    <tr><td>1 + 1</td><td><strong>10</strong></td><td>2 sobras viram 1 par! <span class="carry-note">Vai 1 →</span></td></tr>
+                    <tr><td>1 + 1 + 1</td><td><strong>11</strong></td><td>2 viram par + 1 sobra. <span class="carry-note">Vai 1 →</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="op-demo">
+            <div class="op-title" style="color:var(--rosa)">✏️ Caixa 1011 (11 lápis) + Caixa 1101 (13 lápis)</div>
+            <div class="bin-op">
+                <div class="bop-row carry-row">
+                    <span class="bop-d"> </span><span class="bop-d">1</span><span class="bop-d">1</span><span class="bop-d">1</span><span class="bop-d"> </span>
+                    <span style="font-size:1.4em; margin-left:8px">← "vai 1"</span>
+                </div>
+                <div class="bop-row">
+                    <span class="bop-d"> </span><span class="bop-d">1</span><span class="bop-d">0</span><span class="bop-d">1</span><span class="bop-d">1</span>
+                </div>
+                <div class="bop-row">
+                    <span class="bop-sign">+</span><span class="bop-d">1</span><span class="bop-d">1</span><span class="bop-d">0</span><span class="bop-d">1</span>
+                </div>
+                <div class="bop-line"></div>
+                <div class="bop-row bop-result">
+                    <span class="bop-d">1</span><span class="bop-d">1</span><span class="bop-d">0</span><span class="bop-d">0</span><span class="bop-d">0</span>
+                </div>
+            </div>
+            <div class="op-steps">
+                <div class="op-step"><div class="os-num" style="background:var(--rosa)">1</div><strong>1 + 1 = 10</strong> → escreve 0, vai 1 (as 2 sobras viraram 1 par!)</div>
+                <div class="op-step"><div class="os-num" style="background:var(--rosa)">2</div><strong>1 + 0 + 1(vai) = 10</strong> → escreve 0, vai 1</div>
+                <div class="op-step"><div class="os-num" style="background:var(--rosa)">3</div><strong>0 + 1 + 1(vai) = 10</strong> → escreve 0, vai 1</div>
+                <div class="op-step"><div class="os-num" style="background:var(--rosa)">4</div><strong>1 + 1 + 1(vai) = 11</strong> → escreve 1, vai 1</div>
+                <div class="op-step"><div class="os-num" style="background:var(--rosa)">5</div><strong>Sobrou o vai 1</strong> → escreve 1</div>
+            </div>
+            <div class="check-box">✅ 11 + 13 = 24 | Código 11000 = 24 lápis na caixa nova!</div>
+        </div>
+
+        <div class="op-demo">
+            <div class="op-title" style="color:var(--rosa)">✏️ Exemplo: 111 + 1 (7 + 1 lápis)</div>
+            <div class="bin-op">
+                <div class="bop-row carry-row"><span class="bop-d">1</span><span class="bop-d">1</span><span class="bop-d">1</span><span class="bop-d"> </span></div>
+                <div class="bop-row"><span class="bop-d"> </span><span class="bop-d">1</span><span class="bop-d">1</span><span class="bop-d">1</span></div>
+                <div class="bop-row"><span class="bop-sign">+</span><span class="bop-d"> </span><span class="bop-d"> </span><span class="bop-d">1</span></div>
+                <div class="bop-line"></div>
+                <div class="bop-row bop-result"><span class="bop-d">1</span><span class="bop-d">0</span><span class="bop-d">0</span><span class="bop-d">0</span></div>
+            </div>
+            <div class="check-box">✅ 7 + 1 = 8 | Código 1000 = 8 lápis!</div>
+        </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- CAP 5 — SUBTRAÇÃO -->
+    <!-- ============================================================== -->
+    <div class="card" id="cap5">
+        <div class="card-header">
+            <div class="card-icon ic-yellow">➖</div>
+            <div>
+                <span class="ch-label lb-yellow">Capítulo 5</span>
+                <div class="card-title t-yellow">Subtração — Tirando Lápis da Caixa!</div>
+            </div>
+        </div>
+
+        <div class="txt">
+            <p>O professor precisa <strong>retirar lápis</strong> de uma caixa. Funciona como a subtração normal! Quando não dá pra tirar, <strong>pede emprestado</strong> do vizinho — mas aqui o vizinho vale <strong>2</strong> (não 10).</p>
+        </div>
+
+        <div class="story story-yellow">
+            <div class="story-title" style="color:#E67E22">📝 Regras da Subtração</div>
+            <table class="rules-table">
+                <thead><tr><th class="th-yellow">Conta</th><th class="th-yellow">Resultado</th><th class="th-yellow">Explicação</th></tr></thead>
+                <tbody>
+                    <tr><td>0 − 0</td><td><strong>0</strong></td><td>Nada menos nada</td></tr>
+                    <tr><td>1 − 0</td><td><strong>1</strong></td><td>Tinha 1, tirou nada</td></tr>
+                    <tr><td>1 − 1</td><td><strong>0</strong></td><td>Igual se cancela!</td></tr>
+                    <tr><td>0 − 1</td><td><strong>1</strong></td><td>Não dá! <span class="carry-note">Pede emprestado ←</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="op-demo">
+            <div class="op-title" style="color:#E67E22">✏️ Caixa 1101 (13 lápis) − Retira 1010 (10 lápis)</div>
+            <div class="bin-op">
+                <div class="bop-row"><span class="bop-d">1</span><span class="bop-d">1</span><span class="bop-d">0</span><span class="bop-d">1</span></div>
+                <div class="bop-row"><span class="bop-sign">−</span><span class="bop-d">1</span><span class="bop-d">0</span><span class="bop-d">1</span><span class="bop-d">0</span></div>
+                <div class="bop-line"></div>
+                <div class="bop-row bop-result"><span class="bop-d">0</span><span class="bop-d">0</span><span class="bop-d">1</span><span class="bop-d">1</span></div>
+            </div>
+            <div class="op-steps">
+                <div class="op-step"><div class="os-num" style="background:#E67E22">1</div><strong>1 − 0 = 1</strong> → tranquilo!</div>
+                <div class="op-step"><div class="os-num" style="background:#E67E22">2</div><strong>0 − 1 = ?</strong> Não dá! Pede emprestado: <strong>10 − 1 = 1</strong></div>
+                <div class="op-step"><div class="os-num" style="background:#E67E22">3</div><strong>0 − 0 = 0</strong> (emprestou, ficou 0)</div>
+                <div class="op-step"><div class="os-num" style="background:#E67E22">4</div><strong>1 − 1 = 0</strong></div>
+            </div>
+            <div class="check-box">✅ 13 − 10 = 3 | Código 11 = 3 lápis restantes!</div>
+        </div>
+
+        <div class="op-demo">
+            <div class="op-title" style="color:#E67E22">✏️ Cascata: 10000 − 1 (16 − 1 lápis)</div>
+            <div class="bin-op">
+                <div class="bop-row"><span class="bop-d">1</span><span class="bop-d">0</span><span class="bop-d">0</span><span class="bop-d">0</span><span class="bop-d">0</span></div>
+                <div class="bop-row"><span class="bop-sign">−</span><span class="bop-d"> </span><span class="bop-d"> </span><span class="bop-d"> </span><span class="bop-d"> </span><span class="bop-d">1</span></div>
+                <div class="bop-line"></div>
+                <div class="bop-row bop-result"><span class="bop-d">0</span><span class="bop-d">1</span><span class="bop-d">1</span><span class="bop-d">1</span><span class="bop-d">1</span></div>
+            </div>
+            <div class="fun fun-blue" style="margin-top:14px;">
+                <span class="fun-i">💡</span>
+                <div class="fun-t"><strong>Igual no decimal!</strong> 10000 − 1 = 9999 (Base 10). Aqui: 10000 − 1 = 1111 (Base 2). O empréstimo cascateia!</div>
+            </div>
+            <div class="check-box">✅ 16 − 1 = 15 | Código 1111 = 15 lápis!</div>
+        </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- CAP 6 — MULTIPLICAÇÃO -->
+    <!-- ============================================================== -->
+    <div class="card" id="cap6">
+        <div class="card-header">
+            <div class="card-icon ic-green">✖️</div>
+            <div>
+                <span class="ch-label lb-green">Capítulo 6</span>
+                <div class="card-title t-green">Multiplicação — Várias Caixas Iguais!</div>
+            </div>
+        </div>
+
+        <div class="txt">
+            <p>O professor trouxe <strong>várias caixas iguais</strong>. A multiplicação descobre o código do total! Na Base 2 é a operação <strong>mais fácil</strong>: multiplicar por 1 = copia, multiplicar por 0 = tudo zero.</p>
+        </div>
+
+        <div class="op-demo">
+            <div class="op-title" style="color:var(--verde)">✏️ 3 caixas de 5 lápis: 101 × 11</div>
+            <div class="bin-op">
+                <div class="bop-row"><span class="bop-d"> </span><span class="bop-d"> </span><span class="bop-d">1</span><span class="bop-d">0</span><span class="bop-d">1</span></div>
+                <div class="bop-row"><span class="bop-sign">×</span><span class="bop-d"> </span><span class="bop-d"> </span><span class="bop-d"> </span><span class="bop-d">1</span><span class="bop-d">1</span></div>
+                <div class="bop-line"></div>
+                <div class="bop-row" style="color:var(--azul)">
+                    <span class="bop-d"> </span><span class="bop-d"> </span><span class="bop-d">1</span><span class="bop-d">0</span><span class="bop-d">1</span>
+                    <span style="margin-left:10px; font-size:0.7em; color:var(--texto-leve)">← × 1 (copia!)</span>
+                </div>
+                <div class="bop-row" style="color:var(--azul)">
+                    <span class="bop-sign">+</span><span class="bop-d">1</span><span class="bop-d">0</span><span class="bop-d">1</span><span class="bop-d">0</span>
+                    <span style="margin-left:10px; font-size:0.7em; color:var(--texto-leve)">← × 1, desloca</span>
+                </div>
+                <div class="bop-line"></div>
+                <div class="bop-row bop-result"><span class="bop-d">1</span><span class="bop-d">1</span><span class="bop-d">1</span><span class="bop-d">1</span><span class="bop-d">1</span></div>
+            </div>
+            <div class="check-box">✅ 5 × 3 = 15 | Código 1111 = 15 lápis no total!</div>
+        </div>
+
+        <div class="op-demo">
+            <div class="op-title" style="color:var(--verde)">✏️ Dobrar: 110 × 10 (6 × 2)</div>
+            <div class="bin-op">
+                <div class="bop-row"><span class="bop-d"> </span><span class="bop-d">1</span><span class="bop-d">1</span><span class="bop-d">0</span></div>
+                <div class="bop-row"><span class="bop-sign">×</span><span class="bop-d"> </span><span class="bop-d"> </span><span class="bop-d">1</span><span class="bop-d">0</span></div>
+                <div class="bop-line"></div>
+                <div class="bop-row bop-result"><span class="bop-d">1</span><span class="bop-d">1</span><span class="bop-d">0</span><span class="bop-d">0</span></div>
+            </div>
+            <div class="fun fun-green" style="margin-top:14px;">
+                <span class="fun-i">💡</span>
+                <div class="fun-t"><strong>Dica mágica:</strong> multiplicar por 10 na Base 2 = <strong>adicionar um zero no final!</strong> Igual no decimal (50 × 10 = 500). Aqui: 110 × 10 = 1100!</div>
+            </div>
+            <div class="check-box">✅ 6 × 2 = 12 | Código 1100 = 12 lápis!</div>
+        </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- CAP 7 — DIVISÃO -->
+    <!-- ============================================================== -->
+    <div class="card" id="cap7">
+        <div class="card-header">
+            <div class="card-icon ic-red">➗</div>
+            <div>
+                <span class="ch-label lb-red">Capítulo 7</span>
+                <div class="card-title t-red">Divisão — Repartindo em Grupos!</div>
+            </div>
+        </div>
+
+        <div class="txt">
+            <p>O professor quer <strong>dividir uma caixa em grupos iguais</strong>. A pergunta é sempre: <strong>"cabe ou não cabe?"</strong></p>
+        </div>
+
+        <div class="story story-red">
+            <div class="story-title" style="color:var(--vermelho)">📝 Como funciona</div>
+            <div class="txt">
+                <p><strong>1.</strong> Olhe os dígitos da esquerda para a direita</p>
+                <p><strong>2.</strong> O divisor <strong>cabe</strong>? → Escreva <strong style="color:var(--verde)">1</strong> e subtraia</p>
+                <p><strong>3.</strong> <strong>Não cabe</strong>? → Escreva <strong style="color:#B2BEC3">0</strong> e desce o próximo</p>
+                <p><strong>4.</strong> Repita até acabar!</p>
+            </div>
+        </div>
+
+        <div class="op-demo">
+            <div class="op-title" style="color:var(--vermelho)">✏️ 12 lápis ÷ 2 grupos: 1100 ÷ 10</div>
+            <div class="op-steps">
+                <div class="op-step"><div class="os-num" style="background:var(--vermelho)">1</div>Pego <strong>1</strong> → 10 cabe? <strong>Não!</strong> → Escrevo <strong style="color:#B2BEC3">0</strong></div>
+                <div class="op-step"><div class="os-num" style="background:var(--vermelho)">2</div>Pego <strong>11</strong> → 10 cabe? <strong>Sim!</strong> → Escrevo <strong style="color:var(--verde)">1</strong>. Resto: 1</div>
+                <div class="op-step"><div class="os-num" style="background:var(--vermelho)">3</div>Desço <strong>0</strong> → tenho <strong>10</strong> → cabe? <strong>Sim!</strong> → Escrevo <strong style="color:var(--verde)">1</strong>. Resto: 0</div>
+                <div class="op-step"><div class="os-num" style="background:var(--vermelho)">4</div>Desço <strong>0</strong> → tenho <strong>0</strong> → cabe? <strong>Não!</strong> → Escrevo <strong style="color:#B2BEC3">0</strong></div>
+                <p style="margin-top:12px;"><strong>Resultado: 110</strong> → 6 lápis por grupo!</p>
+            </div>
+            <div class="check-box">✅ 12 ÷ 2 = 6 | Código 110 = 6 lápis por grupo!</div>
+        </div>
+
+        <div class="op-demo">
+            <div class="op-title" style="color:var(--vermelho)">✏️ 15 lápis ÷ 3 grupos: 1111 ÷ 11</div>
+            <div class="op-steps">
+                <div class="op-step"><div class="os-num" style="background:var(--vermelho)">1</div>Pego <strong>1</strong> → 11 cabe? <strong>Não!</strong> → <strong style="color:#B2BEC3">0</strong></div>
+                <div class="op-step"><div class="os-num" style="background:var(--vermelho)">2</div>Pego <strong>11</strong> → cabe? <strong>Sim!</strong> → <strong style="color:var(--verde)">1</strong>. Resto: 0</div>
+                <div class="op-step"><div class="os-num" style="background:var(--vermelho)">3</div>Desço <strong>1</strong> → tenho <strong>01</strong> → cabe? <strong>Não!</strong> → <strong style="color:#B2BEC3">0</strong></div>
+                <div class="op-step"><div class="os-num" style="background:var(--vermelho)">4</div>Desço <strong>1</strong> → tenho <strong>11</strong> → cabe? <strong>Sim!</strong> → <strong style="color:var(--verde)">1</strong>. Resto: 0</div>
+                <p style="margin-top:12px;"><strong>Resultado: 101</strong> → 5 lápis por grupo!</p>
+            </div>
+            <div class="check-box">✅ 15 ÷ 3 = 5 | Código 101 = 5 lápis por grupo!</div>
+        </div>
+
+        <div class="fun fun-pink">
+            <span class="fun-i">🎯</span>
+            <div class="fun-t"><strong>Resumão:</strong> Soma, subtração, multiplicação e divisão — tudo funciona <strong>igualzinho</strong> ao que você já sabe! Só que mais simples, porque só existem 0 e 1. Agora você sabe calcular como um computador!</div>
+        </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- CAP 8 — CALCULADORA COMPLETA -->
+    <!-- ============================================================== -->
+    <div class="card" id="cap8">
+        <div class="card-header">
+            <div class="card-icon ic-teal">🧪</div>
+            <div>
+                <span class="ch-label lb-teal">Capítulo 8</span>
+                <div class="card-title t-teal">Quadro Interativo — Pratique Todas as Operações!</div>
+            </div>
+        </div>
+
+        <div class="txt" style="text-align:center;">
+            <p>Escolha a operação, digite os números e veja a resolução <strong>passo a passo</strong>, como no quadro da escola!</p>
+        </div>
+
+        <div class="calc-tabs">
+            <button class="ct active-ct" onclick="showTab('d2b',this)">📦→🔢 Código</button>
+            <button class="ct" onclick="showTab('b2d',this)">🔢→📦 Decifrar</button>
+            <button class="ct" onclick="showTab('soma',this)">➕ Soma</button>
+            <button class="ct" onclick="showTab('sub',this)">➖ Subtração</button>
+            <button class="ct" onclick="showTab('mult',this)">✖️ Multiplicação</button>
+            <button class="ct" onclick="showTab('div',this)">➗ Divisão</button>
+        </div>
+
+        <!-- ===== TAB: DECIMAL → BASE 2 ===== -->
+        <div class="cpanel active-cp" id="tab-d2b">
+            <div class="calc-section">
+                <p class="txt" style="margin-bottom:10px;">Quantos lápis tem na caixa?</p>
+                <input type="number" class="cinput" id="decIn" placeholder="Ex: 42" min="1" max="9999" onkeydown="if(event.key==='Enter') calcD2B()">
+                <br>
+                <button class="cbtn" onclick="calcD2B()">✏️ Montar a Fila!</button>
+                <div class="qbtns">
+                    <button class="qb" onclick="qD(7)">7</button>
+                    <button class="qb" onclick="qD(15)">15</button>
+                    <button class="qb" onclick="qD(33)">33</button>
+                    <button class="qb" onclick="qD(100)">100</button>
+                    <button class="qb" onclick="qD(255)">255</button>
+                </div>
+            </div>
+            <div id="d2b-result"></div>
+        </div>
+
+        <!-- ===== TAB: BASE 2 → DECIMAL ===== -->
+        <div class="cpanel" id="tab-b2d">
+            <div class="calc-section">
+                <p class="txt" style="margin-bottom:10px;">🏆 Código no quadro (só 0 e 1):</p>
+                <input type="text" class="cinput-bin" id="binIn" placeholder="Ex: 101010" maxlength="16" onkeydown="if(event.key==='Enter') calcB2D()">
+                <br>
+                <button class="cbtn" onclick="calcB2D()">🏆 Decifrar!</button>
+                <div class="qbtns">
+                    <button class="qb" onclick="qB('100001')">100001</button>
+                    <button class="qb" onclick="qB('1010')">1010</button>
+                    <button class="qb" onclick="qB('11111111')">11111111</button>
+                </div>
+            </div>
+            <div id="b2d-result"></div>
+        </div>
+
+        <!-- ===== TAB: SOMA ===== -->
+        <div class="cpanel" id="tab-soma">
+            <div class="calc-section">
+                <p class="txt" style="margin-bottom:10px;">Juntando duas caixas de lápis! (só 0 e 1)</p>
+                <div style="display:flex;gap:10px;justify-content:center;align-items:center;flex-wrap:wrap;">
+                    <input type="text" class="cinput-bin" id="somaA" placeholder="Ex: 1011" maxlength="12" style="width:160px;font-size:1.2em;">
+                    <span style="font-family:'Fredoka One',cursive;font-size:1.5em;color:var(--rosa);">+</span>
+                    <input type="text" class="cinput-bin" id="somaB" placeholder="Ex: 1101" maxlength="12" style="width:160px;font-size:1.2em;">
+                </div>
+                <button class="cbtn" onclick="calcSoma()" style="background:linear-gradient(135deg,var(--rosa),var(--roxo));">➕ Resolver Passo a Passo!</button>
+                <div class="qbtns">
+                    <button class="qb" onclick="qSoma('1011','1101')">1011 + 1101</button>
+                    <button class="qb" onclick="qSoma('111','1')">111 + 1</button>
+                    <button class="qb" onclick="qSoma('1010','110')">1010 + 110</button>
+                    <button class="qb" onclick="qSoma('11111','1')">11111 + 1</button>
+                </div>
+            </div>
+            <div id="soma-result"></div>
+        </div>
+
+        <!-- ===== TAB: SUBTRAÇÃO ===== -->
+        <div class="cpanel" id="tab-sub">
+            <div class="calc-section">
+                <p class="txt" style="margin-bottom:10px;">Tirando lápis da caixa! (o maior em cima)</p>
+                <div style="display:flex;gap:10px;justify-content:center;align-items:center;flex-wrap:wrap;">
+                    <input type="text" class="cinput-bin" id="subA" placeholder="Ex: 1101" maxlength="12" style="width:160px;font-size:1.2em;">
+                    <span style="font-family:'Fredoka One',cursive;font-size:1.5em;color:#E67E22;">−</span>
+                    <input type="text" class="cinput-bin" id="subB" placeholder="Ex: 1010" maxlength="12" style="width:160px;font-size:1.2em;">
+                </div>
+                <button class="cbtn" onclick="calcSub()" style="background:linear-gradient(135deg,#E67E22,var(--laranja));">➖ Resolver Passo a Passo!</button>
+                <div class="qbtns">
+                    <button class="qb" onclick="qSub('1101','1010')">1101 − 1010</button>
+                    <button class="qb" onclick="qSub('10000','1')">10000 − 1</button>
+                    <button class="qb" onclick="qSub('1100','101')">1100 − 101</button>
+                </div>
+            </div>
+            <div id="sub-result"></div>
+        </div>
+
+        <!-- ===== TAB: MULTIPLICAÇÃO ===== -->
+        <div class="cpanel" id="tab-mult">
+            <div class="calc-section">
+                <p class="txt" style="margin-bottom:10px;">Várias caixas iguais! (só 0 e 1)</p>
+                <div style="display:flex;gap:10px;justify-content:center;align-items:center;flex-wrap:wrap;">
+                    <input type="text" class="cinput-bin" id="multA" placeholder="Ex: 101" maxlength="8" style="width:160px;font-size:1.2em;">
+                    <span style="font-family:'Fredoka One',cursive;font-size:1.5em;color:var(--verde);">×</span>
+                    <input type="text" class="cinput-bin" id="multB" placeholder="Ex: 11" maxlength="8" style="width:160px;font-size:1.2em;">
+                </div>
+                <button class="cbtn" onclick="calcMult()" style="background:linear-gradient(135deg,var(--verde),var(--azul));">✖️ Resolver Passo a Passo!</button>
+                <div class="qbtns">
+                    <button class="qb" onclick="qMult('101','11')">101 × 11</button>
+                    <button class="qb" onclick="qMult('110','10')">110 × 10</button>
+                    <button class="qb" onclick="qMult('1001','101')">1001 × 101</button>
+                </div>
+            </div>
+            <div id="mult-result"></div>
+        </div>
+
+        <!-- ===== TAB: DIVISÃO ===== -->
+        <div class="cpanel" id="tab-div">
+            <div class="calc-section">
+                <p class="txt" style="margin-bottom:10px;">Repartindo em grupos! (só 0 e 1)</p>
+                <div style="display:flex;gap:10px;justify-content:center;align-items:center;flex-wrap:wrap;">
+                    <input type="text" class="cinput-bin" id="divA" placeholder="Ex: 1100" maxlength="12" style="width:160px;font-size:1.2em;">
+                    <span style="font-family:'Fredoka One',cursive;font-size:1.5em;color:var(--vermelho);">÷</span>
+                    <input type="text" class="cinput-bin" id="divB" placeholder="Ex: 10" maxlength="8" style="width:160px;font-size:1.2em;">
+                </div>
+                <button class="cbtn" onclick="calcDiv()" style="background:linear-gradient(135deg,var(--vermelho),var(--rosa));">➗ Resolver Passo a Passo!</button>
+                <div class="qbtns">
+                    <button class="qb" onclick="qDiv('1100','10')">1100 ÷ 10</button>
+                    <button class="qb" onclick="qDiv('1111','11')">1111 ÷ 11</button>
+                    <button class="qb" onclick="qDiv('100001','110')">100001 ÷ 110</button>
+                </div>
+            </div>
+            <div id="div-result"></div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        Feito com 💛 para aprender a linguagem secreta dos computadores!
+    </div>
+</div>
+
+<script>
+// ====== TABS ======
+function showTab(id, btn) {
+    document.querySelectorAll('.cpanel').forEach(function(p){p.classList.remove('active-cp')});
+    document.querySelectorAll('.ct').forEach(function(t){t.classList.remove('active-ct')});
+    document.getElementById('tab-'+id).classList.add('active-cp');
+    btn.classList.add('active-ct');
+}
+
+// ====== UTILIDADES ======
+function binToInt(b) { return parseInt(b, 2); }
+function intToBin(n) { return n === 0 ? '0' : n.toString(2); }
+function padLeft(s, len) { while(s.length < len) s = '0' + s; return s; }
+function isValidBin(s) { return /^[01]+$/.test(s) && s.length > 0; }
+function errMsg(el) { el.innerHTML = '<div style="text-align:center;color:var(--vermelho);font-weight:700;padding:15px;">⚠️ Use apenas 0 e 1!</div>'; }
+
+// ====== ANIMAÇÃO PASSO A PASSO ======
+// Mostra elementos com classe .anim-step um por um
+function animateSteps(container) {
+    var steps = container.querySelectorAll('.anim-step');
+    steps.forEach(function(step, i) {
+        step.style.opacity = '0';
+        step.style.transform = 'translateY(10px)';
+        step.style.transition = 'all 0.4s ease';
+        setTimeout(function() {
+            step.style.opacity = '1';
+            step.style.transform = 'translateY(0)';
+        }, 300 + i * 500);
+    });
+}
+
+// ====== DECIMAL → BASE 2 ======
+function buildFila(number, containerId, title) {
+    var el = document.getElementById(containerId);
+    if (!el) return;
+    var steps = [];
+    var cur = number;
+    while (cur > 0) {
+        var q = Math.floor(cur / 2);
+        var r = cur % 2;
+        steps.push({received: cur, passed: q, remainder: r});
+        cur = q;
+    }
+    var binary = steps.map(function(s){return s.remainder}).reverse().join('');
+    var html = '<div class="fila-container">';
+    html += '<div class="fila-title" style="color:var(--azul)">' + title + '</div>';
+    html += '<div style="text-align:center;margin-bottom:14px;font-size:0.9em;color:var(--texto-leve);font-weight:700;">📋 Você (observador) está anotando...</div>';
+
+    steps.forEach(function(s, i) {
+        var isLast = s.received === 1;
+        var rowClass = isLast ? 'aluno-row last-student anim-step' : 'aluno-row anim-step';
+        var emoji, gbClass, badgeText;
+        if (isLast) { emoji='🙋‍♂️'; gbClass='gb-acabou'; badgeText='!'; }
+        else if (s.remainder===1) { emoji='🙋'; gbClass='gb-1'; badgeText='1'; }
+        else { emoji='🧑‍🎓'; gbClass='gb-0'; badgeText='0'; }
+
+        html += '<div class="' + rowClass + '">';
+        html += '<span class="aluno-icon">' + emoji + '</span>';
+        html += '<div class="aluno-num an-blue">' + (i+1) + '</div>';
+        html += '<div class="aluno-text">';
+        if (isLast) {
+            html += 'Recebe <span class="lapis">1 lápis</span>. Impossível dividir! ';
+            html += '<span class="stop">🗣️ "ACABOU!!!"</span>';
+            html += '<br><span style="font-size:0.85em;color:var(--texto-leve);">📋 Você anota: <strong style="color:var(--verde)">1</strong></span>';
+        } else if (s.remainder === 1) {
+            html += 'Recebe <span class="lapis">' + s.received + ' lápis</span> (ímpar!). ';
+            html += 'Fica com ' + s.passed + ', passa ' + s.passed + '. ';
+            html += '<span class="grito">🙋 "SOBROU!"</span>';
+            html += '<br><span style="font-size:0.85em;color:var(--texto-leve);">📋 Você anota: <strong style="color:var(--verde)">1</strong></span>';
+        } else {
+            html += 'Recebe <span class="lapis">' + s.received + ' lápis</span> (par). ';
+            html += 'Fica com ' + s.passed + ', passa ' + s.passed + '. ';
+            html += '<span class="silencio">Silêncio... 🤫</span>';
+            html += '<br><span style="font-size:0.85em;color:var(--texto-leve);">📋 Você anota: <strong style="color:#B2BEC3">0</strong></span>';
+        }
+        html += '</div>';
+        html += '<div class="grito-badge ' + gbClass + '">' + badgeText + '</div></div>';
+    });
+
+    html += '<div class="read-dir anim-step"><span class="read-arrow">⬆️</span><span class="read-text">Leia seu caderno de TRÁS pra FRENTE!</span><span class="read-arrow">⬆️</span></div>';
+    html += '<div class="result-box rb-green anim-step"><div class="result-label">📋 Código da caixa de ' + number + ' lápis:</div><div class="result-digits">';
+    for (var i = 0; i < binary.length; i++) html += '<div class="rd rd-' + binary[i] + '">' + binary[i] + '</div>';
+    html += '</div><div class="result-summary"><strong>' + number + '</strong> lápis = Código <strong>' + binary + '</strong></div></div></div>';
+    el.innerHTML = html;
+    animateSteps(el);
+}
+
+// ====== BASE 2 → DECIMAL ======
+function buildDecifra(binary, containerId, title) {
+    var el = document.getElementById(containerId);
+    if (!el) return;
+    var bits = binary.split('');
+    var len = bits.length;
+    var total = 0;
+    var html = '<div class="fila-container">';
+    html += '<div class="fila-title" style="color:var(--roxo)">' + title + '</div>';
+    html += '<div class="result-digits" style="margin-bottom:15px;">';
+    for (var i = 0; i < len; i++) html += '<div class="rd rd-' + bits[i] + '" style="font-size:1.4em;width:36px;height:36px;line-height:36px;">' + bits[i] + '</div>';
+    html += '</div>';
+    html += '<div style="text-align:center;margin-bottom:14px;font-size:0.9em;color:var(--texto-leve);font-weight:700;">Reconstruindo a fila...</div>';
+
+    for (var i = 0; i < len; i++) {
+        var power = len - 1 - i;
+        var value = Math.pow(2, power);
+        var bv = parseInt(bits[i]);
+        var contrib = bv * value;
+        total += contrib;
+        var ignored = bv === 0;
+        var style = ignored ? 'opacity:0.5;' : '';
+        var emoji = ignored ? '🧑‍🎓' : '🙋';
+        html += '<div class="aluno-row anim-step" style="' + style + '">';
+        html += '<span class="aluno-icon">' + emoji + '</span>';
+        html += '<div class="aluno-num an-purple">' + (i+1) + '</div>';
+        html += '<div class="aluno-text">Posição <span class="lapis">' + value + '</span> → ';
+        if (ignored) html += '<span class="silencio">silêncio (0). Ignora!</span>';
+        else html += '<span class="grito">levantou a mão! Soma <strong>' + value + '</strong>!</span>';
+        html += '</div></div>';
+    }
+
+    var somaStr = [];
+    for (var i = 0; i < len; i++) { if (parseInt(bits[i]) === 1) somaStr.push(Math.pow(2, len-1-i)); }
+    html += '<div class="result-box rb-gold anim-step">';
+    html += '<div class="result-label">Só os que levantaram a mão:</div>';
+    html += '<div class="result-summary" style="font-size:1.1em;margin:10px 0;">' + somaStr.join(' + ') + ' = <strong style="color:var(--verde);font-size:1.3em;">' + total + '</strong></div>';
+    html += '<div class="trophy-text" style="font-size:1em;">🏆 <strong>' + total + ' lápis!</strong></div></div></div>';
+    el.innerHTML = html;
+    animateSteps(el);
+}
+
+// ============================================================
+// HELPER: Monta a continha armada bonita com .bin-op
+// ============================================================
+function buildBinOp(rows, resultRow, sign) {
+    // rows = array of strings, resultRow = string, sign = '+' '-' '×'
+    var maxLen = resultRow.length;
+    rows.forEach(function(r) { if (r.length > maxLen) maxLen = r.length; });
+    
+    var html = '<div class="bin-op">';
+    rows.forEach(function(row, idx) {
+        var padded = padLeft(row, maxLen);
+        html += '<div class="bop-row">';
+        if (idx === rows.length - 1) {
+            html += '<span class="bop-sign">' + sign + '</span>';
+        }
+        for (var c = 0; c < padded.length; c++) {
+            html += '<span class="bop-d">' + padded[c] + '</span>';
+        }
+        html += '</div>';
+    });
+    html += '<div class="bop-line"></div>';
+    var resPad = padLeft(resultRow, maxLen);
+    html += '<div class="bop-row bop-result">';
+    for (var c = 0; c < resPad.length; c++) {
+        html += '<span class="bop-d">' + resPad[c] + '</span>';
+    }
+    html += '</div></div>';
+    return html;
+}
+
+// ============================================================
+// SOMA ANIMADA
+// ============================================================
+function calcSoma() {
+    var a = document.getElementById('somaA').value.trim();
+    var b = document.getElementById('somaB').value.trim();
+    var out = document.getElementById('soma-result');
+    if (!isValidBin(a) || !isValidBin(b)) { errMsg(out); return; }
+
+    var intA = binToInt(a), intB = binToInt(b);
+    var total = intA + intB;
+    var resultBin = intToBin(total);
+    var maxLen = Math.max(a.length, b.length);
+    var aPad = padLeft(a, maxLen);
+    var bPad = padLeft(b, maxLen);
+
+    var carry = 0;
+    var steps = [];
+    var resultArr = [];
+
+    for (var i = maxLen - 1; i >= 0; i--) {
+        var dA = parseInt(aPad[i]);
+        var dB = parseInt(bPad[i]);
+        var sum = dA + dB + carry;
+        var bit = sum % 2;
+        var newCarry = Math.floor(sum / 2);
+        var col = maxLen - i;
+
+        var explanation = '';
+        if (carry > 0) explanation = dA + ' + ' + dB + ' + 1(vai) = ' + sum;
+        else explanation = dA + ' + ' + dB + ' = ' + sum;
+
+        if (sum >= 2) explanation += ' → escreve ' + bit + ', vai 1';
+        else explanation += ' → escreve ' + bit;
+
+        steps.push({col: col, explanation: explanation});
+        resultArr.unshift(bit);
+        carry = newCarry;
+    }
+
+    if (carry > 0) {
+        steps.push({col: maxLen + 1, explanation: 'Sobrou o "vai 1" → escreve 1'});
+        resultArr.unshift(carry);
+    }
+
+    var resultStr = resultArr.join('');
+
+    var html = '<div class="fila-container">';
+    html += '<div class="fila-title" style="color:var(--rosa)">➕ Resolvendo: ' + a + ' + ' + b + '</div>';
+
+    // Mini tabela de regras
+    html += '<div class="anim-step" style="margin-bottom:16px;">';
+    html += '<table class="rules-table"><thead><tr><th class="th-pink">Regra</th><th class="th-pink">Resultado</th></tr></thead><tbody>';
+    html += '<tr><td>0 + 0</td><td><strong>0</strong></td></tr>';
+    html += '<tr><td>0 + 1</td><td><strong>1</strong></td></tr>';
+    html += '<tr><td>1 + 1</td><td><strong>10</strong> (escreve 0, vai 1)</td></tr>';
+    html += '<tr><td>1 + 1 + 1</td><td><strong>11</strong> (escreve 1, vai 1)</td></tr>';
+    html += '</tbody></table></div>';
+
+    // Continha armada
+    html += '<div class="anim-step">';
+    html += buildBinOp([a, b], resultStr, '+');
+    html += '</div>';
+
+    // Passos
+    html += '<div class="anim-step" style="text-align:center;margin:14px 0 8px;font-family:\'Fredoka One\',cursive;color:var(--rosa);font-size:1em;">Passo a passo (da direita para a esquerda):</div>';
+
+    steps.forEach(function(step, i) {
+        html += '<div class="op-step anim-step"><div class="os-num" style="background:var(--rosa)">' + (i+1) + '</div><strong>Coluna ' + step.col + ':</strong>&nbsp; ' + step.explanation + '</div>';
+    });
+
+    html += '<div class="anim-step check-box">✅ Conferindo: ' + intA + ' + ' + intB + ' = ' + total + ' | Código ' + resultStr + ' = ' + total + ' lápis!</div>';
+    html += '</div>';
+
+    out.innerHTML = html;
+    animateSteps(out);
+    out.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// ============================================================
+// SUBTRAÇÃO ANIMADA
+// ============================================================
+function calcSub() {
+    var a = document.getElementById('subA').value.trim();
+    var b = document.getElementById('subB').value.trim();
+    var out = document.getElementById('sub-result');
+    if (!isValidBin(a) || !isValidBin(b)) { errMsg(out); return; }
+
+    var intA = binToInt(a), intB = binToInt(b);
+    if (intA < intB) {
+        out.innerHTML = '<div style="text-align:center;color:var(--vermelho);font-weight:700;padding:15px;">⚠️ O primeiro número precisa ser maior ou igual!</div>';
+        return;
+    }
+
+    var diff = intA - intB;
+    var resultBin = intToBin(diff);
+    var maxLen = Math.max(a.length, b.length);
+    var aPad = padLeft(a, maxLen);
+    var bPad = padLeft(b, maxLen);
+
+    var borrow = 0;
+    var steps = [];
+    var resultArr = [];
+    var aDigits = aPad.split('').map(Number);
+
+    for (var i = maxLen - 1; i >= 0; i--) {
+        var dA = aDigits[i] - borrow;
+        var dB = parseInt(bPad[i]);
+        var col = maxLen - i;
+        var newBorrow = 0;
+        var bit, explanation;
+
+        if (dA >= dB) {
+            bit = dA - dB;
+            if (borrow > 0) explanation = aDigits[i] + '(−empréstimo) = ' + dA + '. ' + dA + ' − ' + dB + ' = ' + bit;
+            else explanation = aDigits[i] + ' − ' + dB + ' = ' + bit;
+            newBorrow = 0;
+        } else {
+            bit = dA + 2 - dB;
+            newBorrow = 1;
+            if (borrow > 0) explanation = aDigits[i] + '(−empréstimo) = ' + dA + '. ' + dA + ' − ' + dB + '? Não dá! Pede emprestado: ' + (dA+2) + ' − ' + dB + ' = ' + bit;
+            else explanation = aDigits[i] + ' − ' + dB + '? Não dá! Pede emprestado: ' + (dA+2) + ' − ' + dB + ' = ' + bit;
+        }
+
+        steps.push({col: col, explanation: explanation, bit: bit});
+        resultArr.unshift(bit);
+        borrow = newBorrow;
+    }
+
+    var resultStr = resultArr.join('').replace(/^0+/, '') || '0';
+
+    var html = '<div class="fila-container">';
+    html += '<div class="fila-title" style="color:#E67E22">➖ Resolvendo: ' + a + ' − ' + b + '</div>';
+
+    // Mini tabela
+    html += '<div class="anim-step" style="margin-bottom:16px;">';
+    html += '<table class="rules-table"><thead><tr><th class="th-yellow">Regra</th><th class="th-yellow">Resultado</th></tr></thead><tbody>';
+    html += '<tr><td>0 − 0</td><td><strong>0</strong></td></tr>';
+    html += '<tr><td>1 − 0</td><td><strong>1</strong></td></tr>';
+    html += '<tr><td>1 − 1</td><td><strong>0</strong></td></tr>';
+    html += '<tr><td>0 − 1</td><td><strong>1</strong> (pede emprestado!)</td></tr>';
+    html += '</tbody></table></div>';
+
+    // Continha armada
+    html += '<div class="anim-step">';
+    html += buildBinOp([a, b], padLeft(resultStr, maxLen), '−');
+    html += '</div>';
+
+    // Passos
+    html += '<div class="anim-step" style="text-align:center;margin:14px 0 8px;font-family:\'Fredoka One\',cursive;color:#E67E22;font-size:1em;">Passo a passo (da direita para a esquerda):</div>';
+
+    steps.forEach(function(step, i) {
+        html += '<div class="op-step anim-step"><div class="os-num" style="background:#E67E22">' + (i+1) + '</div><strong>Coluna ' + step.col + ':</strong>&nbsp; ' + step.explanation + '</div>';
+    });
+
+    html += '<div class="anim-step check-box">✅ Conferindo: ' + intA + ' − ' + intB + ' = ' + diff + ' | Código ' + resultStr + ' = ' + diff + ' lápis!</div>';
+    html += '</div>';
+
+    out.innerHTML = html;
+    animateSteps(out);
+    out.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// ============================================================
+// MULTIPLICAÇÃO ANIMADA
+// ============================================================
+function calcMult() {
+    var a = document.getElementById('multA').value.trim();
+    var b = document.getElementById('multB').value.trim();
+    var out = document.getElementById('mult-result');
+    if (!isValidBin(a) || !isValidBin(b)) { errMsg(out); return; }
+
+    var intA = binToInt(a), intB = binToInt(b);
+    var product = intA * intB;
+    var resultBin = intToBin(product);
+
+    var partials = [];
+    var bDigits = b.split('').reverse();
+
+    for (var i = 0; i < bDigits.length; i++) {
+        var d = parseInt(bDigits[i]);
+        var partial;
+        if (d === 1) {
+            partial = a;
+            for (var j = 0; j < i; j++) partial += '0';
+        } else {
+            partial = '0';
+        }
+        var label = d === 1 ? a + ' × 1' + (i > 0 ? ' (desloca ' + i + ' casa' + (i>1?'s':'') + ')' : ' (copia!)') : a + ' × 0 = tudo zero!';
+        partials.push({digit: d, shift: i, label: label, binStr: partial});
+    }
+
+    var maxLen = resultBin.length;
+
+    var html = '<div class="fila-container">';
+    html += '<div class="fila-title" style="color:var(--verde)">✖️ Resolvendo: ' + a + ' × ' + b + '</div>';
+
+    // Mini tabela
+    html += '<div class="anim-step" style="margin-bottom:16px;">';
+    html += '<table class="rules-table"><thead><tr><th class="th-orange">Regra</th><th class="th-orange">Resultado</th></tr></thead><tbody>';
+    html += '<tr><td>0 × 0</td><td><strong>0</strong></td></tr>';
+    html += '<tr><td>1 × 0</td><td><strong>0</strong></td></tr>';
+    html += '<tr><td>0 × 1</td><td><strong>0</strong></td></tr>';
+    html += '<tr><td>1 × 1</td><td><strong>1</strong> (copia!)</td></tr>';
+    html += '</tbody></table></div>';
+
+    // Continha armada completa com parciais
+    html += '<div class="anim-step"><div class="bin-op">';
+    // Linha A
+    var aPad = padLeft(a, maxLen);
+    html += '<div class="bop-row">';
+    for (var c = 0; c < aPad.length; c++) html += '<span class="bop-d">' + aPad[c] + '</span>';
+    html += '</div>';
+    // Linha B com sinal
+    var bPad = padLeft(b, maxLen);
+    html += '<div class="bop-row"><span class="bop-sign">×</span>';
+    for (var c = 0; c < bPad.length; c++) html += '<span class="bop-d">' + bPad[c] + '</span>';
+    html += '</div>';
+    html += '<div class="bop-line"></div>';
+    // Parciais
+    partials.forEach(function(p, idx) {
+        var pPad = padLeft(p.binStr, maxLen);
+        var color = p.digit === 0 ? 'color:#B2BEC3;' : 'color:var(--azul);';
+        var sign = idx > 0 ? '<span class="bop-sign">+</span>' : '';
+        html += '<div class="bop-row" style="' + color + '">' + sign;
+        for (var c = 0; c < pPad.length; c++) html += '<span class="bop-d">' + pPad[c] + '</span>';
+        var nota = p.digit === 1 ? (p.shift > 0 ? '← copia + desloca ' + p.shift : '← copia!') : '← ×0 = zero';
+        html += '<span style="margin-left:8px;font-size:0.6em;color:var(--texto-leve);">' + nota + '</span>';
+        html += '</div>';
+    });
+    html += '<div class="bop-line"></div>';
+    // Resultado
+    html += '<div class="bop-row bop-result">';
+    for (var c = 0; c < resultBin.length; c++) html += '<span class="bop-d">' + resultBin[c] + '</span>';
+    html += '</div></div></div>';
+
+    // Passos
+    html += '<div class="anim-step" style="text-align:center;margin:14px 0 8px;font-family:\'Fredoka One\',cursive;color:var(--verde);font-size:1em;">Passo a passo:</div>';
+
+    partials.forEach(function(p, i) {
+        html += '<div class="op-step anim-step"><div class="os-num" style="background:var(--verde)">' + (i+1) + '</div><strong>Dígito ' + (i+1) + ' do multiplicador (' + p.digit + '):</strong>&nbsp; ' + p.label + ' → <strong>' + p.binStr + '</strong></div>';
+    });
+
+    html += '<div class="op-step anim-step"><div class="os-num" style="background:var(--azul)">' + (partials.length+1) + '</div><strong>Soma tudo</strong> → <strong style="color:var(--verde)">' + resultBin + '</strong></div>';
+    html += '<div class="anim-step check-box">✅ Conferindo: ' + intA + ' × ' + intB + ' = ' + product + ' | Código ' + resultBin + ' = ' + product + ' lápis!</div>';
+    html += '</div>';
+
+    out.innerHTML = html;
+    animateSteps(out);
+    out.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// ============================================================
+// DIVISÃO ANIMADA
+// ============================================================
+function calcDiv() {
+    var a = document.getElementById('divA').value.trim();
+    var b = document.getElementById('divB').value.trim();
+    var out = document.getElementById('div-result');
+    if (!isValidBin(a) || !isValidBin(b)) { errMsg(out); return; }
+
+    var intA = binToInt(a), intB = binToInt(b);
+    if (intB === 0) { out.innerHTML = '<div style="text-align:center;color:var(--vermelho);font-weight:700;padding:15px;">⚠️ Não pode dividir por zero!</div>'; return; }
+
+    var quotient = Math.floor(intA / intB);
+    var remainder = intA % intB;
+    var quotientBin = intToBin(quotient);
+    var remainderBin = intToBin(remainder);
+
+    var steps = [];
+    var current = '';
+    var quotientDigits = [];
+    var aDigits = a.split('');
+    var intDivisor = intB;
+    var started = false;
+
+    for (var i = 0; i < aDigits.length; i++) {
+        current += aDigits[i];
+        var currentInt = binToInt(current);
+        var cabe = currentInt >= intDivisor;
+
+        if (cabe) {
+            started = true;
+            quotientDigits.push('1');
+            var subResult = currentInt - intDivisor;
+            steps.push({
+                cabe: true,
+                explanation: 'Pego <strong>' + current + '</strong> (' + currentInt + '). ' + b + ' (' + intB + ') cabe? <strong style="color:var(--verde)">SIM!</strong> → Escrevo <strong style="color:var(--verde)">1</strong>, resto: ' + intToBin(subResult) + ' (' + subResult + ')'
+            });
+            current = subResult === 0 ? '' : intToBin(subResult);
+        } else {
+            if (started) quotientDigits.push('0');
+            steps.push({
+                cabe: false,
+                explanation: 'Pego <strong>' + current + '</strong> (' + currentInt + '). ' + b + ' (' + intB + ') cabe? <strong style="color:#B2BEC3">NÃO!</strong> → Escrevo <strong style="color:#B2BEC3">0</strong>' + (i < aDigits.length - 1 ? ', desço o próximo' : '')
+            });
+        }
+    }
+
+    var qStr = quotientDigits.join('') || '0';
+
+    var html = '<div class="fila-container">';
+    html += '<div class="fila-title" style="color:var(--vermelho)">➗ Resolvendo: ' + a + ' ÷ ' + b + '</div>';
+
+    // Mini regra
+    html += '<div class="anim-step" style="padding:14px;background:#FFF5F5;border-radius:12px;border-left:5px solid var(--vermelho);margin-bottom:16px;">';
+    html += '<div style="font-family:\'Fredoka One\',cursive;color:var(--vermelho);font-size:0.95em;margin-bottom:6px;">📝 Regra</div>';
+    html += '<div class="txt" style="font-size:0.92em;">O divisor <strong>cabe</strong>? → <strong style="color:var(--verde)">1</strong> e subtrai. <strong>Não cabe</strong>? → <strong style="color:#B2BEC3">0</strong> e desce o próximo.</div>';
+    html += '</div>';
+
+    // Continha: dividendo | divisor → quociente
+    html += '<div class="anim-step" style="text-align:center;padding:14px;background:white;border-radius:12px;margin-bottom:16px;">';
+    html += '<div style="font-family:\'Fira Code\',monospace;font-size:1.3em;font-weight:700;">';
+    html += '<span style="border-bottom:3px solid var(--texto);padding:0 8px;">' + a + '</span>';
+    html += ' <span style="color:var(--texto-leve);">÷</span> ';
+    html += '<span>' + b + '</span>';
+    html += ' <span style="color:var(--texto-leve);">=</span> ';
+    html += '<span style="color:var(--verde);">' + qStr + '</span>';
+    if (remainder > 0) html += ' <span style="font-size:0.7em;color:var(--texto-leve);">(resto ' + remainderBin + ')</span>';
+    html += '</div></div>';
+
+    // Passos
+    html += '<div class="anim-step" style="text-align:center;margin-bottom:8px;font-family:\'Fredoka One\',cursive;color:var(--vermelho);font-size:1em;">Passo a passo (esquerda para direita):</div>';
+
+    steps.forEach(function(step, i) {
+        html += '<div class="op-step anim-step"><div class="os-num" style="background:var(--vermelho)">' + (i+1) + '</div>' + step.explanation + '</div>';
+    });
+
+    html += '<div class="anim-step check-box">✅ Conferindo: ' + intA + ' ÷ ' + intB + ' = ' + quotient + (remainder > 0 ? ' (resto ' + remainder + ')' : '') + ' | Código ' + qStr + '!</div>';
+    html += '</div>';
+
+    out.innerHTML = html;
+    animateSteps(out);
+    out.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// ====== QUICK BUTTONS ======
+function qD(n) { document.getElementById('decIn').value = n; calcD2B(); }
+function qB(b) { document.getElementById('binIn').value = b; calcB2D(); }
+function qSoma(a,b) { document.getElementById('somaA').value=a; document.getElementById('somaB').value=b; calcSoma(); }
+function qSub(a,b) { document.getElementById('subA').value=a; document.getElementById('subB').value=b; calcSub(); }
+function qMult(a,b) { document.getElementById('multA').value=a; document.getElementById('multB').value=b; calcMult(); }
+function qDiv(a,b) { document.getElementById('divA').value=a; document.getElementById('divB').value=b; calcDiv(); }
+
+// ====== CALCULADORAS ======
+function calcD2B() {
+    var v = parseInt(document.getElementById('decIn').value);
+    if (isNaN(v) || v < 1 || v > 9999) { document.getElementById('d2b-result').innerHTML = '<div style="text-align:center;color:var(--vermelho);font-weight:700;padding:15px;">⚠️ Digite de 1 a 9999!</div>'; return; }
+    document.getElementById('d2b-result').innerHTML = '<div id="calc-fila"></div>';
+    buildFila(v, 'calc-fila', '✏️ A Fila dos ' + v + ' Lápis!');
+    document.getElementById('d2b-result').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function calcB2D() {
+    var v = document.getElementById('binIn').value.trim();
+    if (!isValidBin(v)) { errMsg(document.getElementById('b2d-result')); return; }
+    document.getElementById('b2d-result').innerHTML = '<div id="calc-decifra"></div>';
+    buildDecifra(v, 'calc-decifra', '🏆 Decifrando: ' + v);
+    document.getElementById('b2d-result').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+// ====== EXEMPLOS FIXOS (Caps 2 e 3) ======
+buildFila(33, 'fila-ex-33', '✏️ A Gincana! Caixa com 33 Lápis');
+buildFila(13, 'fila-ex-13', '✏️ Caixa com 13 Lápis');
+buildFila(25, 'fila-ex-25', '✏️ Caixa com 25 Lápis');
+buildFila(100, 'fila-ex-100', '✏️ Caixa com 100 Lápis');
+
+buildDecifra('100001', 'decifra-100001', '🏆 Código no quadro: 100001 (a caixa do Professor!)');
+buildDecifra('1101', 'decifra-1101', '🏆 Código: 1101');
+buildDecifra('11001', 'decifra-11001', '🏆 Código: 11001');
+buildDecifra('1100100', 'decifra-1100100', '🏆 Código: 1100100');
+</script>
+
+</body>
+</html>
