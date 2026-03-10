@@ -138,6 +138,7 @@ ssh -i "C:\Users\User\.ssh\id_rsa" -p 65002 u279915365@185.245.180.213 \
 | `matematica` | `.tag-matematica` | Matemática |
 | `ciencias` | `.tag-ciencias` | Ciências |
 | `portugues` | `.tag-portugues` | Português |
+| `religiao` | `.tag-religiao` | Religião |
 
 ---
 
@@ -147,3 +148,5 @@ ssh -i "C:\Users\User\.ssh\id_rsa" -p 65002 u279915365@185.245.180.213 \
 |---|------|---------|-----------|
 | 1 | Caçando o Número 9! | `contando-noves.html` | Matemática |
 | 2 | A Aventura do BIT | `aventura-do-bit-v2.html` | Computação |
+| 3 | Lápis Indestrutíveis | `lapis-indestrutiveis.html` | Matemática |
+| 4 | Narrativas Bíblicas | `narrativas-biblicas.html` | Religião |
