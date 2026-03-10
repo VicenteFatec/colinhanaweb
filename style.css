@@ -360,6 +360,11 @@ body {
     color: #C62828;
 }
 
+.tag-religiao {
+    background: #FFF8E1;
+    color: #A07A10;
+}
+
 .card-title {
     font-family: 'Fredoka One', cursive;
     font-size: 1.25rem;

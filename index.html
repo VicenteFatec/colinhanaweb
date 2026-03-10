@@ -24,7 +24,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="style.css?v=3">
+    <link rel="stylesheet" href="style.css?v=4">
 </head>
 <body>
 
@@ -52,11 +52,11 @@
             </p>
             <div class="hero-stats">
                 <div class="stat">
-                    <span class="stat-number">3</span>
+                    <span class="stat-number">4</span>
                     <span class="stat-label">Produções</span>
                 </div>
                 <div class="stat">
-                    <span class="stat-number">2</span>
+                    <span class="stat-number">3</span>
                     <span class="stat-label">Categorias</span>
                 </div>
                 <div class="stat">
@@ -80,12 +80,34 @@
             <button class="filter-btn active" data-filter="todos">Todos</button>
             <button class="filter-btn" data-filter="computacao">Computação</button>
             <button class="filter-btn" data-filter="matematica">Matemática</button>
+            <button class="filter-btn" data-filter="religiao">Religião</button>
         </div>
     </section>
 
     <!-- Grid de Produções -->
     <section class="gallery">
         <div class="gallery-grid">
+
+            <!-- Card: Narrativas Bíblicas -->
+            <a href="producoes/narrativas-biblicas.html" class="card" data-tags="religiao">
+                <div class="card-thumbnail">
+                    <img src="thumbnails/thumb-narrativas-biblicas.png" alt="Narrativas Bíblicas — 28 Passagens Narradas">
+                </div>
+                <div class="card-body">
+                    <div class="card-tags">
+                        <span class="tag tag-religiao">Religião</span>
+                    </div>
+                    <h3 class="card-title">Narrativas Bíblicas</h3>
+                    <p class="card-subtitle">28 Passagens Narradas</p>
+                    <p class="card-description">
+                        Ouça passagens bíblicas narradas com player interativo.
+                        Provérbios, Salmos, Eclesiastes e muito mais — com busca, favoritos e playlist automática.
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <span class="card-cta">Explorar →</span>
+                </div>
+            </a>
 
             <!-- Card 1: Contando Noves (primeiro, conforme ordem do colégio) -->
             <a href="producoes/contando-noves.html" class="card" data-tags="matematica">
